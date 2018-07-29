@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 const initialState={
-    scene: new THREE.Scene()
+    material: new THREE.MeshNormalMaterial()
 }
 
 export default function(state=initialState,action){

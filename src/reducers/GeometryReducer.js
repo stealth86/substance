@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 const initialState={
-    scene: new THREE.Scene()
+    geometry: new THREE.BoxGeometry(1,1,1)
 }
 
 export default function(state=initialState,action){

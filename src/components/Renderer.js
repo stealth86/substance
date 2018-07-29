@@ -26,10 +26,7 @@ class Renderer extends Component {
 
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {
-      // background color should be a number, check it
-      //warning(backgroundtype === 'number', "The background property of "+
-      //"the Renderer component must be a number, not " + backgroundtype);
-      this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
+        this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
 
     this.renderScene();
@@ -76,9 +73,6 @@ class Renderer extends Component {
 
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {
-      // background color should be a number, check it
-      // warning(backgroundtype === 'number', "The background property of "+
-      // "the scene component must be a number, not " + backgroundtype);
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
 

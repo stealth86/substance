@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { addMesh,createMesh} from '../actions/SceneAction';
+import { OrbitControls } from '../utils/OrbitControls';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three';
 
 class Renderer extends Component {
 
+  constructor(props){
+    super(props);
+    this.addMesh = this.props.addMesh.bind(this);
+    this.createMesh = this.props.createMesh.bind(this);
+  }
+
   componentDidMount() {
     const renderelement = this.props.canvas || ReactDOM.findDOMNode(this);
     const props = this.props;
-
+    this.createMesh();
+    this.addMesh();
     this._THREErenderer = new THREE.WebGLRenderer({
       alpha: this.props.transparent,
       canvas: renderelement,
@@ -30,7 +39,8 @@ class Renderer extends Component {
     }
 
     this.renderScene();
-
+    var controls = new OrbitControls(this.props.camera,renderelement)
+    controls.screenSpacePanning = true
     // The canvas gets re-rendered every frame even if no props/state changed.
     // This is because some three.js items like skinned meshes need redrawing
     // every frame even if nothing changed in React props/state.
@@ -127,8 +137,12 @@ Renderer.defaultProps = {
 }
 function mapStatetoProps(state){
   return{
+    mesh:state.SceneReducer.mesh,
     scene:state.SceneReducer.scene,
     camera:state.CameraReducer.camera
   }
 }
-export default connect(mapStatetoProps,{})(Renderer);
+export default connect(mapStatetoProps,{
+  addMesh,
+  createMesh
+})(Renderer);

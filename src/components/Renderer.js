@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { addMesh,createMesh} from '../actions/SceneAction';
 import { OrbitControls } from '../utils/OrbitControls';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three';
 
 class Renderer extends Component {
 
-  constructor(props){
-    super(props);
-    this.addMesh = this.props.addMesh.bind(this);
-    this.createMesh = this.props.createMesh.bind(this);
-  }
-
   componentDidMount() {
-    const renderelement = this.props.canvas || ReactDOM.findDOMNode(this);
+    const renderelement = this.props.canvas || this.renderElement;
     const props = this.props;
-    this.createMesh();
-    this.addMesh();
+
     this._THREErenderer = new THREE.WebGLRenderer({
       alpha: this.props.transparent,
       canvas: renderelement,
@@ -35,11 +26,11 @@ class Renderer extends Component {
 
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {
-        this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
+      this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
 
     this.renderScene();
-    var controls = new OrbitControls(this.props.camera,renderelement)
+    var controls = new OrbitControls(this.props.camera, renderelement)
     controls.screenSpacePanning = true
     // The canvas gets re-rendered every frame even if no props/state changed.
     // This is because some three.js items like skinned meshes need redrawing
@@ -114,7 +105,13 @@ class Renderer extends Component {
     if (this.props.canvas) return null;
 
     // the three.js renderer will get applied to this canvas element
-    return React.createElement("canvas", { style: this.props.style });
+    //return React.createElement("canvas", { style: this.props.style });
+    return (
+      <div>
+        <canvas ref={el => this.renderElement = el} style={this.props.style}></canvas>
+        {this.props.children}
+      </div>
+    )
   }
 }
 Renderer.propTypes = {
@@ -135,14 +132,12 @@ Renderer.defaultProps = {
   style: {},
   rendererProps: {}
 }
-function mapStatetoProps(state){
-  return{
-    mesh:state.SceneReducer.mesh,
-    scene:state.SceneReducer.scene,
-    camera:state.CameraReducer.camera
+function mapStatetoProps(state) {
+  return {
+    mesh: state.SceneReducer.mesh,
+    scene: state.SceneReducer.scene,
+    camera: state.CameraReducer.camera
   }
 }
-export default connect(mapStatetoProps,{
-  addMesh,
-  createMesh
+export default connect(mapStatetoProps, {
 })(Renderer);

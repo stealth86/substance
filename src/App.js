@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { store, history } from './store';
-import Renderer from './components/Renderer';
+import Window from './components/Window';
 import './App.css';
 
 class App extends Component {
@@ -11,15 +11,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <div className="container">
-            <div className="jumbotron">
-              <h1 className="display-4">Substance</h1>
-              <p className="lead">
-                Template Project
-              </p>
-              <Renderer width={420} height={420} pixelRatio={window.devicePixelRatio}>
-                </Renderer>
-            </div>
+          <div className="container-fluid">
+            <Window/>
           </div>
         </Router>
       </Provider>

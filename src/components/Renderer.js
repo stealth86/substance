@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { OrbitControls } from '../utils/OrbitControls';
 import * as PropTypes from 'prop-types';
-import * as THREE from 'three';
+import * as THREE from 'three-full';
 
 class Renderer extends Component {
 
@@ -30,7 +29,7 @@ class Renderer extends Component {
     }
 
     this.renderScene();
-    var controls = new OrbitControls(this.props.camera, renderelement)
+    var controls = new THREE.OrbitControls(this.props.camera, renderelement)
     controls.screenSpacePanning = true
     // The canvas gets re-rendered every frame even if no props/state changed.
     // This is because some three.js items like skinned meshes need redrawing

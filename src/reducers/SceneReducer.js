@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'three-full';
 import {ADD_MESH, CREATE_MESH} from '../actions/types';
 const initialState={
     scene: new THREE.Scene()

@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+import * as THREE from 'three-full';
 const initialState={
-    geometry: new THREE.BoxGeometry(2,2,2)
+    geometry: new THREE.BoxGeometry(200,200,200)
 }
 
 export default function(state=initialState,action){

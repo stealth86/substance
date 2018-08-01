@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'three-full';
 const initialState={
     material: new THREE.MeshNormalMaterial()
 }

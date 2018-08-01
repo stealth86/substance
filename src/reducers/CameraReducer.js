@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'three-full';
 var cameraLocal = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
 cameraLocal.position.z =5
 //cameraLocal.updateProjectionMatrix()

@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three-full';
+import {setRenderer} from '../actions/RendererAction';
 
 class Renderer extends Component {
+
+  constructor(props){
+    super(props);
+    this.setRenderer = this.props.setRenderer.bind(this);
+  }
 
   componentDidMount() {
     const renderelement = this.props.canvas || this.renderElement;
@@ -15,6 +21,8 @@ class Renderer extends Component {
       antialias: props.antialias === undefined ? true : props.antialias,
       ...this.props.rendererProps
     });
+    this.setRenderer(this._THREErenderer);
+    this._THREErenderer.toneMapping = THREE.LinearToneMapping;
     this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
     if (props.shadowMapType !== undefined) {
       this._THREErenderer.shadowMap.type = props.shadowMapType;
@@ -55,7 +63,7 @@ class Renderer extends Component {
     // warn users of the old listenToClick prop
     //warning(typeof props.listenToClick === 'undefined', "the `listenToClick` prop has been replaced with `pointerEvents`");
 
-    renderelement.onselectstart = () => false;
+    this.renderElement.onselectstart = () => false;
   }
 
   componentDidUpdate(oldProps) {
@@ -97,7 +105,7 @@ class Renderer extends Component {
     );
   }
 
-
+  
 
 
   render() {
@@ -133,10 +141,9 @@ Renderer.defaultProps = {
 }
 function mapStatetoProps(state) {
   return {
-    mesh: state.SceneReducer.mesh,
     scene: state.SceneReducer.scene,
-    camera: state.CameraReducer.camera
+    camera: state.CameraReducer.camera   
   }
 }
-export default connect(mapStatetoProps, {
+export default connect(mapStatetoProps, {setRenderer
 })(Renderer);

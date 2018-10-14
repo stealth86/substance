@@ -6,7 +6,7 @@ import Renderer from './Renderer';
 class Window extends Component{
     render(){
         return(
-            <Renderer width={420} height={420} shadowMapEnabled={true} pixelRatio={window.devicePixelRatio}>
+            <Renderer width={400} height={400} shadowMapEnabled={true} pixelRatio={window.devicePixelRatio}>
             <Scene>
                 </Scene>
               </Renderer>

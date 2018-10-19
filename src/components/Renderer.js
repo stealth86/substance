@@ -97,7 +97,7 @@ class Renderer extends Component {
 
   renderScene() {
     this._THREErenderer.autoClear = false;
-    this._THREErenderer.clear();
+    //this._THREErenderer.clear();
 
     //this._THREErenderer.render(
       //this.props.scenes[i],

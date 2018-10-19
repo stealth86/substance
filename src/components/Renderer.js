@@ -99,10 +99,10 @@ class Renderer extends Component {
     this._THREErenderer.autoClear = false;
     this._THREErenderer.clear();
 
-    this._THREErenderer.render(
-      this.props.scene,
-      this.props.camera
-    );
+    //this._THREErenderer.render(
+      //this.props.scenes[i],
+      //this.props.camera
+    //);
   }
 
   
@@ -141,7 +141,7 @@ Renderer.defaultProps = {
 }
 function mapStatetoProps(state) {
   return {
-    scene: state.SceneReducer.scene,
+    scenes: state.SceneReducer.scenes,
     camera: state.CameraReducer.camera   
   }
 }

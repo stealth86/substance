@@ -1,5 +1,13 @@
-import { ADD_MESH, CREATE_MESH } from './types';
+import { ADD_MESH, CREATE_MESH,ADD_SCENE } from './types';
 import * as THREE from 'three-full';
+
+export const addScene = (name,scene) => (dispatch) => {
+  dispatch({
+    type: ADD_SCENE,
+    payload: scene,
+    name: name
+  })
+}
 
 export const addMesh = () => (dispatch, getState) => {
   const { SceneReducer } = getState()

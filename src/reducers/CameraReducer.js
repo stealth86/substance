@@ -1,15 +1,21 @@
-import * as THREE from 'three-full';
-var cameraLocal = new THREE.PerspectiveCamera(75, 1, 0.1, 24000)
-cameraLocal.position.z =5
-//cameraLocal.updateProjectionMatrix()
-const initialState={
-    camera: cameraLocal
+import { ADD_CAMERA } from "../actions/types";
+
+const initialState = {
+    cameras: null
 }
 
-export default function(state=initialState,action){
-    switch(action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
+        case ADD_CAMERA:
+            return {
+                ...state,
+                cameras: {
+                    ...state.cameras,
+                    [action.name]: action.payload
+                }
+            }
         default:
-            return{
+            return {
                 ...state
             }
     }

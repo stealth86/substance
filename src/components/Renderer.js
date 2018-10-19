@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three-full';
-import {setRenderer} from '../actions/RendererAction';
+import { setRenderer } from '../actions/RendererAction';
+import { CAMERA } from '../Constants';
 
 class Renderer extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.setRenderer = this.props.setRenderer.bind(this);
   }
 
   componentDidMount() {
-    const renderelement = this.props.canvas || this.renderElement;
+    this.renderElement = this.props.canvas || this.renderCanvas;
     const props = this.props;
 
     this._THREErenderer = new THREE.WebGLRenderer({
       alpha: this.props.transparent,
-      canvas: renderelement,
+      canvas: this.renderElement,
       antialias: props.antialias === undefined ? true : props.antialias,
       ...this.props.rendererProps
     });
@@ -37,8 +38,6 @@ class Renderer extends Component {
     }
 
     this.renderScene();
-    var controls = new THREE.OrbitControls(this.props.camera, renderelement)
-    controls.screenSpacePanning = true
     // The canvas gets re-rendered every frame even if no props/state changed.
     // This is because some three.js items like skinned meshes need redrawing
     // every frame even if nothing changed in React props/state.
@@ -63,7 +62,7 @@ class Renderer extends Component {
     // warn users of the old listenToClick prop
     //warning(typeof props.listenToClick === 'undefined', "the `listenToClick` prop has been replaced with `pointerEvents`");
 
-    this.renderElement.onselectstart = () => false;
+    this.renderCanvas.onselectstart = () => false;
   }
 
   componentDidUpdate(oldProps) {
@@ -83,7 +82,8 @@ class Renderer extends Component {
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-
+    var controls = new THREE.OrbitControls(props.scenes["backgroundScene"].getObjectByName("backgroundSceneCamera"), this.renderElement)
+    controls.screenSpacePanning = true
     this.renderScene();
   }
 
@@ -99,13 +99,19 @@ class Renderer extends Component {
     this._THREErenderer.autoClear = false;
     //this._THREErenderer.clear();
 
-    //this._THREErenderer.render(
-      //this.props.scenes[i],
-      //this.props.camera
-    //);
+    Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {
+      var scene = this.props.scenes[key]
+      var camera = scene.getObjectByName(scene.name + CAMERA)
+      if (camera) {
+        this._THREErenderer.render(
+          scene,
+          camera
+        )
+      }
+    })
   }
 
-  
+
 
 
   render() {
@@ -115,7 +121,7 @@ class Renderer extends Component {
     //return React.createElement("canvas", { style: this.props.style });
     return (
       <div>
-        <canvas ref={el => this.renderElement = el} style={this.props.style}></canvas>
+        <canvas ref={el => this.renderCanvas = el} style={this.props.style}></canvas>
         {this.props.children}
       </div>
     )
@@ -141,9 +147,9 @@ Renderer.defaultProps = {
 }
 function mapStatetoProps(state) {
   return {
-    scenes: state.SceneReducer.scenes,
-    camera: state.CameraReducer.camera   
+    scenes: state.SceneReducer.scenes
   }
 }
-export default connect(mapStatetoProps, {setRenderer
+export default connect(mapStatetoProps, {
+  setRenderer
 })(Renderer);

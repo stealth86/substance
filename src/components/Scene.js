@@ -1,43 +1,52 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as THREE from "three-full";
 import { addMesh,createMesh,addScene} from '../actions/SceneAction';
+import { CAMERA } from '../Constants';
 
 class Scene extends Component {
     constructor(props){
         super(props);
-        this.addScene=this.props.addScene.bind(this);
+        this.addScene=this.props.addScene.bind(this);       
     }
     componentDidMount(){
-        console.log("mounted ")
+        var scene = new THREE.Scene()
+        scene.name=this.props.name
+        scene.background = new THREE.Color(0x004400)
+        this.addScene(this.props.name,scene)
+        console.log("did mount "+this.props.name)
         console.log(this.props)
     }
 
-    componentWillUpdate(){
-        console.log("will update")
+    shouldComponentUpdate(nextProps){
+        console.log("should update")
         console.log(this.props)
+        console.log(nextProps)
+        if(nextProps.camera) nextProps.scene.add(nextProps.camera) 
+        return true;
     }
     componentDidUpdate(){
         console.log("component updated")
         console.log(this.props)
     }
-    componentWillReceiveProps(nextProps){
-        console.log(this.props)
-        console.log(nextProps)
-    }
-    componentWillMount(){
-        var scene = new THREE.Scene()
-        this.addScene(this.props.name,scene)
-        console.log("will mount "+this.props.name)
-    }
     render(){
-        return null
+        const { children } = this.props;
+
+        const childrenWithProps = React.Children.map(children, child =>
+          React.cloneElement(child,{ name:this.props.name+CAMERA})
+        );
+        return (
+            <div>
+            {childrenWithProps}
+            </div>
+        )
     }
 }
 
-function mapStatetoProps(state){
+function mapStatetoProps(state,props){
     return{
-        scenes:state.SceneReducer.scenes
+        scene:state.SceneReducer.scenes ? state.SceneReducer.scenes[props.name] : null,
+        camera:state.CameraReducer.cameras ? state.CameraReducer.cameras[props.name+CAMERA] : null
     }
 }
 export default connect(mapStatetoProps,{addMesh,createMesh,addScene})(Scene)

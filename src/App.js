@@ -11,9 +11,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <div className="container-fluid">
             <Window/>
-          </div>
         </Router>
       </Provider>
     );

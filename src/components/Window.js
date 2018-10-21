@@ -72,7 +72,9 @@ class Window extends Component {
                                     near={0.1} 
                                     far={10000}>
                             </Camera>
-                            <Mesh></Mesh>
+                            <Mesh>
+                                
+                            </Mesh>
                         </Scene>
                         <Scene name="mainScene">
                             <Camera aspect={this.props.units ? (this.props.units["a"].width/this.props.units["a"].height) : 1} >

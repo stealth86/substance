@@ -65,6 +65,11 @@ class Renderer extends Component {
     this.renderCanvas.onselectstart = () => false;
   }
 
+  shouldComponentUpdate(newProps){
+    this._THREErenderer.setSize(+newProps.width,+newProps.height)
+    return true;
+  }
+  
   componentDidUpdate(oldProps) {
     const props = this.props;
 
@@ -82,8 +87,13 @@ class Renderer extends Component {
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-    var controls = new THREE.OrbitControls(props.scenes["backgroundScene"].getObjectByName("backgroundSceneCamera"), this.renderElement)
+    var currCamera= props.scenes["mainScene"].getObjectByName("mainSceneCamera")
+    if(oldProps.scenes)
+    var oldCamera = oldProps.scenes["mainScene"].getObjectByName("mainSceneCamera")
+    if(oldCamera !==currCamera){
+    var controls = new THREE.OrbitControls(props.scenes["mainScene"].getObjectByName("mainSceneCamera"), this.renderElement)
     controls.screenSpacePanning = true
+    }
     this.renderScene();
   }
 
@@ -120,7 +130,7 @@ class Renderer extends Component {
     // the three.js renderer will get applied to this canvas element
     //return React.createElement("canvas", { style: this.props.style });
     return (
-      <div>
+      <div className={this.props.className}>
         <canvas ref={el => this.renderCanvas = el} style={this.props.style}></canvas>
         {this.props.children}
       </div>

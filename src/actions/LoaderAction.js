@@ -1,18 +1,26 @@
-import { LOAD_MESH } from './types';
+import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL } from './types';
 
-export const loadMesh = (file) => (dispatch,getState) => {
-    const {FBXLoader} = getState().LoaderReducer
-    FBXLoader.load(URL.createObjectURL(file),(object)=>{
-        console.log(object)
-        object.traverse( function ( child ) {
-            if ( child.isMesh ) {
-                child.castShadow = true;
-                child.receiveShadow = true;
+export const loadObject = (file) => (dispatch, getState) => {
+    const { FBXLoader } = getState().LoaderReducer
+    FBXLoader.load(URL.createObjectURL(file), (object) => {
+        object.traverse(child => {
+            if (child.isMesh) {
+                dispatch({
+                    type: ADD_MESH,
+                    payload : child
+                })
+            var materialArray = [].concat(child.material || [])
+            materialArray.forEach(material=>{
+                dispatch({
+                    type: ADD_MATERIAL,
+                    payload : material
+                })
+            })
             }
-        } );
+        })
         dispatch({
-            type: LOAD_MESH,
+            type: LOAD_OBJECT,
             payload: object
-          })
+        })
     })
 }

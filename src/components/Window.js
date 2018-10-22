@@ -7,7 +7,7 @@ import Renderer from './Renderer';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../actions/WindowAction';
-import { loadMesh } from '../actions/LoaderAction';
+import { loadObject } from '../actions/LoaderAction';
 import * as THREE from 'three-full';
 
 class Window extends Component {
@@ -22,21 +22,32 @@ class Window extends Component {
         }
         this.updateLayout = this.props.updateLayout.bind(this);
         this.initializeLayout = this.props.initializeLayout.bind(this);
-        this.loadMesh = this.props.loadMesh.bind(this);
+        this.loadObject = this.props.loadObject.bind(this);
         this.initializeLayout(this.state.layout);
     }
 
     uploadFBX(){
-        this.loadMesh(this.selectfile.files[0])
+        this.loadObject(this.selectfile.files[0])
         console.log(this.selectfile.files[0])
     }
 
     shouldComponentUpdate(nextProps){
-        console.log(nextProps)
+        //console.log(nextProps)
         if(nextProps.scenes && nextProps.scenes["mainScene"] && nextProps.objects && this.props.objects !==nextProps.objects){
+            console.log(nextProps.objects)
+           var light = new THREE.DirectionalLight( 0xffffff );
+				light.position.set( 0, 200, 100 );
+				light.castShadow = true;
+				light.shadow.camera.top = 180;
+				light.shadow.camera.bottom = -100;
+				light.shadow.camera.left = -120;
+                light.shadow.camera.right = 120;
+                nextProps.scenes["mainScene"].add(light)
+           // var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
+            //nextProps.objects[0].children[0].material.normalMap = texture
             nextProps.scenes["mainScene"].add(...nextProps.objects)
             var gridhelper = new THREE.GridHelper(100,10)
-            var light = new THREE.AmbientLight(new THREE.Color(0xffffff),0.5)
+            light = new THREE.AmbientLight(new THREE.Color(0xffffff),0.5)
             nextProps.scenes["mainScene"].add(gridhelper)
             nextProps.scenes["mainScene"].add(light)
             nextProps.scenes["mainScene"].background = new THREE.Color(0x000044)
@@ -88,7 +99,9 @@ class Window extends Component {
                     </div>
                 </div>
                 <div key="c" className="nonDraggable testDiv">
-                <input type="file" ref={el=>this.selectfile=el} onChange={()=>this.uploadFBX()}></input></div>
+                <input type="file" ref={el=>this.selectfile=el} onChange={()=>this.uploadFBX()}></input>
+                <input type="file" ref={el=>this.selectfile1=el}></input>
+                </div>
             </ResponsiveGridLayout>
         )
     }
@@ -107,4 +120,4 @@ function mapStatetoProps(state) {
     }
 }
 
-export default connect(mapStatetoProps, { initializeLayout, updateLayout, loadMesh })(Window)
+export default connect(mapStatetoProps, { initializeLayout, updateLayout, loadObject })(Window)

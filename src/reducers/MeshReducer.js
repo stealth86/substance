@@ -1,18 +1,19 @@
-import { UPDATE_LAYOUT } from '../actions/types';
+import { ADD_MESH } from '../actions/types';
 const initialState = {
-    meshes : null
+    meshes : []
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case UPDATE_LAYOUT:
+        case ADD_MESH:{
             return {
                 ...state,
-                units: {
-                    ...state.units,
-                    [action.name] : action.payload
-                }
+                meshes : [
+                    ...state.meshes,
+                    action.payload
+                ]
             }
+        }
         default:
             return {
                 ...state

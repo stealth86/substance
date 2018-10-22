@@ -1,12 +1,22 @@
-import * as THREE from 'three-full';
-const initialState={
-    material: new THREE.MeshNormalMaterial()
+import { ADD_MATERIAL } from '../actions/types';
+const initialState = {
+    materials : []
 }
 
-export default function(state=initialState,action){
-    switch(action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
+        case ADD_MATERIAL:{
+            console.log(action)
+            return {
+                ...state,
+                materials : [
+                    ...state.materials,
+                    action.payload
+                ]
+            }
+        }
         default:
-            return{
+            return {
                 ...state
             }
     }

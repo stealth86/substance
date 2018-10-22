@@ -30,7 +30,8 @@ class Renderer extends Component {
     }
     this._THREErenderer.setPixelRatio(props.pixelRatio);
     this._THREErenderer.setSize(+props.width, +props.height);
-
+    this._THREErenderer.gammaInput = true;
+    this._THREErenderer.gammaOutput = true;
 
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {

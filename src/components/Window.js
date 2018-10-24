@@ -4,11 +4,13 @@ import Scene from './Scene';
 import Camera from './Camera';
 import Mesh from './Mesh';
 import Renderer from './Renderer';
+import TitleBar from './TitleBar';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../actions/WindowAction';
 import { loadObject } from '../actions/LoaderAction';
 import * as THREE from 'three-full';
+import { NON_DRAGGABLE } from '../Constants';
 
 class Window extends Component {
     constructor(props) {
@@ -26,28 +28,28 @@ class Window extends Component {
         this.initializeLayout(this.state.layout);
     }
 
-    uploadFBX(){
+    uploadFBX() {
         this.loadObject(this.selectfile.files[0])
         console.log(this.selectfile.files[0])
     }
 
-    shouldComponentUpdate(nextProps){
+    shouldComponentUpdate(nextProps) {
         //console.log(nextProps)
-        if(nextProps.scenes && nextProps.scenes["mainScene"] && nextProps.objects && this.props.objects !==nextProps.objects){
+        if (nextProps.scenes && nextProps.scenes["mainScene"] && nextProps.objects && this.props.objects !== nextProps.objects) {
             console.log(nextProps.objects)
-           var light = new THREE.DirectionalLight( 0xffffff );
-				light.position.set( 0, 200, 100 );
-				light.castShadow = true;
-				light.shadow.camera.top = 180;
-				light.shadow.camera.bottom = -100;
-				light.shadow.camera.left = -120;
-                light.shadow.camera.right = 120;
-                nextProps.scenes["mainScene"].add(light)
-           // var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
+            var light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(0, 200, 100);
+            light.castShadow = true;
+            light.shadow.camera.top = 180;
+            light.shadow.camera.bottom = -100;
+            light.shadow.camera.left = -120;
+            light.shadow.camera.right = 120;
+            nextProps.scenes["mainScene"].add(light)
+            // var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
             //nextProps.objects[0].children[0].material.normalMap = texture
             nextProps.scenes["mainScene"].add(...nextProps.objects)
-            var gridhelper = new THREE.GridHelper(100,10)
-            light = new THREE.AmbientLight(new THREE.Color(0xffffff),0.5)
+            var gridhelper = new THREE.GridHelper(100, 10)
+            light = new THREE.AmbientLight(new THREE.Color(0xffffff), 0.5)
             nextProps.scenes["mainScene"].add(gridhelper)
             nextProps.scenes["mainScene"].add(light)
             nextProps.scenes["mainScene"].background = new THREE.Color(0x000044)
@@ -57,50 +59,52 @@ class Window extends Component {
     render() {
         return (
             <ResponsiveGridLayout className="layout"
-                                    compactType="horizontal"
-                                    mounted={false}
-                                    layouts={{ lg: this.state.layout }}
-                                    breakpoints={{ lg: 1200 }}
-                                    onResize={(layout,oldItem,newIem,placeholder)=>this.updateLayout(layout,oldItem,newIem,placeholder)}
-                                    onResizeStop={(layout, oldItem, newItem) => this.updateLayout(layout, oldItem, newItem)}
-                                    margin={[this.props.marginX, this.props.marginY]}
-                                    cols={{ lg: this.props.gridColumns }}
-                                    rowHeight={this.props.rowHeight}
-                                    width={this.props.containerWidth}
-                                    draggableCancel=".nonDraggable">
+                compactType="horizontal"
+                mounted={false}
+                layouts={{ lg: this.state.layout }}
+                breakpoints={{ lg: 1200 }}
+                onResize={(layout, oldItem, newIem, placeholder) => this.updateLayout(layout, oldItem, newIem, placeholder)}
+                onResizeStop={(layout, oldItem, newItem) => this.updateLayout(layout, oldItem, newItem)}
+                margin={[this.props.marginX, this.props.marginY]}
+                cols={{ lg: this.props.gridColumns }}
+                rowHeight={this.props.rowHeight}
+                width={this.props.containerWidth}
+                draggableCancel={"."+NON_DRAGGABLE}>
                 <div key="a">
-                    <div className="fixed-top bar" style={{width:this.props.units && this.props.units["a"].width+"px"}}>
-                        Viewport
-                    </div>
-                    <Renderer className="nonDraggable" 
-                                width={this.props.units && this.props.units["a"].width} 
-                                height={this.props.units && this.props.units["a"].height} 
-                                shadowMapEnabled={true} 
-                                pixelRatio={window.devicePixelRatio}>
+                    <TitleBar name="Viewport" width={this.props.units && this.props.units["a"].width}>
+                        <button className="float-right">Button</button>
+                        <button>Button</button>
+                    </TitleBar>
+                    <Renderer className={NON_DRAGGABLE}
+                        width={this.props.units && this.props.units["a"].width}
+                        height={this.props.units && this.props.units["a"].height}
+                        shadowMapEnabled={true}
+                        pixelRatio={window.devicePixelRatio}>
                         <Scene name="backgroundScene">
-                            <Camera fov={75} 
-                                    aspect={this.props.units ? (this.props.units["a"].width/this.props.units["a"].height) : 1} 
-                                    near={0.1} 
-                                    far={10000}>
+                            <Camera fov={75}
+                                aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1}
+                                near={0.1}
+                                far={10000}>
                             </Camera>
                             <Mesh>
-                                
+
                             </Mesh>
                         </Scene>
                         <Scene name="mainScene">
-                            <Camera aspect={this.props.units ? (this.props.units["a"].width/this.props.units["a"].height) : 1} >
+                            <Camera aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1} >
                             </Camera>
                         </Scene>
                     </Renderer>
                 </div>
-                <div key="b" className="nonDraggable testDiv">
-                    <div className="fixed-top bar">
-                        Viewport
-                    </div>
+                <div key="b" className="testDiv">
+                <TitleBar name="Content" width={this.props.units && this.props.units["b"].width}>
+                        <button className="float-right">Button</button>
+                        <button>Button</button>
+                    </TitleBar>
                 </div>
                 <div key="c" className="nonDraggable testDiv">
-                <input type="file" ref={el=>this.selectfile=el} onChange={()=>this.uploadFBX()}></input>
-                <input type="file" ref={el=>this.selectfile1=el}></input>
+                    <input type="file" ref={el => this.selectfile = el} onChange={() => this.uploadFBX()}></input>
+                    <input type="file" ref={el => this.selectfile1 = el}></input>
                 </div>
             </ResponsiveGridLayout>
         )
@@ -109,8 +113,8 @@ class Window extends Component {
 
 function mapStatetoProps(state) {
     return {
-        objects : state.LoaderReducer.objects,
-        scenes : state.SceneReducer.scenes,
+        objects: state.LoaderReducer.objects,
+        scenes: state.SceneReducer.scenes,
         units: state.WindowReducer.units,
         marginX: state.WindowReducer.marginX,
         marginY: state.WindowReducer.marginY,

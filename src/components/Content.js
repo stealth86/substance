@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 class Content extends Component {
     render(){
         return (
-            <div>
+            <>
             {this.props.children}
-            </div>
+            </>
         )
     }
 }

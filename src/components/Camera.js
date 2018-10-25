@@ -26,11 +26,11 @@ class Camera extends Component {
         //console.log(this.props)
         //console.log(nextProps)
         //console.log(nextProps)
-        if(nextProps.camera ) nextProps.scene.add(nextProps.camera)
+        if(nextProps.camera !== this.props.camera) this.props.updateScene(nextProps.camera)
         if(this.props.aspect!==nextProps.aspect){
             nextProps.camera.aspect=nextProps.aspect
             nextProps.camera.updateProjectionMatrix();
-            console.log(this.props.aspect)
+            //console.log(this.props.aspect)
         }
         return true;
     }
@@ -45,7 +45,6 @@ class Camera extends Component {
 
 function mapStatetoProps(state, props) {
     return {
-        scene : state.SceneReducer.scenes ? state.SceneReducer.scenes[props.name] : null,
         camera : state.CameraReducer.cameras ? state.CameraReducer.cameras[props.name+CAMERA] : null
     }
 }

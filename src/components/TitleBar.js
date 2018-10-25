@@ -8,7 +8,7 @@ class TitleBar extends Component {
     }
 
     componentDidUpdate(old) {
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     render() {
@@ -17,7 +17,7 @@ class TitleBar extends Component {
         const childrenWithProps = React.Children.map(children, child =>
           React.cloneElement(child,{ className:"mx-1 "+NON_DRAGGABLE+" "+child.props.className})
         );
-        console.log(childrenWithProps)
+        //console.log(childrenWithProps)
         return (
             <div className="fixed-top text-white-50 bg-dark" style={{ width: this.props.width + "px" }}>
                 <div className="mx-1 d-inline">{this.props.name ? this.props.name : null}

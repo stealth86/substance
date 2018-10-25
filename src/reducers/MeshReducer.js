@@ -1,17 +1,17 @@
-import { ADD_MESH } from '../actions/types';
+import { ADD_MESH, UPDATE_MESH_GEOMETRY,UPDATE_MESH_MATERIAL } from '../actions/types';
 const initialState = {
-    meshes : []
+    meshes : null
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_MESH:{
+        case ADD_MESH || UPDATE_MESH_GEOMETRY || UPDATE_MESH_MATERIAL :{
             return {
                 ...state,
-                meshes : [
+                meshes : {
                     ...state.meshes,
-                    action.payload
-                ]
+                    [action.name] : action.payload
+                }
             }
         }
         default:

@@ -1,18 +1,17 @@
 import { ADD_MATERIAL } from '../actions/types';
 const initialState = {
-    materials : []
+    materials: null
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_MATERIAL:{
-            console.log(action)
+        case ADD_MATERIAL: {
             return {
                 ...state,
-                materials : [
+                materials: {
                     ...state.materials,
-                    action.payload
-                ]
+                    [action.name]: action.payload
+                }
             }
         }
         default:

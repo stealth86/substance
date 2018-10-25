@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Scene from './Scene';
 import Camera from './Camera';
 import Mesh from './Mesh';
+import Geometry from './Geometry';
+import Material from './Material';
 import Renderer from './Renderer';
 import TitleBar from './TitleBar';
 import './Window.css';
@@ -17,9 +19,9 @@ class Window extends Component {
         super(props);
         this.state = {
             layout: [
-                { i: 'a', x: 0, y: 0, w: 4, h: 12 },
-                { i: 'b', x: 0, y: 12, w: 8, h: 11.5 },
-                { i: 'c', x: 0, y: 23.5, w: 12, h: 1 }
+                { i: 'a', x: 0, y: 0, w: 4, h: 14 },
+                { i: 'b', x: 0, y: 14, w: 8, h: 12.5 },
+                { i: 'c', x: 0, y: 26.5, w: 12, h: 1 }
             ]
         }
         this.updateLayout = this.props.updateLayout.bind(this);
@@ -30,13 +32,23 @@ class Window extends Component {
 
     uploadFBX() {
         this.loadObject(this.selectfile.files[0])
-        console.log(this.selectfile.files[0])
+        /*if (this.props.scenes && this.props.scenes["backgroundScene"]) {
+            console.log(this.props.scenes["backgroundScene"])
+            var textu = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile.files[0]))
+            this.props.materials["backgroundSceneSphereMeshMaterial"].map = textu
+            var gridhelper = new THREE.GridHelper(100, 10)
+            var light = new THREE.AmbientLight(new THREE.Color(0xffffff), 0.5)
+            this.props.scenes["backgroundScene"].add(gridhelper)
+            this.props.scenes["backgroundScene"].add(light)
+            this.props.scenes["backgroundScene"].background = new THREE.Color(0x000044)
+        }*/
+        //console.log(this.selectfile.files[0])
     }
 
     shouldComponentUpdate(nextProps) {
         //console.log(nextProps)
         if (nextProps.scenes && nextProps.scenes["mainScene"] && nextProps.objects && this.props.objects !== nextProps.objects) {
-            console.log(nextProps.objects)
+            //console.log(nextProps.objects)
             var light = new THREE.DirectionalLight(0xffffff);
             light.position.set(0, 200, 100);
             light.castShadow = true;
@@ -45,14 +57,17 @@ class Window extends Component {
             light.shadow.camera.left = -120;
             light.shadow.camera.right = 120;
             nextProps.scenes["mainScene"].add(light)
-            // var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
+            var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
+            nextProps.materials["backgroundSceneSphereMeshMaterial"].map=texture
+            nextProps.materials["backgroundSceneSphereMeshMaterial"].needsUpdate=true
             //nextProps.objects[0].children[0].material.normalMap = texture
-            nextProps.scenes["mainScene"].add(...nextProps.objects)
+            //console.log(nextProps.objects)
+            Object.keys(nextProps.objects).forEach((key)=>nextProps.scenes["mainScene"].add(nextProps.objects[key]))            
             var gridhelper = new THREE.GridHelper(100, 10)
             light = new THREE.AmbientLight(new THREE.Color(0xffffff), 0.5)
             nextProps.scenes["mainScene"].add(gridhelper)
             nextProps.scenes["mainScene"].add(light)
-            nextProps.scenes["mainScene"].background = new THREE.Color(0x000044)
+            //nextProps.scenes["mainScene"].background = new THREE.Color(0x000044)
         }
         return true;
     }
@@ -69,7 +84,7 @@ class Window extends Component {
                 cols={{ lg: this.props.gridColumns }}
                 rowHeight={this.props.rowHeight}
                 width={this.props.containerWidth}
-                draggableCancel={"."+NON_DRAGGABLE}>
+                draggableCancel={"." + NON_DRAGGABLE}>
                 <div key="a">
                     <TitleBar name="Viewport" width={this.props.units && this.props.units["a"].width}>
                         <button className="float-right">Button</button>
@@ -80,24 +95,25 @@ class Window extends Component {
                         height={this.props.units && this.props.units["a"].height}
                         shadowMapEnabled={true}
                         pixelRatio={window.devicePixelRatio}>
-                        <Scene name="backgroundScene">
+                                                <Scene name="main">
+                            <Camera aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1} >
+                            </Camera>
+                        </Scene>
+                        <Scene name="background">
                             <Camera fov={75}
                                 aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1}
                                 near={0.1}
-                                far={10000}>
+                                far={100000}>
                             </Camera>
-                            <Mesh>
-
+                            <Mesh name="Sphere">
+                                <Geometry type="Sphere"></Geometry>
+                                <Material type="Basic"></Material>
                             </Mesh>
-                        </Scene>
-                        <Scene name="mainScene">
-                            <Camera aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1} >
-                            </Camera>
                         </Scene>
                     </Renderer>
                 </div>
                 <div key="b" className="testDiv">
-                <TitleBar name="Content" width={this.props.units && this.props.units["b"].width}>
+                    <TitleBar name="Content" width={this.props.units && this.props.units["b"].width}>
                         <button className="float-right">Button</button>
                         <button>Button</button>
                     </TitleBar>
@@ -113,6 +129,7 @@ class Window extends Component {
 
 function mapStatetoProps(state) {
     return {
+        materials: state.MaterialReducer.materials,
         objects: state.LoaderReducer.objects,
         scenes: state.SceneReducer.scenes,
         units: state.WindowReducer.units,

@@ -2,7 +2,7 @@ import { LOAD_OBJECT } from '../actions/types';
 import * as THREE from 'three-full';
 const initialState = {
     FBXLoader : new THREE.FBXLoader(),
-    objects : []
+    objects : null
 }
 
 export default function (state = initialState, action) {
@@ -10,10 +10,10 @@ export default function (state = initialState, action) {
         case LOAD_OBJECT:{
             return {
                 ...state,
-                objects : [
+                objects : {
                     ...state.objects,
-                    action.payload
-                ]
+                    [action.name] : action.payload
+                }
             }
         }
         default:

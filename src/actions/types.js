@@ -1,5 +1,10 @@
 export const ADD_MESH = "ADD_MESH";
+export const ADD_GEOMETRY = "ADD_GEOMETRY";
 export const ADD_SCENE = "ADD_SCENE";
+export const ADD_TO_SCENE = "ADD_TO_SCENE";
+export const UPDATE_SCENE = "UPDATE_SCENE";
+export const UPDATE_MESH_GEOMETRY = "UPDATE_MESH_GEOMETRY";
+export const UPDATE_MESH_MATERIAL = "UPDATE_MESH_MATERIAL";
 export const ADD_CAMERA = "ADD_CAMERA";
 export const ADD_MATERIAL = "ADD_MATERIAL";
 export const CREATE_MESH = "CREATE_MESH";

@@ -7,7 +7,7 @@ export const initializeLayout = (layout) =>(dispatch,getState) =>{
             width : getWidth(columnWidth,element.w,marginX),
             height : getHeight(rowHeight,element.h,marginY)
         }
-        console.log(units.width,units.height)
+        //console.log(units.width,units.height)
         dispatch({
             type : UPDATE_LAYOUT,
             payload : units,
@@ -22,7 +22,7 @@ export const updateLayout = (layout,oldItem,newItem,placeholder) =>(dispatch,get
         width : getWidth(columnWidth,placeholder?placeholder.w: newItem.w,marginX),
         height : getHeight(rowHeight,placeholder?placeholder.h: newItem.h,marginY)
     }
-    console.log(units.width,units.height)
+    //console.log(units.width,units.height)
     dispatch({
         type : UPDATE_LAYOUT,
         payload : units,

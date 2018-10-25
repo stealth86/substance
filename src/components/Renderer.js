@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three-full';
 import { setRenderer } from '../actions/RendererAction';
-import { CAMERA } from '../Constants';
+import { CAMERA, MAIN_SCENE, SCENE } from '../Constants';
 
 class Renderer extends Component {
 
@@ -24,6 +24,7 @@ class Renderer extends Component {
     });
     this.setRenderer(this._THREErenderer);
     this._THREErenderer.toneMapping = THREE.LinearToneMapping;
+    this._THREErenderer.autoClear = false;
     this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
     if (props.shadowMapType !== undefined) {
       this._THREErenderer.shadowMap.type = props.shadowMapType;
@@ -88,11 +89,11 @@ class Renderer extends Component {
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-    var currCamera= props.scenes["mainScene"].getObjectByName("mainSceneCamera")
+    var currCamera= props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA)
     if(oldProps.scenes)
-    var oldCamera = oldProps.scenes["mainScene"].getObjectByName("mainSceneCamera")
+    var oldCamera = oldProps.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA)
     if(oldCamera !==currCamera){
-    var controls = new THREE.OrbitControls(props.scenes["mainScene"].getObjectByName("mainSceneCamera"), this.renderElement)
+    var controls = new THREE.OrbitControls(props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA), this.renderElement)
     controls.screenSpacePanning = true
     }
     this.renderScene();
@@ -107,19 +108,30 @@ class Renderer extends Component {
   }
 
   renderScene() {
-    this._THREErenderer.autoClear = false;
     //this._THREErenderer.clear();
 
     Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {
       var scene = this.props.scenes[key]
       var camera = scene.getObjectByName(scene.name + CAMERA)
+      if(camera.name !== MAIN_SCENE+SCENE+CAMERA){
+        camera.rotation.copy( this.props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA).rotation )
+      }
       if (camera) {
         this._THREErenderer.render(
           scene,
           camera
         )
-      }
-    })
+        /*if(this.props.scenes){
+        this._THREErenderer.render(
+          this.props.scenes["backgroundScene"],
+          this.props.scenes["backgroundScene"].getObjectByName("backgroundScene"+CAMERA)
+        )
+        this._THREErenderer.render(
+          this.props.scenes["mainScene"],
+          this.props.scenes["mainScene"].getObjectByName("mainScene"+CAMERA)
+        )*/
+        }
+      })
   }
 
 

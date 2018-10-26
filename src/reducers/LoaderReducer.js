@@ -2,6 +2,7 @@ import { LOAD_OBJECT } from '../actions/types';
 import * as THREE from 'three-full';
 const initialState = {
     FBXLoader : new THREE.FBXLoader(),
+    TextureLoader : new THREE.TextureLoader(),
     objects : null
 }
 

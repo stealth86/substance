@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three-full';
 import { setRenderer } from '../actions/RendererAction';
-import { CAMERA, MAIN_SCENE, SCENE } from '../Constants';
 
 class Renderer extends Component {
 
@@ -39,7 +38,7 @@ class Renderer extends Component {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
 
-    this.renderScene();
+    this.renderScene(this.props.rendererCallbacks);
     // The canvas gets re-rendered every frame even if no props/state changed.
     // This is because some three.js items like skinned meshes need redrawing
     // every frame even if nothing changed in React props/state.
@@ -55,7 +54,7 @@ class Renderer extends Component {
         }
 
         // render the stage
-        this.renderScene();
+        this.renderScene(this.props.rendererCallbacks);
       }
 
       this._rAFID = window.requestAnimationFrame(rapidrender);
@@ -89,14 +88,14 @@ class Renderer extends Component {
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-    var currCamera= props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA)
+    var currCamera= props.scenes["main"].getObjectByName("mainCamera")
     if(oldProps.scenes)
-    var oldCamera = oldProps.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA)
+    var oldCamera = oldProps.scenes["main"].getObjectByName("mainCamera")
     if(oldCamera !==currCamera){
-    var controls = new THREE.OrbitControls(props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA), this.renderElement)
+    var controls = new THREE.OrbitControls(props.scenes["main"].getObjectByName("mainCamera"), this.renderElement)
     controls.screenSpacePanning = true
     }
-    this.renderScene();
+    this.renderScene(this.props.rendererCallbacks);
   }
 
   componentWillUnmount() {
@@ -107,15 +106,14 @@ class Renderer extends Component {
     }
   }
 
-  renderScene() {
+  renderScene(rendererCallback) {
+    rendererCallback.forEach(callbackfunction=>{
+      callbackfunction();
+    })
     //this._THREErenderer.clear();
-
     Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {
       var scene = this.props.scenes[key]
-      var camera = scene.getObjectByName(scene.name + CAMERA)
-      if(camera.name !== MAIN_SCENE+SCENE+CAMERA){
-        camera.rotation.copy( this.props.scenes[MAIN_SCENE+SCENE].getObjectByName(MAIN_SCENE+SCENE+CAMERA).rotation )
-      }
+      var camera = scene.getObjectByProperty("type","PerspectiveCamera")
       if (camera) {
         this._THREErenderer.render(
           scene,
@@ -170,7 +168,8 @@ Renderer.defaultProps = {
 }
 function mapStatetoProps(state) {
   return {
-    scenes: state.SceneReducer.scenes
+    scenes: state.SceneReducer.scenes,
+    rendererCallbacks : state.RendererReducer.rendererCallbacks
   }
 }
 export default connect(mapStatetoProps, {

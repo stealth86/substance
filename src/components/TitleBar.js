@@ -19,7 +19,7 @@ class TitleBar extends Component {
         );
         //console.log(childrenWithProps)
         return (
-            <div className="fixed-top text-white-50 bg-dark" style={{ width: this.props.width + "px" }}>
+            <div className={"text-white-50 bg-dark "+this.props.className} style={{ width: this.props.width + "px" }}>
                 <div className="mx-1 d-inline">{this.props.name ? this.props.name : null}
                 </div>
                 {childrenWithProps}

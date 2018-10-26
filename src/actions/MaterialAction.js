@@ -7,3 +7,13 @@ export const addMaterial = (name,material) => (dispatch) => {
         name : name
     })
 }
+
+export const updateMaterial = (material,channel,texture) => (dispatch) => {
+    material[channel]=texture
+    dispatch({
+        type: ADD_MATERIAL,
+        payload: material,
+        name : material.name
+    })
+    material.needsUpdate=true
+}

@@ -1,36 +1,61 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MESH_BASIC_MATERIAL, MATERIAL } from '../Constants';
+import { MESH_BASIC_MATERIAL,MATERIAL} from '../Constants';
 import * as THREE from 'three-full';
-import { addMaterial } from '../actions/MaterialAction';
+import { addMaterial,updateMaterial } from '../actions/MaterialAction';
 
 class Material extends Component {
     constructor(props){
         super(props);
         //console.log(this.props)
         this.addMaterial = this.props.addMaterial.bind(this);
+        this.updateMaterial = this.props.updateMaterial.bind(this);
+        this.updateMaterialLocal = this.updateMaterialLocal.bind(this);
     }
 
     componentDidMount(){
         if (this.props.type === MESH_BASIC_MATERIAL){
-            var BasicMaterial = new THREE.MeshBasicMaterial()
-            BasicMaterial.side = THREE.BackSide
-            BasicMaterial.name = this.props.name+MATERIAL
-            this.addMaterial(BasicMaterial.name,BasicMaterial)
+            this.material = new THREE.MeshBasicMaterial()
+            this.material.side = THREE.BackSide
+            this.material.name = this.props.name
+            this.addMaterial(this.material.name,this.material)
+            //this.props.updateMesh(MATERIAL,this.material)
         }
     }
+
     shouldComponentUpdate(newProps){
-        if(newProps.material!==this.props.material) this.props.updateMesh(MATERIAL,newProps.material)
+        //console.log(newProps)
+        if(this.material)
+        this.props.updateMesh(MATERIAL,this.material)
+        //if(newProps.geometry !== this.props.geometry) this.props.updateMesh(GEOMETRY, newProps.geometry)
         return true;
     }
+
+    updateMaterialLocal(channel,texture){
+        if(this.material){
+            this.updateMaterial(this.material,channel,texture)
+        }
+    }
+
     render(){
-        return null
+        const { children } = this.props;
+
+        const childrenWithProps = React.Children.map(children, child =>
+            React.cloneElement(child, { updateMaterial: this.updateMaterialLocal })
+        );
+        return (
+            <>
+                {childrenWithProps}
+            </>
+        )
     }
 }
 
 function mapStatetoProps(state,props){
     return{
-        material : state.MaterialReducer.materials ? state.MaterialReducer.materials[props.name+MATERIAL] : null
+        material : props.name && 
+                   state.MaterialReducer.materials && 
+                   state.MaterialReducer.materials[props.name] ? state.MaterialReducer.materials[props.name] : null
     }
 }
-export default connect(mapStatetoProps,{addMaterial})(Material)
+export default connect(mapStatetoProps,{addMaterial,updateMaterial})(Material)

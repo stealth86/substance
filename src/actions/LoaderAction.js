@@ -1,4 +1,4 @@
-import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL } from './types';
+import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL, ADD_TEXTURE } from './types';
 
 export const loadObject = (file) => (dispatch, getState) => {
     const { FBXLoader } = getState().LoaderReducer
@@ -25,6 +25,18 @@ export const loadObject = (file) => (dispatch, getState) => {
             type: LOAD_OBJECT,
             payload: object,
             name : object.name
+        })
+    })
+}
+
+export const loadTexture = (file) => (dispatch, getState) => {
+    const { TextureLoader } = getState().LoaderReducer
+    TextureLoader.load(URL.createObjectURL(file), (texture) => {
+        texture.name=file.name.replace(/\..+$/, '')
+        dispatch({
+            type: ADD_TEXTURE,
+            payload: texture,
+            name : texture.name
         })
     })
 }

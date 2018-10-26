@@ -1,6 +1,3 @@
-export const CAMERA = "Camera"
-export const SCENE = "Scene"
-export const MESH = "Mesh"
 export const GEOMETRY = "Geometry"
 export const MATERIAL = "Material"
 export const DEFAULT_FOV = 75

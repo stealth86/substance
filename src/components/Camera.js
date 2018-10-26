@@ -2,23 +2,36 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import * as THREE from "three-full";
 import { addCamera } from '../actions/CameraAction';
-import { DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_NEAR, DEFAULT_FAR, CAMERA } from '../Constants';
+import { addCallback } from '../actions/RendererAction';
+import { DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_NEAR, DEFAULT_FAR } from '../Constants';
 
 class Camera extends Component {
     constructor(props) {
         super(props);
         this.addCamera = this.props.addCamera.bind(this);
+        this.addCallback = this.props.addCallback.bind(this);
+        this.copyRotation = this.copyRotation.bind(this);
+        this.lookAt = this.lookAt.bind(this);
     }
+
     componentDidMount() {
-        var camera = new THREE.PerspectiveCamera(this.props.fov ? this.props.fov : DEFAULT_FOV , 
+        this.camera = new THREE.PerspectiveCamera(this.props.fov ? this.props.fov : DEFAULT_FOV , 
                                                  this.props.aspect ? this.props.aspect : DEFAULT_ASPECT, 
                                                  this.props.near ? this.props.near : DEFAULT_NEAR, 
                                                  this.props.far ? this.props.far : DEFAULT_FAR)
-        camera.name = this.props.name+CAMERA
-        camera.position.z=5
-        this.addCamera(camera.name, camera)
+        this.camera.name = this.props.name
+        this.props.position && this.camera.position.set(this.props.position.x,this.props.position.y,this.props.position.z)
+        this.addCamera(this.camera.name, this.camera)
         //console.log("did mount " + this.props.name)
         //console.log(this.props)
+    }
+
+    copyRotation(){
+        this.props.camera.rotation.copy(this.props.copyRotation.rotation)
+    }
+
+    lookAt(){
+        this.props.camera.lookAt(this.props.lookAt.position)
     }
 
     shouldComponentUpdate(nextProps) {
@@ -26,11 +39,21 @@ class Camera extends Component {
         //console.log(this.props)
         //console.log(nextProps)
         //console.log(nextProps)
-        if(nextProps.camera !== this.props.camera) this.props.updateScene(nextProps.camera)
+        if(this.props.camera !==nextProps.camera){
+            this.camera = nextProps.camera
+            this.props.updateScene(this.camera)
+        }
         if(this.props.aspect!==nextProps.aspect){
-            nextProps.camera.aspect=nextProps.aspect
-            nextProps.camera.updateProjectionMatrix();
+            this.camera.aspect=nextProps.aspect
+            this.camera.updateProjectionMatrix();
             //console.log(this.props.aspect)
+        }
+        if(this.props.copyRotation !== nextProps.copyRotation){
+            this.addCallback(1,this.copyRotation)
+        }
+        if(nextProps.lookAt && this.props.lookAt !== nextProps.lookAt){
+            //console.log(nextProps.lookAt)
+            this.addCallback(0,this.lookAt)
         }
         return true;
     }
@@ -45,7 +68,9 @@ class Camera extends Component {
 
 function mapStatetoProps(state, props) {
     return {
-        camera : state.CameraReducer.cameras ? state.CameraReducer.cameras[props.name+CAMERA] : null
+        camera : props.name && 
+                 state.CameraReducer.cameras &&
+                 state.CameraReducer.cameras[props.name] ? state.CameraReducer.cameras[props.name] : null,
     }
 }
-export default connect(mapStatetoProps, { addCamera })(Camera)
+export default connect(mapStatetoProps, { addCamera,addCallback })(Camera)

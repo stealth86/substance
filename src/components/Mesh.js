@@ -1,54 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MESH, GEOMETRY } from '../Constants';
-import {addMesh, updateGeometry, updateMaterial} from '../actions/MeshAction';
+import { addMesh, updateGeometry, updateMaterial } from '../actions/MeshAction';
 import * as THREE from 'three-full';
+import { GEOMETRY } from '../Constants';
 
 class Mesh extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.addMesh = this.props.addMesh.bind(this);
         this.updateGeometry = this.props.updateGeometry.bind(this);
         this.updateMaterial = this.props.updateMaterial.bind(this);
         this.updateMeshLocal = this.updateMeshLocal.bind(this);
     }
-    componentDidMount(){
-        var Mesh = new THREE.Mesh()
-        Mesh.name=this.props.name+MESH
-        this.addMesh(this.props.name+MESH,Mesh)
+
+    componentDidMount() {
+        this.mesh = new THREE.Mesh()
+        this.mesh.name = this.props.name
+        this.addMesh(this.props.name, this.mesh)
+        //this.props.updateScene(this.mesh)
     }
 
-    shouldComponentUpdate(newProps){
-        if(newProps.mesh !== this.props.mesh) this.props.updateScene(newProps.mesh)
+    shouldComponentUpdate(newProps) {
+        if(this.mesh)
+        this.props.updateScene(this.mesh)
         return true;
     }
 
-    componentDidUpdate(oldProps){
+    componentDidUpdate(oldProps) {
         //console.log(this.props)
     }
 
-    updateMeshLocal(type,item){
-        if(type === GEOMETRY) this.updateGeometry(this.props.mesh,item)
-        else this.updateMaterial(this.props.mesh,item)
+    updateMeshLocal(type, item) {
+        if (this.mesh) {
+            if (type === GEOMETRY) this.updateGeometry(this.mesh, item)
+            else this.updateMaterial(this.mesh, item)
+        }
     }
 
-    render(){
+    render() {
         const { children } = this.props;
 
         const childrenWithProps = React.Children.map(children, child =>
-          React.cloneElement(child,{ updateMesh:this.updateMeshLocal, name:this.props.name+MESH})
+            React.cloneElement(child, { updateMesh: this.updateMeshLocal })
         );
         return (
             <>
-            {childrenWithProps}
+                {childrenWithProps}
             </>
         )
     }
 }
 
-function mapStatetoProps(state,props){
-    return{
-        mesh : state.MeshReducer.meshes ? state.MeshReducer.meshes[props.name+MESH] : null        
+function mapStatetoProps(state, props) {
+    return {
+        mesh: props.name &&
+            state.MeshReducer.meshes &&
+            state.MeshReducer.meshes[props.name] ? state.MeshReducer.meshes[props.name] : null
     }
 }
-export default connect(mapStatetoProps,{addMesh,updateMaterial,updateGeometry})(Mesh)
+export default connect(mapStatetoProps, { addMesh, updateMaterial, updateGeometry })(Mesh)

@@ -34,7 +34,7 @@ div.overflow-hidden{
   background: 0 0;
   border: 0;
   color: #373a3c;
-cursor: pointer;
+  cursor: pointer;
   font-weight: 400;
   line-height: 1.5;
   padding: 3px 20px;
@@ -87,7 +87,6 @@ padding: 0;
   display: block;
 }
 .react-contextmenu-wrapper{
-  background-color: lightskyblue;
   height: 100%;
 }
 div.fileList{
@@ -96,7 +95,7 @@ div.fileList{
 }
 .Pane{
   overflow:auto;
-  background-color: lightgreen;
+  background-color: darkgray;
 }
 div.scroll{
   overflow: scroll;

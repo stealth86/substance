@@ -4,6 +4,7 @@ import { DragSource } from 'react-dnd';
 import './Thumbnail.css';
 import logo from '../logo.svg';
 import eric from '../Eric_256.png';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 const cardSource = {
     /*canDrag(props) {
@@ -75,11 +76,16 @@ class Thumbnail extends Component {
         console.log(this.props)
         return connectDragSource(
             <div className="thumbnail">
-            <div className="thumbnailImage">
+            <ContextMenuTrigger id="abc">
+            <div className="thumbnailImage border">
                 <img className="card-img-top" src={eric}></img>              
             </div>
-            <div className="fileName">asdasda sdasdasdas dasdasdasd</div>  
-            </div>
+            <div className="fileName">
+                <div className="fileText">asdasda sdasdasdas dasdasdasd</div>
+                <span className="tooltiptext">asdasda sdasdasdas dasdasdasd</span>
+            </div>  
+            </ContextMenuTrigger>
+            </div>            
         );
     }
 }

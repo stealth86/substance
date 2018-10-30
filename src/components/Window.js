@@ -20,7 +20,6 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import SplitPane from 'react-split-pane';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
-
 class Window extends Component {
     constructor(props) {
         super(props);
@@ -86,6 +85,7 @@ class Window extends Component {
     }
     render() {
         return (
+            <>
             <ResponsiveGridLayout className="layout"
                 compactType="horizontal"
                 mounted={false}
@@ -117,7 +117,7 @@ class Window extends Component {
                         </Scene>
                         <Scene name="background">
                             <Camera name="backgroundCamera"
-                                fov={75}
+                                fov={45}
                                 copyRotation={this.props.cameras && this.props.cameras["mainCamera"]}
                                 aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1}
                                 near={0.1}
@@ -148,10 +148,10 @@ class Window extends Component {
                         </Thumbnail>
                         </div>
                     </div>*/}
-                    <SplitPane split="vertical">
+                    <SplitPane split="vertical" defaultSize={200}>
                         <div className="testDiv"></div>
                         <div>
-                        <ContextMenuTrigger id="xyz" holdToDisplay={1000}>
+                        <ContextMenuTrigger id="xyz">
                             <div className="fileList">
                                 <Thumbnail id="tnail">
                                 </Thumbnail>
@@ -239,22 +239,25 @@ class Window extends Component {
                                 </Thumbnail>
                             </div>
                         </ContextMenuTrigger>
-                        <ContextMenu id="xyz">
-                            <MenuItem data={{ foo: 'bar' }} >
-                                ContextMenu Item 1
-                            </MenuItem>
-                            <MenuItem data={{ foo: 'bar' }} >
-                                ContextMenu Item 2
-                            </MenuItem>
-                            <MenuItem divider />
-                            <MenuItem data={{ foo: 'bar' }} >
-                                ContextMenu Item 3
-                            </MenuItem>
-                        </ContextMenu>
                         </div>
                     </SplitPane>
                 </div>
             </ResponsiveGridLayout>
+                                    <ContextMenu id="xyz">
+                                    <MenuItem data={{ foo: 'bar' }} >
+                                        <div>
+                                            Menu Item 1
+                                        </div>
+                                    </MenuItem>
+                                    <MenuItem data={{ foo: 'bar' }} >
+                                        ContextMenu Item 2
+                                    </MenuItem>
+                                    <MenuItem divider />
+                                    <MenuItem data={{ foo: 'bar' }} >
+                                        ContextMenu Item 3
+                                    </MenuItem>
+                                </ContextMenu>
+                                </>
         )
     }
 }

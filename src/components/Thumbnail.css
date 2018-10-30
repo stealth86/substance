@@ -1,4 +1,12 @@
-.dragdiv{
-    background-color: brown;
-    width: 10%;
+div.thumbnailImage{    
+    width: 4rem;
+    height: 4rem;    
+}
+div.thumbnail{
+    padding: .75rem;
+}
+div.fileName{
+    width: 4rem;
+    height: 2rem;
+    overflow : hidden;
 }

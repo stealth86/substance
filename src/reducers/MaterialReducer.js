@@ -5,7 +5,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_MATERIAL: {
+        case ADD_MATERIAL:
             return {
                 ...state,
                 materials: {
@@ -13,7 +13,6 @@ export default function (state = initialState, action) {
                     [action.name]: action.payload
                 }
             }
-        }
         default:
             return {
                 ...state

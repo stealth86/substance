@@ -10,7 +10,6 @@ export const setRenderer = (renderer) => (dispatch) => {
   export const addCallback = (order,callback) =>(dispatch) => {
     dispatch({
       type: ADD_RENDERER_CALLBACK,
-      payload : callback,
-      order : order
+      payload : {order:order, callback:callback}
     })
   }

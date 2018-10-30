@@ -107,8 +107,8 @@ class Renderer extends Component {
   }
 
   renderScene(rendererCallback) {
-    rendererCallback.forEach(callbackfunction=>{
-      callbackfunction();
+    rendererCallback.forEach(callbackItem=>{
+      callbackItem.callback();
     })
     //this._THREErenderer.clear();
     Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {

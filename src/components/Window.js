@@ -11,12 +11,14 @@ import TitleBar from './TitleBar';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../actions/WindowAction';
-import { loadObject,loadTexture } from '../actions/LoaderAction';
+import { loadObject, loadTexture } from '../actions/LoaderAction';
 import * as THREE from 'three-full';
 import { NON_DRAGGABLE } from '../Constants';
 import Thumbnail from './Thumbnail';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import SplitPane from 'react-split-pane';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 
 class Window extends Component {
@@ -25,7 +27,7 @@ class Window extends Component {
         this.state = {
             layout: [
                 { i: 'a', x: 0, y: 0, w: 4, h: 14 },
-                { i: 'b', x: 0, y: 14, w: 8, h: 13.5 },
+                { i: 'b', x: 0, y: 14, w: 8, h: 13.5, static: false },
             ]
         }
         this.updateLayout = this.props.updateLayout.bind(this);
@@ -35,7 +37,8 @@ class Window extends Component {
         this.initializeLayout(this.state.layout);
     }
 
-    uploadTexture(){
+    uploadTexture() {
+        this.setState({ textureName: this.selectfile1.files[0].name.replace(/\..+$/, '') })
         this.loadTexture(this.selectfile1.files[0])
     }
     uploadFBX() {
@@ -106,14 +109,14 @@ class Window extends Component {
                         shadowMapEnabled={true}
                         pixelRatio={window.devicePixelRatio}>
                         <Scene name="main">
-                            <Camera name="mainCamera" 
-                                    lookAt={this.props.meshes && this.props.meshes["Cube"]}
-                                    position={{x:500,y:500,z:200}}
-                                    aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1} >
+                            <Camera name="mainCamera"
+                                //lookAt={this.props.meshes && this.props.meshes["Cube"]}
+                                position={{ x: 500, y: 500, z: 200 }}
+                                aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1} >
                             </Camera>
                         </Scene>
                         <Scene name="background">
-                            <Camera name="backgroundCamera" 
+                            <Camera name="backgroundCamera"
                                 fov={75}
                                 copyRotation={this.props.cameras && this.props.cameras["mainCamera"]}
                                 aspect={this.props.units ? (this.props.units["a"].width / this.props.units["a"].height) : 1}
@@ -123,21 +126,133 @@ class Window extends Component {
                             <Mesh name="Sphere">
                                 <Geometry name="001" type="Sphere"></Geometry>
                                 <Material name="001" type="Basic">
-                                    <Texture channel="map" name="4096x2048">
+                                    <Texture channel="map" name={this.state.textureName}>
                                     </Texture>
                                 </Material>
                             </Mesh>
                         </Scene>
                     </Renderer>
                 </div>
-                <div key="b" className="nonDraggable testDiv">
+                <div key="b" className="nonDraggable bb">
                     <TitleBar name="Content" width={this.props.units && this.props.units["b"].width}>
                         <input type="file" ref={el => this.selectfile = el} onChange={() => this.uploadFBX()}></input>
                         <input type="file" ref={el => this.selectfile1 = el} onChange={() => this.uploadTexture()}></input>
                     </TitleBar>
+                    {/*<div className="bar">
+                    <div>
                         <Thumbnail id="tnail">
-
                         </Thumbnail>
+                        </div>
+                        <div>
+                        <Thumbnail id="tnail">
+                        </Thumbnail>
+                        </div>
+                    </div>*/}
+                    <SplitPane split="vertical">
+                        <div className="testDiv"></div>
+                        <div>
+                        <ContextMenuTrigger id="xyz" holdToDisplay={1000}>
+                            <div className="fileList">
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                                <Thumbnail id="tnail">
+                                </Thumbnail>
+                            </div>
+                        </ContextMenuTrigger>
+                        <ContextMenu id="xyz">
+                            <MenuItem data={{ foo: 'bar' }} >
+                                ContextMenu Item 1
+                            </MenuItem>
+                            <MenuItem data={{ foo: 'bar' }} >
+                                ContextMenu Item 2
+                            </MenuItem>
+                            <MenuItem divider />
+                            <MenuItem data={{ foo: 'bar' }} >
+                                ContextMenu Item 3
+                            </MenuItem>
+                        </ContextMenu>
+                        </div>
+                    </SplitPane>
                 </div>
             </ResponsiveGridLayout>
         )
@@ -160,7 +275,9 @@ function mapStatetoProps(state) {
     }
 }
 
-export default connect(mapStatetoProps,{ initializeLayout, 
-                                        updateLayout, 
-                                        loadObject,
-                                        loadTexture })(DragDropContext(HTML5Backend)(Window))
+export default connect(mapStatetoProps, {
+    initializeLayout,
+    updateLayout,
+    loadObject,
+    loadTexture
+})(DragDropContext(HTML5Backend)(Window))

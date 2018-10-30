@@ -1,24 +1,25 @@
-import {SET_RENDERER, ADD_RENDERER_CALLBACK} from '../actions/types'
-const initialState ={
-    rendererCallbacks : []
+import { SET_RENDERER, ADD_RENDERER_CALLBACK } from '../actions/types'
+const initialState = {
+    rendererCallbacks: []
 }
-export default function(state=initialState,action){
-    switch(action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
         case SET_RENDERER:
-        return{
-            ...state,
-            renderer : action.payload
-        }
+            return {
+                ...state,
+                renderer: action.payload
+            }
         case ADD_RENDERER_CALLBACK:
-        return{
-            ...state,
-            rendererCallbacks : [
+            var callbacks = [
                 ...state.rendererCallbacks,
-                action.payload
-            ]
-        }
+                action.payload]
+            callbacks = callbacks.sort((x, y) => x.order - y.order)
+            return {
+                ...state,
+                rendererCallbacks: callbacks
+            }
         default:
-            return{
+            return {
                 ...state
             }
     }

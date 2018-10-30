@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
 import './Thumbnail.css';
+import logo from '../logo.svg';
+import eric from '../Eric_256.png';
 
 const cardSource = {
     /*canDrag(props) {
@@ -66,17 +68,19 @@ class Thumbnail extends Component {
     render() {
         // Your component receives its own props as usual
         const { id } = this.props;
-    
+
         // These props are injected by React DnD,
         // as defined by your `collect` function above:
         const { isDragging, connectDragSource } = this.props;
         console.log(this.props)
         return connectDragSource(
-          <div className="dragdiv">
-            I am a draggable card number {id}
-            {isDragging && ' (and I am being dragged now)'}
-          </div>
+            <div className="thumbnail">
+            <div className="thumbnailImage">
+                <img className="card-img-top" src={eric}></img>              
+            </div>
+            <div className="fileName">asdasda sdasdasdas dasdasdasd</div>  
+            </div>
         );
-      }
+    }
 }
-export default connect(mapStatetoProps,{})(DragSource('CARD', cardSource, collect)(Thumbnail))
+export default connect(mapStatetoProps, {})(DragSource('CARD', cardSource, collect)(Thumbnail))

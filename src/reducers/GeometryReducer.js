@@ -6,7 +6,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_GEOMETRY:{
+        case ADD_GEOMETRY:
             return {
                 ...state,
                 geometries: {
@@ -14,7 +14,6 @@ export default function (state = initialState, action) {
                     [action.name]: action.payload
                 }
             }
-        }
         default:
             return {
                 ...state

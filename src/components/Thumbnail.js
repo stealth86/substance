@@ -55,6 +55,7 @@ function collect(connect, monitor) {
         // Call this function inside render()
         // to let React DnD handle the drag events:
         connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
         // You can ask the monitor about the current drag state:
         isDragging: monitor.isDragging()
     };
@@ -72,21 +73,23 @@ class Thumbnail extends Component {
 
         // These props are injected by React DnD,
         // as defined by your `collect` function above:
-        const { isDragging, connectDragSource } = this.props;
-        console.log(this.props)
-        return connectDragSource(
+        const { isDragging, connectDragSource, connectDragPreview } = this.props;
+        //console.log(this.props)
+
+        return (
             <div className="thumbnail">
-            <ContextMenuTrigger id="abc">
-            <div className="thumbnailImage border">
-                <img className="card-img-top" src={eric}></img>              
-            </div>
-            <div className="fileName">
-                <div className="fileText">asdasda sdasdasdas dasdasdasd</div>
-                <span className="tooltiptext">asdasda sdasdasdas dasdasdasd</span>
-            </div>  
-            </ContextMenuTrigger>
-            </div>            
-        );
+                <ContextMenuTrigger id="abc">
+                    {connectDragSource(
+                        <div className="thumbnailImage border">
+                            <img className="card-img-top" src={eric}></img>
+                        </div>
+                    )}
+                    <div className="fileName">
+                        <div className="fileText">asdasda_sdasdasdas_dasdasdasd</div>
+                        <span className="tooltiptext">asdasda sdasdasdas dasdasdasd</span>
+                    </div>
+                </ContextMenuTrigger>
+            </div>)
     }
 }
 export default connect(mapStatetoProps, {})(DragSource('CARD', cardSource, collect)(Thumbnail))

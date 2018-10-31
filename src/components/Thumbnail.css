@@ -9,7 +9,7 @@ div.thumbnail{
 }
 div .fileName .fileText{
     width: 4rem;
-    height: 3rem;
+    height: 2rem;
     overflow:hidden;
     font-size: 0.65rem;
     overflow-wrap: break-word;

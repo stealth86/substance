@@ -5,11 +5,10 @@ import ContentBrowser from './ContentBrowser';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../actions/WindowAction';
-import * as THREE from 'three-full';
 import { NON_DRAGGABLE, RENDERER, CONTENT } from '../Constants';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { ContextMenu, MenuItem } from "react-contextmenu";
+import { ContextMenuContainer } from './ContextMenuContainer';
 
 class Window extends Component {
     constructor(props) {
@@ -25,34 +24,6 @@ class Window extends Component {
         this.initializeLayout(this.state.layout);
     }
 
-    shouldComponentUpdate(nextProps) {
-        //console.log(nextProps)
-        if (nextProps.scenes && nextProps.scenes["main"] && nextProps.objects && this.props.objects !== nextProps.objects) {
-            //console.log(nextProps.objects)
-            var light = new THREE.DirectionalLight(0xffffff);
-            light.position.set(0, 200, 100);
-            light.castShadow = true;
-            light.shadow.camera.top = 180;
-            light.shadow.camera.bottom = -100;
-            light.shadow.camera.left = -120;
-            light.shadow.camera.right = 120;
-            nextProps.scenes["main"].add(light)
-            //var texture = new THREE.TextureLoader().load(URL.createObjectURL(this.selectfile1.files[0]))
-            //nextProps.materials["001"].map = texture
-            //nextProps.materials["001"].needsUpdate = true
-            //nextProps.objects[0].children[0].material.normalMap = texture
-            //console.log(nextProps.objects)
-            Object.keys(nextProps.objects).forEach((key) => nextProps.scenes["main"].add(nextProps.objects[key]))
-            var gridhelper = new THREE.GridHelper(100, 10)
-            light = new THREE.AmbientLight(new THREE.Color(0xffffff), 0.5)
-            nextProps.scenes["main"].add(gridhelper)
-            nextProps.scenes["main"].add(light)
-            console.log(this.props.meshes)
-            //nextProps.cameras["mainCamera"].lookAt(nextProps.meshes["Sphere"].position)
-            //nextProps.scenes["mainScene"].background = new THREE.Color(0x000044)
-        }
-        return true;
-    }
     render() {
         return (
             <>
@@ -75,20 +46,7 @@ class Window extends Component {
                         <ContentBrowser></ContentBrowser>
                     </div>
                 </ResponsiveGridLayout>
-                <ContextMenu id="xyz">
-                    <MenuItem data={{ foo: 'bar' }} >
-                        <div>
-                            Menu Item 1
-                                        </div>
-                    </MenuItem>
-                    <MenuItem data={{ foo: 'bar' }} >
-                        ContextMenu Item 2
-                                    </MenuItem>
-                    <MenuItem divider />
-                    <MenuItem data={{ foo: 'bar' }} >
-                        ContextMenu Item 3
-                                    </MenuItem>
-                </ContextMenu>
+                <ContextMenuContainer></ContextMenuContainer>
             </>
         )
     }

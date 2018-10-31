@@ -3,37 +3,57 @@ import { connect } from 'react-redux'
 import TitleBar from './TitleBar'
 import Thumbnail from './Thumbnail'
 import SplitPane from 'react-split-pane'
-import {NON_DRAGGABLE} from '../Constants'
+import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES } from '../Constants'
 import { loadObject, loadTexture } from '../actions/LoaderAction';
 import { ContextMenuTrigger } from "react-contextmenu";
+import DropZone from 'react-dropzone';
+import './ContentBrowser.css';
 
 
 class ContentBrowser extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.loadObject = this.props.loadObject.bind(this);
         this.loadTexture = this.props.loadTexture.bind(this);
+        this.load= this.load.bind(this);
+        this.onDrop=this.onDrop.bind(this);
     }
-    uploadTexture() {
-        this.setState({ envTexture: this.selectfile1.files[0].name.replace(/\..+$/, '') })
-        this.loadTexture(this.selectfile1.files[0])
+
+    load(){
+        this.dropZone.open()
     }
-    uploadFBX() {
-        this.loadObject(this.selectfile.files[0])
+
+    onDrop(accepted,rejected){
+        accepted.forEach(file => {
+            var fileType= (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name) : undefined;
+            switch (true){
+                case IMAGE_TYPES.includes(fileType):
+                this.loadTexture(file)
+                break;
+                case OBJECT_TYPES.includes(fileType):
+                this.loadObject(file)
+                break;
+                default:
+                break;
+            }
+        });
     }
+
     render() {
         return (
             <>
                 <TitleBar name="Content">
-                    <input type="file" ref={el => this.selectfile = el} onChange={() => this.uploadFBX()}></input>
-                    <input type="file" ref={el => this.selectfile1 = el} onChange={() => this.uploadTexture()}></input>
+                    <button type="button" onClick={this.load}>Load</button>
                 </TitleBar>
                 <SplitPane className={NON_DRAGGABLE} split="vertical" defaultSize={300}>
                     <div className="testDiv"></div>
-                        <ContextMenuTrigger id="xyz">
+                    <DropZone ref={el => this.dropZone=el}
+                              accept={IMAGE_TYPES+OBJECT_TYPES}
+                              className="dropzone" 
+                              disableClick={true}
+                              onDrop={this.onDrop}>
+                        <ContextMenuTrigger id={CONTENT_MENU}>
                             <div className="fileList">
-                                <Thumbnail id="tnail">
-                                </Thumbnail>
                                 <Thumbnail id="tnail">
                                 </Thumbnail>
                                 <Thumbnail id="tnail">
@@ -42,6 +62,7 @@ class ContentBrowser extends Component {
                                 </Thumbnail>
                             </div>
                         </ContextMenuTrigger>
+                    </DropZone>
                 </SplitPane>
             </>
         )
@@ -51,4 +72,4 @@ class ContentBrowser extends Component {
 const mapStateToProps = (state) => ({
 })
 
-export default connect(mapStateToProps, {loadObject,loadTexture})(ContentBrowser)
+export default connect(mapStateToProps, { loadObject, loadTexture })(ContentBrowser)

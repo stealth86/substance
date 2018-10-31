@@ -18,39 +18,39 @@ class RendererContainer extends Component {
     }
 
     render() {
-        return (<><TitleBar name="Viewport" className="fixed-top" width={this.props.units && this.props.units[RENDERER].width}>
-            <button className="float-right">Button</button>
-            <button>Button</button>
-        </TitleBar>
-            <Renderer className={NON_DRAGGABLE}
-                width={this.props.units && this.props.units[RENDERER].width}
-                height={this.props.units && this.props.units[RENDERER].height}
-                shadowMapEnabled={true}
-                pixelRatio={window.devicePixelRatio}>
-                <Scene name="main">
-                    <Camera name="mainCamera"
-                        position={{ x: 500, y: 500, z: 200 }}
-                        aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1} >
-                    </Camera>
-                </Scene>
-                <Scene name="background">
-                    <Camera name="backgroundCamera"
-                        fov={45}
-                        copyRotation={this.props.cameras && this.props.cameras["mainCamera"]}
-                        aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1}
-                        near={0.1}
-                        far={100000}>
-                    </Camera>
-                    <Mesh name="Sphere">
-                        <Geometry name="001" type="Sphere"></Geometry>
-                        <Material name="001" type="Basic">
-                            <Texture channel="map" name={this.props.envTexture}>
-                            </Texture>
-                        </Material>
-                    </Mesh>
-                </Scene>
-            </Renderer>
-        </>)
+        return (
+            <>
+                <TitleBar name="Viewport" className="fixed-top" width={this.props.units && this.props.units[RENDERER].width}>
+                </TitleBar>
+                <Renderer className={NON_DRAGGABLE}
+                    width={this.props.units && this.props.units[RENDERER].width}
+                    height={this.props.units && this.props.units[RENDERER].height}
+                    shadowMapEnabled={true}
+                    pixelRatio={window.devicePixelRatio}>
+                    <Scene name="main">
+                        <Camera name="mainCamera"
+                            position={{ x: 500, y: 500, z: 200 }}
+                            aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1} >
+                        </Camera>
+                    </Scene>
+                    <Scene name="background">
+                        <Camera name="backgroundCamera"
+                            fov={45}
+                            copyRotation={this.props.cameras && this.props.cameras["mainCamera"]}
+                            aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1}
+                            near={0.1}
+                            far={100000}>
+                        </Camera>
+                        <Mesh name="Sphere">
+                            <Geometry name="001" type="Sphere"></Geometry>
+                            <Material name="001" type="Basic">
+                                <Texture channel="map" name={this.props.envTexture}>
+                                </Texture>
+                            </Material>
+                        </Mesh>
+                    </Scene>
+                </Renderer>
+            </>)
     }
 }
 

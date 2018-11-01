@@ -49,11 +49,11 @@ class Camera extends Component {
             //console.log(this.props.aspect)
         }
         if(this.props.copyRotation !== nextProps.copyRotation){
-            this.addCallback(1,this.copyRotation)
+            this.addCallback(this.props.rendererName,1,this.copyRotation)
         }
         if(nextProps.lookAt && this.props.lookAt !== nextProps.lookAt){
             //console.log(nextProps.lookAt)
-            this.addCallback(0,this.lookAt)
+            this.addCallback(this.props.rendererName,0,this.lookAt)
         }
         return true;
     }

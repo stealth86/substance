@@ -1,0 +1,7 @@
+ul.contentList {
+    margin : 0.75rem
+}
+
+ul li.contentType{
+    background-color: aliceblue;
+}

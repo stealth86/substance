@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
 import './Thumbnail.css';
-import eric from '../Eric_256.png';
 import { ContextMenuTrigger } from "react-contextmenu";
 
 const cardSource = {
@@ -39,12 +38,12 @@ class Thumbnail extends Component {
                 <ContextMenuTrigger id="abc">
                     {connectDragSource(
                         <div className="thumbnailImage border">
-                            <img className="card-img-top" src={eric} alt="xyz"></img>
+                            <img className="card-img-top" src={this.props.previewImage} alt={this.props.text}></img>
                         </div>
                     )}
                     <div className="fileName">
-                        <div className="fileText">asdasda_sdasdasdas_dasdasdasd</div>
-                        <span className="tooltiptext">asdasda sdasdasdas dasdasdasd</span>
+                        <div className="fileText">{this.props.text}</div>
+                        <span className="tooltiptext">{this.props.text}</span>
                     </div>
                 </ContextMenuTrigger>
             </div>)

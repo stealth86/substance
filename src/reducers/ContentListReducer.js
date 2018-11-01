@@ -1,7 +1,11 @@
 import { ADD_CONTENT_TYPE } from "../actions/types";
 
 const initialState = {
-    contentList: []
+    contentList: [
+        { name : "Textures", tagTypes: ["texture","image"]},
+        { name : "Meshes", tagTypes: ["mesh"]},
+        { name : "Materials", tagTypes: ["material"]}
+    ]
 }
 
 export default function (state = initialState, action) {
@@ -11,7 +15,7 @@ export default function (state = initialState, action) {
                 ...state,
                 contentList : [
                     ...state.contentList,
-                    action.payload
+                     action.payload
                 ]
             }
         default:

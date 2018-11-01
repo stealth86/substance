@@ -21,7 +21,7 @@ class Renderer extends Component {
       antialias: props.antialias === undefined ? true : props.antialias,
       ...this.props.rendererProps
     });
-    this.setRenderer(this._THREErenderer);
+    this.setRenderer(props.name, this._THREErenderer);
     this._THREErenderer.toneMapping = THREE.LinearToneMapping;
     this._THREErenderer.autoClear = false;
     this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
@@ -66,11 +66,11 @@ class Renderer extends Component {
     this.renderCanvas.onselectstart = () => false;
   }
 
-  shouldComponentUpdate(newProps){
-    this._THREErenderer.setSize(+newProps.width,+newProps.height)
+  shouldComponentUpdate(newProps) {
+    this._THREErenderer.setSize(+newProps.width, +newProps.height)
     return true;
   }
-  
+
   componentDidUpdate(oldProps) {
     const props = this.props;
 
@@ -88,12 +88,12 @@ class Renderer extends Component {
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-    var currCamera= props.scenes["main"].getObjectByName("mainCamera")
-    if(oldProps.scenes)
-    var oldCamera = oldProps.scenes["main"].getObjectByName("mainCamera")
-    if(oldCamera !==currCamera){
-    var controls = new THREE.OrbitControls(props.scenes["main"].getObjectByName("mainCamera"), this.renderElement)
-    controls.screenSpacePanning = true
+    var currCamera = props.scenes["main"].getObjectByName("mainCamera")
+    if (oldProps.scenes)
+      var oldCamera = oldProps.scenes["main"].getObjectByName("mainCamera")
+    if (oldCamera !== currCamera) {
+      var controls = new THREE.OrbitControls(props.scenes["main"].getObjectByName("mainCamera"), this.renderElement)
+      controls.screenSpacePanning = true
     }
     this.renderScene(this.props.rendererCallbacks);
   }
@@ -107,29 +107,20 @@ class Renderer extends Component {
   }
 
   renderScene(rendererCallback) {
-    rendererCallback.forEach(callbackItem=>{
+    rendererCallback.forEach(callbackItem => {
       callbackItem.callback();
     })
     //this._THREErenderer.clear();
     Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {
       var scene = this.props.scenes[key]
-      var camera = scene.getObjectByProperty("type","PerspectiveCamera")
+      var camera = scene.getObjectByProperty("type", "PerspectiveCamera")
       if (camera) {
         this._THREErenderer.render(
           scene,
           camera
         )
-        /*if(this.props.scenes){
-        this._THREErenderer.render(
-          this.props.scenes["backgroundScene"],
-          this.props.scenes["backgroundScene"].getObjectByName("backgroundScene"+CAMERA)
-        )
-        this._THREErenderer.render(
-          this.props.scenes["mainScene"],
-          this.props.scenes["mainScene"].getObjectByName("mainScene"+CAMERA)
-        )*/
-        }
-      })
+      }
+    })
   }
 
 
@@ -138,12 +129,15 @@ class Renderer extends Component {
   render() {
     if (this.props.canvas) return null;
 
-    // the three.js renderer will get applied to this canvas element
-    //return React.createElement("canvas", { style: this.props.style });
+    const { children } = this.props;
+
+    const childrenWithProps = React.Children.map(children, child =>
+      React.cloneElement(child, { rendererName: this.props.name })
+    );
     return (
       <div className={this.props.className}>
         <canvas ref={el => this.renderCanvas = el} style={this.props.style}></canvas>
-        {this.props.children}
+        {childrenWithProps}
       </div>
     )
   }
@@ -166,10 +160,12 @@ Renderer.defaultProps = {
   style: {},
   rendererProps: {}
 }
-function mapStatetoProps(state) {
+function mapStatetoProps(state, props) {
   return {
     scenes: state.SceneReducer.scenes,
-    rendererCallbacks : state.RendererReducer.rendererCallbacks
+    rendererCallbacks: props.name && state.RendererReducer.rendererCallbacks
+      && state.RendererReducer.rendererCallbacks[props.name] ?
+      state.RendererReducer.rendererCallbacks[props.name] : []
   }
 }
 export default connect(mapStatetoProps, {

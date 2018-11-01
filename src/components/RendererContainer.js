@@ -22,7 +22,7 @@ class RendererContainer extends Component {
             <>
                 <TitleBar name="Viewport" className="fixed-top" width={this.props.units && this.props.units[RENDERER].width}>
                 </TitleBar>
-                <Renderer className={NON_DRAGGABLE}
+                <Renderer name="main" className={NON_DRAGGABLE}
                     width={this.props.units && this.props.units[RENDERER].width}
                     height={this.props.units && this.props.units[RENDERER].height}
                     shadowMapEnabled={true}
@@ -44,7 +44,7 @@ class RendererContainer extends Component {
                         <Mesh name="Sphere">
                             <Geometry name="001" type="Sphere"></Geometry>
                             <Material name="001" type="Basic">
-                                <Texture channel="map" name={this.props.envTexture}>
+                                <Texture channel="map" name={this.props.envTexture.texture}>
                                 </Texture>
                             </Material>
                         </Mesh>
@@ -58,6 +58,7 @@ function mapStatetoProps(state, props) {
     return {
         cameras: state.CameraReducer.cameras,
         units: state.WindowReducer.units,
+        envTexture : state.TextureReducer.envTexture
     }
 }
 export default connect(mapStatetoProps, {})(RendererContainer)

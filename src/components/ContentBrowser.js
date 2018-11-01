@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TitleBar from './TitleBar'
+import ContentList from './ContentList'
 import Thumbnail from './Thumbnail'
 import SplitPane from 'react-split-pane'
 import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES } from '../Constants'
@@ -15,26 +16,31 @@ class ContentBrowser extends Component {
         super(props);
         this.loadObject = this.props.loadObject.bind(this);
         this.loadTexture = this.props.loadTexture.bind(this);
-        this.load= this.load.bind(this);
-        this.onDrop=this.onDrop.bind(this);
+        this.load = this.load.bind(this);
+        this.loadContentWithTags = this.loadContentWithTags.bind(this);
+        this.onDrop = this.onDrop.bind(this);
     }
 
-    load(){
+    load() {
         this.dropZone.open()
     }
 
-    onDrop(accepted,rejected){
+    loadContentWithTags(tags){
+        console.log(tags)
+    }
+
+    onDrop(accepted, rejected) {
         accepted.forEach(file => {
-            var fileType= (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name) : undefined;
-            switch (true){
+            var fileType = (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name) : undefined;
+            switch (true) {
                 case IMAGE_TYPES.includes(fileType):
-                this.loadTexture(file)
-                break;
+                    this.loadTexture(file)
+                    break;
                 case OBJECT_TYPES.includes(fileType):
-                this.loadObject(file)
-                break;
+                    this.loadObject(file)
+                    break;
                 default:
-                break;
+                    break;
             }
         });
     }
@@ -46,12 +52,12 @@ class ContentBrowser extends Component {
                     <button type="button" onClick={this.load}>Load</button>
                 </TitleBar>
                 <SplitPane className={NON_DRAGGABLE} split="vertical" defaultSize={300}>
-                    <div className="testDiv"></div>
-                    <DropZone ref={el => this.dropZone=el}
-                              accept={IMAGE_TYPES+OBJECT_TYPES}
-                              className="dropzone" 
-                              disableClick={true}
-                              onDrop={this.onDrop}>
+                    <ContentList updateContents={this.loadContentWithTags}></ContentList>
+                    <DropZone ref={el => this.dropZone = el}
+                        accept={IMAGE_TYPES + OBJECT_TYPES}
+                        className="dropzone"
+                        disableClick={true}
+                        onDrop={this.onDrop}>
                         <ContextMenuTrigger id={CONTENT_MENU}>
                             <div className="fileList">
                                 <Thumbnail id="tnail">
@@ -70,6 +76,9 @@ class ContentBrowser extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    textures : state.TextureReducer.textures,
+    meshes : state.MeshReducer.meshes,
+    materials : state.MaterialReducer.materials
 })
 
 export default connect(mapStateToProps, { loadObject, loadTexture })(ContentBrowser)

@@ -1,16 +1,28 @@
-import { ADD_MATERIAL } from '../actions/types';
+import { ADD_MATERIAL,UPDATE_MATERIAL} from '../actions/types';
 const initialState = {
-    materials: null
+    materials: null,
+    defaultTag : ["material"]
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_MATERIAL:
+        case ADD_MATERIAL :
             return {
                 ...state,
                 materials: {
                     ...state.materials,
                     [action.name]: action.payload
+                }
+            }
+        case UPDATE_MATERIAL :
+            return{
+                ...state,
+                materials:{
+                    ...state.materials,
+                    [action.name]:{
+                        ...state.materials[action.name],
+                        material : action.payload
+                    }
                 }
             }
         default:

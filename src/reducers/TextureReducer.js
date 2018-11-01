@@ -1,6 +1,11 @@
-import { ADD_TEXTURE } from '../actions/types';
+import { ADD_TEXTURE, SET_ENV_TEXTURE } from '../actions/types';
 const initialState = {
-    textures: null
+    textures: null,
+    envTexture: {
+        texture : null,
+        map:null
+    },
+    defaultTag : ["texture"]
 }
 
 export default function (state = initialState, action) {
@@ -13,6 +18,11 @@ export default function (state = initialState, action) {
                     [action.name]: action.payload
                 }
             }
+        case SET_ENV_TEXTURE:
+        return{
+            ...state,
+            envTexture : action.payload
+        }
         default:
             return {
                 ...state

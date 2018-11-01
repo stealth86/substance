@@ -41,7 +41,7 @@ class Scene extends Component {
         const { children } = this.props;
 
         const childrenWithProps = React.Children.map(children, child =>
-          React.cloneElement(child,{ updateScene:this.updateSceneLocal})
+          React.cloneElement(child,{ rendererName:this.props.rendererName, updateScene:this.updateSceneLocal})
         );
         return (
             <>

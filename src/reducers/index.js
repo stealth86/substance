@@ -8,6 +8,7 @@ import TextureReducer from './TextureReducer';
 import MeshReducer from './MeshReducer';
 import LoaderReducer from './LoaderReducer';
 import RendererReducer from './RendererReducer';
+import ContentListReducer from './ContentListReducer';
 import WindowReducer from './WindowReducer';
 
 export default combineReducers({
@@ -19,6 +20,7 @@ export default combineReducers({
     MeshReducer,
     LoaderReducer,
     RendererReducer,
+    ContentListReducer,
     WindowReducer,
     routing : routerReducer
-});
+})

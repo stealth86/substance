@@ -1,5 +1,6 @@
-import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL, ADD_TEXTURE } from './types';
-import { JPG, HDR } from '../Constants';
+import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL } from './types';
+import { JPG, HDR, JPEG } from '../Constants';
+import { addTexture } from './TextureAction'
 import * as THREE from "three-full";
 
 export const loadObject = (file) => (dispatch, getState) => {
@@ -35,19 +36,15 @@ export const loadTexture = (file) => (dispatch, getState) => {
     var fileExtension = file.name.split('.')[1].toLowerCase()
     var url = URL.createObjectURL(file)
     var name= file.name.replace(/\..+$/, '')
-    switch (fileExtension) {
-        case JPG:
+    switch (true) {
+        case (fileExtension===JPG || fileExtension===JPEG):
             const { TextureLoader } = getState().LoaderReducer
             TextureLoader.load(url, (texture) => {
                 texture.name = name
-                dispatch({
-                    type: ADD_TEXTURE,
-                    payload: texture,
-                    name: texture.name
-                })
+                dispatch(addTexture(texture.name,texture))
             })
             break;
-        case HDR:
+        case (fileExtension===HDR):
             const { HDRLoader } = getState().LoaderReducer
             HDRLoader.load(url, (texture) => {
                 texture.name = name
@@ -55,11 +52,7 @@ export const loadTexture = (file) => (dispatch, getState) => {
                 texture.minFilter = THREE.NearestFilter;
                 texture.magFilter = THREE.NearestFilter;
                 texture.flipY = true;
-                dispatch({
-                    type: ADD_TEXTURE,
-                    payload: texture,
-                    name: texture.name
-                })
+                dispatch(addTexture(texture.name,texture))
             })
             break;
         default:

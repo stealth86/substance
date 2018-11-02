@@ -15,12 +15,23 @@ class Renderer extends Component {
     this.renderElement = this.props.canvas || this.renderCanvas;
     const props = this.props;
 
-    this._THREErenderer = new THREE.WebGLRenderer({
-      alpha: this.props.transparent,
-      canvas: this.renderElement,
-      antialias: props.antialias === undefined ? true : props.antialias,
-      ...this.props.rendererProps
-    });
+    if (props.ui) {
+      this._THREErenderer = new THREE.WebGLRenderer({
+        alpha: this.props.transparent,
+        canvas: this.renderElement,
+        antialias: props.antialias === undefined ? true : props.antialias,
+        ...this.props.rendererProps
+      })
+      this._THREErenderer.setPixelRatio(props.pixelRatio);
+      this._THREErenderer.setSize(+props.width, +props.height);
+    } else {
+      this._THREErenderer = new THREE.WebGLRenderer({
+        alpha: this.props.transparent,
+        antialias: props.antialias === undefined ? true : props.antialias,
+        ...this.props.rendererProps
+      })
+      this.renderTarget = new THREE.WebGLRenderTarget(+props.width, +props.height)
+    }
     this.setRenderer(props.name, this._THREErenderer);
     this._THREErenderer.toneMapping = THREE.LinearToneMapping;
     this._THREErenderer.autoClear = false;
@@ -28,8 +39,6 @@ class Renderer extends Component {
     if (props.shadowMapType !== undefined) {
       this._THREErenderer.shadowMap.type = props.shadowMapType;
     }
-    this._THREErenderer.setPixelRatio(props.pixelRatio);
-    this._THREErenderer.setSize(+props.width, +props.height);
     this._THREErenderer.gammaInput = true;
     this._THREErenderer.gammaOutput = true;
 
@@ -62,8 +71,8 @@ class Renderer extends Component {
 
     // warn users of the old listenToClick prop
     //warning(typeof props.listenToClick === 'undefined', "the `listenToClick` prop has been replaced with `pointerEvents`");
-
-    this.renderCanvas.onselectstart = () => false;
+    if (this.props.ui)
+      this.renderCanvas.onselectstart = () => false;
   }
 
   shouldComponentUpdate(newProps) {
@@ -81,20 +90,34 @@ class Renderer extends Component {
     if (props.width !== oldProps.width ||
       props.height !== oldProps.height ||
       props.pixelRatio !== oldProps.pixelRatio) {
-      this._THREErenderer.setSize(+props.width, +props.height);
+      if (props.ui)
+        this._THREErenderer.setSize(+props.width, +props.height);
+      else
+        this.renderTarget.setSize(+props.width, +props.height)
     }
 
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);
     }
-    var currCamera = props.scenes["main"].getObjectByName("mainCamera")
-    if (oldProps.scenes)
-      var oldCamera = oldProps.scenes["main"].getObjectByName("mainCamera")
-    if (oldCamera !== currCamera) {
-      var controls = new THREE.OrbitControls(props.scenes["main"].getObjectByName("mainCamera"), this.renderElement)
-      controls.screenSpacePanning = true
+    if (this.props.ui) {
+      var currCamera = props.scenes["main"].getObjectByName("mainCamera")
+      if (oldProps.scenes)
+        var oldCamera = oldProps.scenes["main"].getObjectByName("mainCamera")
+      if (oldCamera !== currCamera) {
+        var controls = new THREE.OrbitControls(props.scenes["main"].getObjectByName("mainCamera"), this.renderElement)
+        controls.screenSpacePanning = true
+      }
     }
+    this.childScenes=[]
+    React.Children.forEach(this.props.children, element => {
+      if (!React.isValidElement(element)) return
+    
+      this.childScenes = this.childScenes.concat(element.props.name)
+    
+      //do something with source..
+    })
+    //console.log(this.childScenes)
     this.renderScene(this.props.rendererCallbacks);
   }
 
@@ -112,19 +135,18 @@ class Renderer extends Component {
     })
     //this._THREErenderer.clear();
     Object.keys(this.props.scenes ? this.props.scenes : {}).forEach(key => {
-      var scene = this.props.scenes[key]
-      var camera = scene.getObjectByProperty("type", "PerspectiveCamera")
-      if (camera) {
-        this._THREErenderer.render(
-          scene,
-          camera
-        )
+      if (this.childScenes.includes(key)) {
+        var scene = this.props.scenes[key]
+        var camera = scene.getObjectByProperty("type", "PerspectiveCamera")
+        if (camera) {
+          this._THREErenderer.render(
+            scene,
+            camera
+          )
+        }
       }
     })
   }
-
-
-
 
   render() {
     if (this.props.canvas) return null;
@@ -136,7 +158,9 @@ class Renderer extends Component {
     );
     return (
       <div className={this.props.className}>
-        <canvas ref={el => this.renderCanvas = el} style={this.props.style}></canvas>
+        {this.props.ui &&
+          <canvas ref={el => this.renderCanvas = el} style={this.props.style}></canvas>
+        }
         {childrenWithProps}
       </div>
     )

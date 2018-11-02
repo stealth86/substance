@@ -11,9 +11,19 @@ class Scene extends Component {
         this.updateSceneLocal = this.updateSceneLocal.bind(this);
     }
     componentDidMount() {
-        this.scene = new THREE.Scene()
-        this.scene.name = this.props.name
-        this.addScene(this.scene.name, this.scene)
+        if (this.props.scene) {
+            this.scene = this.props.scene
+        } else {
+            this.scene = new THREE.Scene()
+            this.scene.name = this.props.name
+            this.addScene(this.scene.name, this.scene)
+        }
+    }
+
+    shouldComponentUpdate(newProps){
+        if(this.props.scene !==newProps.scene)
+            this.scene=newProps.scene
+        return true;
     }
 
     updateSceneLocal(object) {
@@ -26,7 +36,7 @@ class Scene extends Component {
         const { children } = this.props;
 
         const childrenWithProps = React.Children.map(children, child =>
-            child?React.cloneElement(child, { rendererName: this.props.rendererName, updateScene: this.updateSceneLocal }) : null
+            child ? React.cloneElement(child, { rendererName: this.props.rendererName, sceneName:this.scene?this.scene.name:null, updateScene: this.updateSceneLocal }) : null
         );
         return (
             <>

@@ -6,6 +6,7 @@ export const DEFAULT_FOV = 75
 export const DEFAULT_ASPECT = 1
 export const DEFAULT_NEAR = 0.1
 export const DEFAULT_FAR = 10000
+export const DEFAULT_CUBE_CAMERA_RESOLUTION = 256
 export const WINDOW_MARGIN_X = 2
 export const WINDOW_MARGIN_Y = 2
 export const ROW_HEIGHT = window.innerHeight/30

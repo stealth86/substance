@@ -16,6 +16,7 @@ class Mesh extends Component {
     componentDidMount() {
         if (this.props.mesh) {
             this.mesh = this.props.mesh
+            this.props.updateScene(this.mesh)
         } else {
             this.mesh = new THREE.Mesh()
             this.mesh.name = this.props.name

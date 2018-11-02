@@ -5,7 +5,7 @@ import { addCamera } from '../actions/CameraAction';
 import { addCallback } from '../actions/RendererAction';
 import { DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_NEAR, DEFAULT_FAR } from '../Constants';
 
-class Camera extends Component {
+export class Camera extends Component {
     constructor(props) {
         super(props);
         this.addCamera = this.props.addCamera.bind(this);
@@ -22,8 +22,6 @@ class Camera extends Component {
         this.camera.name = this.props.name
         this.props.position && this.camera.position.set(this.props.position.x,this.props.position.y,this.props.position.z)
         this.addCamera(this.camera.name, this.camera)
-        //console.log("did mount " + this.props.name)
-        //console.log(this.props)
     }
 
     copyRotation(){
@@ -35,10 +33,6 @@ class Camera extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        //console.log("should update")
-        //console.log(this.props)
-        //console.log(nextProps)
-        //console.log(nextProps)
         if(this.props.camera !==nextProps.camera){
             this.camera = nextProps.camera
             this.props.updateScene(this.camera)
@@ -46,21 +40,16 @@ class Camera extends Component {
         if(this.props.aspect!==nextProps.aspect){
             this.camera.aspect=nextProps.aspect
             this.camera.updateProjectionMatrix();
-            //console.log(this.props.aspect)
         }
         if(this.props.copyRotation !== nextProps.copyRotation){
             this.addCallback(this.props.rendererName,1,this.copyRotation)
         }
         if(nextProps.lookAt && this.props.lookAt !== nextProps.lookAt){
-            //console.log(nextProps.lookAt)
             this.addCallback(this.props.rendererName,0,this.lookAt)
         }
         return true;
     }
-    componentDidUpdate() {
-        //console.log("component updated")
-        //console.log(this.props)
-    }
+
     render() {
         return null
     }

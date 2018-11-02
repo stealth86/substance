@@ -21,6 +21,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 rendererCallbacks: {
+                    ...state.rendererCallbacks,
                     [action.name] : callbacks
                 }
             }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Scene from './Scene';
 import Camera from './Camera';
+import CubeCamera from './CubeCamera';
 import Mesh from './Mesh';
 import Geometry from './Geometry';
 import Material from './Material';
@@ -33,6 +34,7 @@ class RendererContainer extends Component {
                             width={this.props.units && this.props.units[RENDERER].width}
                             height={this.props.units && this.props.units[RENDERER].height}
                             shadowMapEnabled={true}
+                            ui={true}
                             pixelRatio={window.devicePixelRatio}>
                             <Scene name="main">
                                 <Camera name="mainCamera"
@@ -51,6 +53,23 @@ class RendererContainer extends Component {
                                     near={0.1}
                                     far={100000}>
                                 </Camera>
+                                <Mesh name="Sphere">
+                                    <Geometry name="001" type="Sphere"></Geometry>
+                                    <Material name="001" type="Basic">
+                                        <Texture channel="map" name={this.props.envTexture.textureName}>
+                                        </Texture>
+                                    </Material>
+                                </Mesh>
+                            </Scene>
+                        </Renderer>
+                        <Renderer name="aux"
+                            shadowMapEnabled={true}
+                            ui={false}
+                            pixelRatio={window.devicePixelRatio}>
+                            <Scene name="background">
+                                <CubeCamera name="cubeCamera" near={0.1} static={true}
+                                    far={100000} resolution={512}>
+                                </CubeCamera>
                                 <Mesh name="Sphere">
                                     <Geometry name="001" type="Sphere"></Geometry>
                                     <Material name="001" type="Basic">

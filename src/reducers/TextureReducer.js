@@ -1,10 +1,13 @@
 import { ADD_TEXTURE, SET_ENV_TEXTURE } from '../actions/types';
+import defaultPreview from '../images/texture.png';
+
 const initialState = {
     textures: null,
     envTexture: {
-        texture : null,
+        textureName : null,
         map:null
     },
+    defaultPreview : defaultPreview,
     defaultTag : ["texture"]
 }
 

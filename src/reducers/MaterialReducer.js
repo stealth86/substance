@@ -1,7 +1,10 @@
 import { ADD_MATERIAL,UPDATE_MATERIAL} from '../actions/types';
+import defaultPreview from '../images/material.png';
+
 const initialState = {
     materials: null,
-    defaultTag : ["material"]
+    defaultTag : ["material"],
+    defaultPreview : defaultPreview
 }
 
 export default function (state = initialState, action) {

@@ -21,8 +21,8 @@ class ContentBrowser extends Component {
         this.loadContentWithTags = this.loadContentWithTags.bind(this);
         this.onDrop = this.onDrop.bind(this);
         this.onFileSelect = this.onFileSelect.bind(this);
-        this.state = {
-            tagString: ""
+        this.state={
+            tags : ["texture"]
         }
     }
 
@@ -31,9 +31,7 @@ class ContentBrowser extends Component {
     }
 
     loadContentWithTags(tags) {
-        var tagString = ""
-        tags.forEach(tag => tagString = tagString + tag + ",")
-        this.setState({ tagString: tagString })
+        this.setState({tags:tags})
     }
 
     onFileSelect() {
@@ -73,18 +71,21 @@ class ContentBrowser extends Component {
                             <ContextMenuTrigger id={CONTENT_MENU}>
                                 <div className="fileList">
                                     {Object.keys(this.props.textures ? this.props.textures : {}).map(texture => (
-                                        this.state.tagString.includes(this.props.textures[texture].tags) &&
-                                        <Thumbnail key={texture} id={texture} previewImage={this.props.textures[texture].preview} text={texture} >
+                                        this.props.textures[texture].tags.every(tag=>this.state.tags.includes(tag)) &&
+                                        <Thumbnail key={texture} id={texture} 
+                                                   previewImage={this.props.textures[texture].preview} 
+                                                   text={texture} 
+                                                   item={this.props.textures[texture].texture}>
                                         </Thumbnail>
                                     ))}
                                     {Object.keys(this.props.meshes ? this.props.meshes : {}).map(mesh => (
-                                        this.state.tagString.includes(this.props.meshes[mesh].tags) &&
-                                        <Thumbnail key={mesh} id={texture} previewImage={this.props.textures[texture].preview} text={texture} >
+                                        this.props.meshes[mesh].tags.every(tag=>this.state.tags.includes(tag)) &&
+                                        <Thumbnail key={mesh} id={mesh} previewImage={this.props.meshes[mesh].preview} text={mesh} >
                                         </Thumbnail>
                                     ))}
-                                    {Object.keys(this.props.textures ? this.props.textures : {}).map(texture => (
-                                        this.state.tagString.includes(this.props.textures[texture].tags) &&
-                                        <Thumbnail key={texture} id={texture} previewImage={this.props.textures[texture].preview} text={texture} >
+                                    {Object.keys(this.props.materials ? this.props.materials : {}).map(material => (
+                                        this.props.materials[material].tags.every(tag=>this.state.tags.includes(tag))  &&
+                                        <Thumbnail key={material} id={material} previewImage={this.props.materials[material].preview} text={material} >
                                         </Thumbnail>
                                     ))}
                                 </div>
@@ -98,7 +99,7 @@ class ContentBrowser extends Component {
     }
 }
 
-const squareTarget = {
+const fileTarget = {
     drop(props, monitor, component) {
         console.log(monitor.getItem().files)
         component.onDrop(monitor.getItem().files)
@@ -117,4 +118,4 @@ const mapStateToProps = (state) => ({
     materials: state.MaterialReducer.materials
 })
 
-export default connect(mapStateToProps, { loadObject, loadTexture })(DropTarget(NativeTypes.FILE, squareTarget, collect)(ContentBrowser))
+export default connect(mapStateToProps, { loadObject, loadTexture })(DropTarget(NativeTypes.FILE, fileTarget, collect)(ContentBrowser))

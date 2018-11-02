@@ -30,7 +30,7 @@ class Material extends Component {
 
     updateMaterialLocal(channel, texture) {
         if (this.material) {
-            this.updateMaterial(this.material, channel, texture)
+            this.updateMaterial(this.material, {[channel]:texture})
         }
     }
 

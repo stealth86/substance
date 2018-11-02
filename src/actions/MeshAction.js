@@ -1,8 +1,7 @@
 import { ADD_MESH ,UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL } from './types';
-import defaultPreview from '../images/texture.png';
 
 export const addMesh = (name,mesh,tags) => (dispatch,getState) => {
-    const {defaultTag} = getState().MeshReducer
+    const {defaultTag,defaultPreview} = getState().MeshReducer
     dispatch({
         type: ADD_MESH,
         payload: {mesh:mesh,preview:defaultPreview,tags:tags?tags.concat(defaultTag):defaultTag},

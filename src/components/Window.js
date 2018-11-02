@@ -40,7 +40,7 @@ class Window extends Component {
                     width={this.props.containerWidth}
                     draggableCancel={"." + NON_DRAGGABLE}>
                     <div key={RENDERER}>
-                        <RendererContainer envTexture={this.state.envTexture}></RendererContainer>
+                        <RendererContainer type="CARD"></RendererContainer>
                     </div>
                     <div key={CONTENT} className="bb">
                         <ContentBrowser></ContentBrowser>

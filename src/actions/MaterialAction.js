@@ -1,8 +1,7 @@
 import { ADD_MATERIAL , UPDATE_MATERIAL} from './types';
-import defaultPreview from '../images/texture.png';
 
 export const addMaterial = (name,material,tags) => (dispatch,getState) => {
-    const {defaultTag} = getState().MaterialReducer
+    const {defaultTag,defaultPreview} = getState().MaterialReducer
     dispatch({
         type: ADD_MATERIAL,
         payload: {material:material,preview:defaultPreview,tags:tags?tags.concat(defaultTag):defaultTag},
@@ -11,8 +10,8 @@ export const addMaterial = (name,material,tags) => (dispatch,getState) => {
 }
 
 export const updateMaterial = (material,attributes) => (dispatch) => {
-    Object.keys(attributes).forEach((key, value)=>{
-        material[key]=value
+    Object.keys(attributes).forEach((key)=>{
+        material[key]=attributes[key]
     })
     material.needsUpdate=true
     dispatch({

@@ -1,7 +1,10 @@
 import { ADD_MESH, UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL } from '../actions/types';
+import defaultPreview from '../images/mesh.png';
+
 const initialState = {
     meshes: null,
-    defaultTag : ["mesh"]
+    defaultTag : ["mesh"],
+    defaultPreview : defaultPreview
 }
 
 export default function (state = initialState, action) {

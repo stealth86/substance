@@ -14,12 +14,18 @@ class Mesh extends Component {
     }
 
     componentDidMount() {
-        this.mesh = new THREE.Mesh()
-        this.mesh.name = this.props.name
-        this.addMesh(this.props.name, this.mesh)
+        if (this.props.mesh) {
+            this.mesh = this.props.mesh
+        } else {
+            this.mesh = new THREE.Mesh()
+            this.mesh.name = this.props.name
+            this.addMesh(this.props.name, this.mesh)
+        }
     }
 
     shouldComponentUpdate(newProps) {
+        if(this.props.mesh!==newProps.mesh)
+            this.mesh=newProps.mesh
         if (this.mesh)
             this.props.updateScene(this.mesh)
         return true;

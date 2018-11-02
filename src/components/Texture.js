@@ -9,7 +9,7 @@ class Texture extends Component {
     }
 
     shouldComponentUpdate(newProps) {
-        console.log(newProps.texture)
+        //console.log(newProps.texture)
         if (newProps.texture !== this.props.texture)
             this.props.updateMaterial(this.props.channel, newProps.texture)
         return true;

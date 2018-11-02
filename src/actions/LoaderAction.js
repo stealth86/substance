@@ -1,4 +1,6 @@
-import { LOAD_OBJECT, ADD_MESH, ADD_MATERIAL } from './types';
+import { LOAD_OBJECT } from './types';
+import { addMesh } from './MeshAction';
+import { addMaterial } from './MaterialAction';
 import { JPG, HDR, JPEG } from '../Constants';
 import { addTexture } from './TextureAction'
 import * as THREE from "three-full";
@@ -9,18 +11,10 @@ export const loadObject = (file) => (dispatch, getState) => {
         object.name = file.name.replace(/\..+$/, '')
         object.traverse(child => {
             if (child.isMesh) {
-                dispatch({
-                    type: ADD_MESH,
-                    payload: child,
-                    name: child.name
-                })
+                dispatch(addMesh(child.name,child))
                 var materialArray = [].concat(child.material || [])
                 materialArray.forEach(material => {
-                    dispatch({
-                        type: ADD_MATERIAL,
-                        payload: material,
-                        name: material.name
-                    })
+                    dispatch(addMaterial(material.name,material))
                 })
             }
         })

@@ -4,7 +4,7 @@ import TitleBar from './TitleBar'
 import ContentList from './ContentList'
 import Thumbnail from './Thumbnail'
 import SplitPane from 'react-split-pane'
-import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES } from '../Constants'
+import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES, TEXTURE, MESH, MATERIAL } from '../Constants'
 import { loadObject, loadTexture } from '../actions/LoaderAction';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { NativeTypes } from 'react-dnd-html5-backend'
@@ -75,17 +75,27 @@ class ContentBrowser extends Component {
                                         <Thumbnail key={texture} id={texture} 
                                                    previewImage={this.props.textures[texture].preview} 
                                                    text={texture} 
-                                                   item={this.props.textures[texture].texture}>
+                                                   item={this.props.textures[texture].texture}
+                                                   type={TEXTURE}>
                                         </Thumbnail>
                                     ))}
                                     {Object.keys(this.props.meshes ? this.props.meshes : {}).map(mesh => (
                                         this.props.meshes[mesh].tags.every(tag=>this.state.tags.includes(tag)) &&
-                                        <Thumbnail key={mesh} id={mesh} previewImage={this.props.meshes[mesh].preview} text={mesh} >
+                                        <Thumbnail key={mesh} id={mesh} 
+                                                   previewImage={this.props.meshes[mesh].preview} 
+                                                   text={mesh} 
+                                                   item={this.props.meshes[mesh].mesh}
+                                                   type={MESH}>
                                         </Thumbnail>
                                     ))}
                                     {Object.keys(this.props.materials ? this.props.materials : {}).map(material => (
                                         this.props.materials[material].tags.every(tag=>this.state.tags.includes(tag))  &&
-                                        <Thumbnail key={material} id={material} previewImage={this.props.materials[material].preview} text={material} >
+                                        <Thumbnail key={material} 
+                                                   id={material} 
+                                                   previewImage={this.props.materials[material].preview} 
+                                                   text={material}
+                                                   item={this.props.materials[material].material}
+                                                   type={MATERIAL} >
                                         </Thumbnail>
                                     ))}
                                 </div>

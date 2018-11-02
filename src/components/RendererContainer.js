@@ -10,12 +10,15 @@ import Renderer from './Renderer';
 import TitleBar from './TitleBar';
 import { setEnvTexture } from '../actions/TextureAction';
 import { DropTarget } from 'react-dnd';
-import { NON_DRAGGABLE, RENDERER } from '../Constants';
+import { NON_DRAGGABLE, RENDERER, TEXTURE, MESH } from '../Constants';
 
 class RendererContainer extends Component {
     constructor(props) {
         super(props);
         this.setEnvTexture = this.props.setEnvTexture.bind(this);
+        this.state ={
+            activeMesh : null
+        }
     }
 
     render() {
@@ -36,6 +39,9 @@ class RendererContainer extends Component {
                                     position={{ x: 500, y: 500, z: 200 }}
                                     aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1} >
                                 </Camera>
+                                {this.state.activeMesh &&
+                                <Mesh name={this.state.activeMesh}></Mesh>
+                                }
                             </Scene>
                             <Scene name="background">
                                 <Camera name="backgroundCamera"
@@ -62,8 +68,17 @@ class RendererContainer extends Component {
 
 const rendererTarget = {
     drop(props, monitor, component) {
-        console.log(monitor.getItem())
-        component.setEnvTexture(monitor.getItem().id)
+        var item=monitor.getItem()
+        switch(item.type){
+            case TEXTURE:
+                component.setEnvTexture(item.id)
+                break;
+            case MESH:
+                component.setState({activeMesh:item.id})
+                break;
+            default:
+                break;
+        }
     }
 };
 

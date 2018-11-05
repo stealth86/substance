@@ -9,9 +9,11 @@ import Material from './Material';
 import Texture from './Texture';
 import Renderer from './Renderer';
 import TitleBar from './TitleBar';
+import * as THREE from 'three-full';
 import { setEnvTexture } from '../actions/TextureAction';
 import { DropTarget } from 'react-dnd';
 import { NON_DRAGGABLE, RENDERER, TEXTURE, MESH } from '../Constants';
+import StandardMaterial from './StandardMaterial';
 
 class RendererContainer extends Component {
     constructor(props) {
@@ -42,7 +44,11 @@ class RendererContainer extends Component {
                                     aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1} >
                                 </Camera>
                                 {this.state.activeMesh &&
-                                <Mesh name={this.state.activeMesh}></Mesh>
+                                <Mesh name={this.state.activeMesh}>
+                                    <StandardMaterial name="standard">
+                                        <Texture channel="envMap" name="envTexture"></Texture>
+                                    </StandardMaterial>
+                                </Mesh>
                                 }
                             </Scene>
                             <Scene name="background">
@@ -53,27 +59,13 @@ class RendererContainer extends Component {
                                     near={0.1}
                                     far={100000}>
                                 </Camera>
-                                <Mesh name="Sphere">
-                                    <Geometry name="001" type="Sphere"></Geometry>
-                                    <Material name="001" type="Basic">
-                                        <Texture channel="map" name={this.props.envTexture.textureName}>
-                                        </Texture>
-                                    </Material>
-                                </Mesh>
-                            </Scene>
-                        </Renderer>
-                        <Renderer name="aux"
-                            shadowMapEnabled={true}
-                            ui={false}
-                            pixelRatio={window.devicePixelRatio}>
-                            <Scene name="background">
                                 <CubeCamera name="cubeCamera" near={0.1} static={true}
                                     far={100000} resolution={512}>
                                 </CubeCamera>
                                 <Mesh name="Sphere">
                                     <Geometry name="001" type="Sphere"></Geometry>
-                                    <Material name="001" type="Basic">
-                                        <Texture channel="map" name={this.props.envTexture.textureName}>
+                                    <Material name="001" side={THREE.BackSide}>
+                                        <Texture channel="map" name={this.props.envTexture}>
                                         </Texture>
                                     </Material>
                                 </Mesh>

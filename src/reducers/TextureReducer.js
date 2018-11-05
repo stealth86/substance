@@ -3,10 +3,7 @@ import defaultPreview from '../images/texture.png';
 
 const initialState = {
     textures: null,
-    envTexture: {
-        textureName : null,
-        map:null
-    },
+    envTexture: null,
     defaultPreview : defaultPreview,
     defaultTag : ["texture"]
 }
@@ -25,7 +22,7 @@ export default function (state = initialState, action) {
         return{
             ...state,
             envTexture : action.payload
-        }
+        }        
         default:
             return {
                 ...state

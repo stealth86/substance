@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MESH_BASIC_MATERIAL, MATERIAL } from '../Constants';
+import { MATERIAL } from '../Constants';
 import * as THREE from 'three-full';
 import { addMaterial, updateMaterial } from '../actions/MaterialAction';
 
-class Material extends Component {
+export class Material extends Component {
     constructor(props) {
         super(props);
-        //console.log(this.props)
         this.addMaterial = this.props.addMaterial.bind(this);
         this.updateMaterial = this.props.updateMaterial.bind(this);
         this.updateMaterialLocal = this.updateMaterialLocal.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.type === MESH_BASIC_MATERIAL) {
+        if (this.props.material)
+            this.material = this.props.material
+        else {
             this.material = new THREE.MeshBasicMaterial()
-            this.material.side = THREE.BackSide
+            if(this.props.side) this.material.side=this.props.side
             this.material.name = this.props.name
             this.addMaterial(this.material.name, this.material)
         }
+        this.updateMaterial(this.material,{[this.channel]:this.texture})
     }
 
     shouldComponentUpdate(newProps) {
+        if(newProps.material !== this.props.material)
+            this.material = newProps.material
         if (this.material)
             this.props.updateMesh(MATERIAL, this.material)
         return true;
     }
 
     updateMaterialLocal(channel, texture) {
+        this.channel=channel
+        this.texture=texture
         if (this.material) {
-            this.updateMaterial(this.material, {[channel]:texture})
+            this.updateMaterial(this.material, { [channel]: texture })
         }
     }
 

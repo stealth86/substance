@@ -24,6 +24,13 @@ class Renderer extends Component {
       })
       this._THREErenderer.setPixelRatio(props.pixelRatio);
       this._THREErenderer.setSize(+props.width, +props.height);
+      this._THREErenderer.toneMapping = THREE.LinearToneMapping;
+      this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
+      if (props.shadowMapType !== undefined) {
+        this._THREErenderer.shadowMap.type = props.shadowMapType;
+      }
+      this._THREErenderer.gammaInput = true;
+      this._THREErenderer.gammaOutput = true;  
     } else {
       this._THREErenderer = new THREE.WebGLRenderer({
         alpha: this.props.transparent,
@@ -32,16 +39,8 @@ class Renderer extends Component {
       })
       this.renderTarget = new THREE.WebGLRenderTarget(+props.width, +props.height)
     }
-    this.setRenderer(props.name, this._THREErenderer);
-    this._THREErenderer.toneMapping = THREE.LinearToneMapping;
     this._THREErenderer.autoClear = false;
-    this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
-    if (props.shadowMapType !== undefined) {
-      this._THREErenderer.shadowMap.type = props.shadowMapType;
-    }
-    this._THREErenderer.gammaInput = true;
-    this._THREErenderer.gammaOutput = true;
-
+    this.setRenderer(props.name, this._THREErenderer);
     const backgroundtype = typeof props.background;
     if (backgroundtype !== 'undefined') {
       this._THREErenderer.setClearColor(props.background, this.props.transparent ? 0 : 1);

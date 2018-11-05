@@ -8,6 +8,7 @@ import { updateLayout, initializeLayout } from '../actions/WindowAction';
 import { NON_DRAGGABLE, RENDERER, CONTENT } from '../Constants';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import NodeEditor from './NodeEditor';
 import { ContextMenuContainer } from './ContextMenuContainer';
 
 class Window extends Component {
@@ -16,6 +17,7 @@ class Window extends Component {
         this.state = {
             layout: [
                 { i: RENDERER, x: 0, y: 0, w: 4, h: 14 },
+                { i: "node", x: 4, y: 0, w: 8, h: 14 },
                 { i: CONTENT, x: 0, y: 14, w: 8, h: 13.5 },
             ]
         }
@@ -42,8 +44,11 @@ class Window extends Component {
                     <div key={RENDERER}>
                         <RendererContainer type="CARD"></RendererContainer>
                     </div>
-                    <div key={CONTENT} className="bb">
+                    <div key={CONTENT} className="contentWindow">
                         <ContentBrowser></ContentBrowser>
+                    </div>
+                    <div key="node" className="contentWindow">
+                        <NodeEditor></NodeEditor>
                     </div>
                 </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>

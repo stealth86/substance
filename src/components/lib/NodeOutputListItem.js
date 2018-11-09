@@ -17,7 +17,11 @@ export default class NodeOutputListItem extends React.Component {
 	render() {
 		return (
 			<li onMouseDown={(e)=>this.onMouseDown(e)}>
-				<a href="google.com" onClick={(e)=>this.noop(e)}>{this.props.item.name} <i className="fa fa-circle-o"></i></a>
+				<span href="google.com" onClick={(e)=>this.noop(e)}>{this.props.item.name} 
+				</span>
+				<svg height="8" width="8">
+					<circle cx="4" cy="4" r="4"></circle>
+				</svg>
 			</li>
 		);
 	}

@@ -10,38 +10,37 @@ export default class NodeInputListItem extends React.Component {
 
 	onMouseUp(e) {
 		e.stopPropagation();
-  		e.preventDefault();
+		e.preventDefault();
 
 		this.props.onMouseUp(this.props.index);
 	}
 
-  onMouseOver() {
-		this.setState({hover: true});
+	onMouseOver() {
+		this.setState({ hover: true });
 	}
 
 	onMouseOut() {
-    this.setState({hover: false});
-  }
+		this.setState({ hover: false });
+	}
 
 	noop(e) {
 		e.stopPropagation();
-  		e.preventDefault();
+		e.preventDefault();
 	}
 
 	render() {
-		let {name} = this.props.item;
-		let {hover} = this.state;
+		let { name } = this.props.item;
+		let { hover } = this.state;
 
 		return (
 			<li>
-				<a onClick={(e)=>this.noop(e)} onMouseUp={(e)=>this.onMouseUp(e)} href="google.com">
-					<i className={hover ? 'fa fa-circle-o hover' : 'fa fa-circle-o'}
-						 onMouseOver={() => {this.onMouseOver()}}
-						 onMouseOut={() => {this.onMouseOut()}}
-					></i>
+				<svg height="8" width="8">
+					<circle cx="4" cy="4" r="4" fill="green"></circle>
+				</svg>
+				<span onClick={(e) => this.noop(e)} onMouseUp={(e) => this.onMouseUp(e)} href="google.com">
 					{name}
-				</a>
+				</span>
 			</li>
-		);			
+		);
 	}
 }

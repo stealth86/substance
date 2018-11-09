@@ -11,12 +11,6 @@
 .node {
 	position: absolute; 
 	width:180px;
-    border: 1px solid transparent;
-	border-radius: 4px;
-	-webkit-box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
-	-moz-box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
-	box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
-	background-color: rgba(0,0,0,.7);
     user-select: none;
 }
 
@@ -30,7 +24,18 @@
 	border-color: black;
 }
 
+.nodeWrapper{
+
+}
+
 .node-content {
+	display:flex;
+	flex-direction:row;
+	border: 1px solid transparent;
+	-webkit-box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
+	-moz-box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
+	box-shadow: 6px 6px 28px -2px rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,.7);
 	padding: 10px;
 }
 
@@ -40,7 +45,6 @@
 
 .node-header {
 	cursor: all-scroll;
-
 	background: black;
 	
 	padding-left: 10px;
@@ -108,13 +112,11 @@
 }
 
 .nodeInputWrapper {
-	width : 65%;
-	float: left;
+	flex:0.5;
 }
 
 .nodeOutputWrapper {
-	width : 35%;
-	float: right;
+	flex:0.5;
 	text-align: right;
 }
 

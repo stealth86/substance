@@ -166,6 +166,7 @@ export default class ReactNodeGraph extends React.Component {
 						outputs={node.fields.out}
 						pos={{ x: node.x, y: node.y }}
 						key={node.nid}
+						scale={this.props.scale}
 
 						onNodeStart={(nid) => this.handleNodeStart(nid)}
 						onNodeStop={(nid, pos) => this.handleNodeStop(nid, pos)}

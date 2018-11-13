@@ -367,6 +367,9 @@ module.exports = {
       fileName: 'asset-manifest.json',
       publicPath: publicPath,
     }),
+    new webpack.ProvidePlugin({
+      _ : 'lodash'
+    })
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

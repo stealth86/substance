@@ -32,10 +32,6 @@ class Node extends React.Component {
     console.log(this.state.x,this.state.y)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.selected !== nextState.selected;
-  }
-
   onStartConnector(index) {
     this.props.onStartConnector(this.props.nid, index);
   }

@@ -6,7 +6,7 @@ export default class NodeOutputListItem extends React.Component {
 		e.stopPropagation();
   		e.preventDefault();
 
-		this.props.onMouseDown(this.props.index);
+		//this.props.onMouseDown(this.props.index);
 	}
 
 	noop(e) {
@@ -19,8 +19,8 @@ export default class NodeOutputListItem extends React.Component {
 			<li onMouseDown={(e)=>this.onMouseDown(e)}>
 				<span href="google.com" onClick={(e)=>this.noop(e)}>{this.props.item.name} 
 				</span>
-				<svg height="8" width="8">
-					<circle cx="4" cy="4" r="4"></circle>
+				<svg height="12" width="12" style={{transform:"translate(16px,0px)"}}>
+					<circle cx="6" cy="6" r="6" style={{cursor:"pointer"}}></circle>
 				</svg>
 			</li>
 		);

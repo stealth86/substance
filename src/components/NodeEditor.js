@@ -72,10 +72,15 @@ class NodeEditor extends Component {
 
   moveDiv(e){
     if(this.down){
-    this.scrollDiv.scrollBy(this.startx-e.clientX,this.starty-e.clientY)
+    this.scroller(this.startx-e.clientX,this.starty-e.clientY)
     this.startx=e.clientX
     this.starty=e.clientY
+    console.log(this.scrollDiv.offsetTop)
     }
+  }
+
+  scroller(x,y){
+    this.scrollDiv.scrollBy(x,y)
   }
 
   render() {
@@ -88,6 +93,7 @@ class NodeEditor extends Component {
           <ReactNodeGraph
             scale={this.state.scale}
             data={this.state}
+            scrollDiv={(x,y)=>this.scroller(x,y)}
             onNodeMove={(nid, pos) => this.onNodeMove(nid, pos)}
             onNodeStartMove={(nid) => this.onNodeStartMove(nid)}
             onNewConnector={(n1, o, n2, i) => this.onNewConnector(n1, o, n2, i)}

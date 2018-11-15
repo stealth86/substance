@@ -13,7 +13,9 @@ export default class ReactNodeGraph extends React.Component {
 		this.state = {
 			data: this.props.data,
 			source: [],
-			dragging: false
+			dragging: false,
+			offSetTop : 0,
+			offSetLeft :0
 		}
 
 		this.onMouseMove = this.onMouseMove.bind(this);
@@ -63,12 +65,10 @@ export default class ReactNodeGraph extends React.Component {
 	}
 
 	handleNodeMove(index, pos) {
-		let d = this.state.data;
-
-		d.nodes[index].x = pos.x;
-		d.nodes[index].y = pos.y;
-
-		this.setState({ data: d });
+		console.log(pos.y,this.nodeDiv.offsetTop)
+			this.setState({offSetTop:pos.y-20<-this.nodeDiv.offsetTop?this.state.offSetTop-pos.deltaY:this.state.offSetTop,
+			               offSetLeft:pos.x-20<-this.nodeDiv.offsetLeft?this.state.offSetLeft-pos.deltaX:this.state.offSetLeft})
+		this.props.scrollDiv(pos.x-20<-this.nodeDiv.offsetLeft?pos.deltaX:0,pos.y-20<-this.nodeDiv.offsetTop?pos.deltaY:0)		
 	}
 
 	handleStartConnector(nid, outputIndex) {
@@ -155,7 +155,8 @@ export default class ReactNodeGraph extends React.Component {
 		let splineIndex = 0;
 
 		return (
-			<div className={dragging ? 'dragging' : ''} >
+			<div className={dragging ? 'dragging' : ''} ref={el=> this.nodeDiv=el} 
+			                                            style={{marginTop:`${this.state.offSetTop}px`,marginLeft:`${this.state.offSetLeft}px`}}>
 				{nodes.map((node) => {
 					return <Node
 						index={i++}

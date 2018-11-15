@@ -26,11 +26,11 @@ class Node extends React.Component {
   }
 
   handleDrag(event, ui) {
-    //this.props.onNodeMove(this.props.index, ui);
+    this.props.onNodeMove(this.props.index, ui);
     //var scale=this.state.scale
     this.setState({x:ui.x,y:ui.y})
     event.stopPropagation();
-    console.log(ui.x,ui.y)
+    //console.log(ui.x,ui.y)
     //console.log(this.state.x,this.state.y)
   }
 

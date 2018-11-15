@@ -132,7 +132,6 @@ export default class ReactNodeGraph extends React.Component {
 		}
 	}
 
-
 	render() {
 		let nodes = this.state.data.nodes;
 		let connectors = this.state.data.connections;

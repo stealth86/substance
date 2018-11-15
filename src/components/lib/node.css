@@ -5,12 +5,12 @@
 .nodeGraph{
 	position: relative;
 	overflow: auto;
-	width:auto;
-	height:100%;
+	width: auto;
+	height: 100%;
 }
 .node {
 	position: absolute; 
-	width:200px;
+	width:auto;
     user-select: none;
 }
 
@@ -112,11 +112,13 @@
 }
 
 .nodeInputWrapper {
-	flex:0.75;
+	padding-right: 10px;
+	flex:auto;
 }
 
 .nodeOutputWrapper {
-	flex:0.35;
+	flex:auto;
+	padding-left:10px;
 	text-align: right;
 }
 

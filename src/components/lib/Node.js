@@ -29,7 +29,9 @@ class Node extends React.Component {
     //this.props.onNodeMove(this.props.index, ui);
     //var scale=this.state.scale
     this.setState({x:ui.x,y:ui.y})
-    console.log(this.state.x,this.state.y)
+    event.stopPropagation();
+    console.log(ui.x,ui.y)
+    //console.log(this.state.x,this.state.y)
   }
 
   onStartConnector(index) {
@@ -49,12 +51,12 @@ class Node extends React.Component {
 
   setScale(value){
     this.setState({scale:value})
-    console.log(this.state.scale)
+    //console.log(this.state.scale)
   }
 
   shouldComponentUpdate(newProps){
     if(this.props.scale!==newProps.scale){
-      console.log(newProps.scale)
+      //console.log(newProps.scale)
       this.setState({scaled:true,x:(this.state.x/this.props.scale)*newProps.scale,y:(this.state.y/this.props.scale)*newProps.scale})
     }
     return true;
@@ -69,7 +71,7 @@ class Node extends React.Component {
   }
 
   componentDidUpdate(){
-    console.log(this.state.x,this.state.y)
+    //console.log(this.state.x,this.state.y)
     if(this.state.scaled)
       this.setState({scaled:false})
   }

@@ -70,13 +70,21 @@ class NodeEditor extends Component {
     this.setState({scale:value})
   }
 
+  moveDiv(e){
+    if(this.down){
+    this.scrollDiv.scrollBy(this.startx-e.clientX,this.starty-e.clientY)
+    this.startx=e.clientX
+    this.starty=e.clientY
+    }
+  }
+
   render() {
     return (
       <>
         <TitleBar name="Node">
         <NumericInput step={0.1} precision={2} value={this.state.scale} onChange={(value)=>this.setScale(value)}/>
         </TitleBar>
-        <div className={"nodeGraph "+NON_DRAGGABLE}>
+        <div ref={el=>this.scrollDiv=el} onMouseLeave={()=>this.down=false} onMouseDown={(e)=>{this.down=true;this.startx=e.clientX;this.starty=e.clientY}} onMouseUp={()=>this.down=false} onMouseMove={(e)=>this.moveDiv(e)} className={"nodeGraph "+NON_DRAGGABLE}>
           <ReactNodeGraph
             scale={this.state.scale}
             data={this.state}

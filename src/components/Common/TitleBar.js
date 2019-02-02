@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NON_DRAGGABLE } from '../Constants';
+import { NON_DRAGGABLE } from '../../Constants';
 
 class TitleBar extends Component {
     shouldComponentUpdate(nextProps){

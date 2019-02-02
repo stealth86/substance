@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RendererContainer from './RendererContainer';
-import ContentBrowser from './ContentBrowser';
+import RendererContainer from '../RendererContainer';
+import ContentBrowser from '../Content/ContentBrowser';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
-import { updateLayout, initializeLayout } from '../actions/WindowAction';
-import { NON_DRAGGABLE, RENDERER, CONTENT } from '../Constants';
+import { updateLayout, initializeLayout } from '../../actions/WindowAction';
+import { NON_DRAGGABLE, RENDERER, CONTENT } from '../../Constants';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import NodeEditor from './NodeEditor';
+import MaterialSelector from '../MaterialList/MaterialSelector';
 import { ContextMenuContainer } from './ContextMenuContainer';
 
 class Window extends Component {
@@ -17,7 +17,8 @@ class Window extends Component {
         this.state = {
             layout: [
                 { i: RENDERER, x: 0, y: 0, w: 4, h: 14 },
-                { i: "node", x: 4, y: 0, w: 8, h: 14 },
+                { i: "material", x: 4, y: 0, w: 2, h: 14 },
+                { i: "settings", x: 4, y: 0, w: 4, h: 14 },
                 { i: CONTENT, x: 0, y: 14, w: 8, h: 13.5 },
             ]
         }
@@ -47,10 +48,10 @@ class Window extends Component {
                     <div key={CONTENT} className="contentWindow">
                         <ContentBrowser></ContentBrowser>
                     </div>
-                    <div key="node" className="contentWindow">
-                        <NodeEditor></NodeEditor>
+                    <div key="material" className="contentWindow">
+                        <MaterialSelector></MaterialSelector>
                     </div>
-                </ResponsiveGridLayout>
+                 </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>
             </>
         )

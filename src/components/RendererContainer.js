@@ -8,7 +8,7 @@ import Geometry from './Geometry';
 import Material from './Material';
 import Texture from './Texture';
 import Renderer from './Renderer';
-import TitleBar from './TitleBar';
+import TitleBar from './Common/TitleBar';
 import * as THREE from 'three-full';
 import { setEnvTexture } from '../actions/TextureAction';
 import { DropTarget } from 'react-dnd';

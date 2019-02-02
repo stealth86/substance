@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { store, history } from './store';
-import Window from './components/Window';
+import Window from './components/Window/Window';
 import './App.css';
 
 class App extends Component {

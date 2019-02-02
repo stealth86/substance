@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TitleBar from './TitleBar'
+import TitleBar from '../Common/TitleBar'
 import ContentList from './ContentList'
-import Thumbnail from './Thumbnail'
+import Thumbnail from '../Common/Thumbnail'
 import SplitPane from 'react-split-pane'
-import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES, TEXTURE, MESH, MATERIAL } from '../Constants'
-import { loadObject, loadTexture } from '../actions/LoaderAction';
+import { NON_DRAGGABLE, CONTENT_MENU, IMAGE_TYPES, OBJECT_TYPES, TEXTURE, MESH, MATERIAL } from '../../Constants'
+import { loadObject, loadTexture } from '../../actions/LoaderAction';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd';

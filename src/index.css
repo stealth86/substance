@@ -7,6 +7,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color : rgba(255, 255, 255, 0.5) !important;
+}
+
+button:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+button {
+  color: #999999;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  padding-left : 0.3rem;
+  padding-right : 0.3rem;
+  border-radius: 0.1rem !important;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+button:hover {
+  background-color:#999999; /* Green */
+  color: #333333;
 }
 
 code {

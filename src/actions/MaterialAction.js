@@ -1,4 +1,4 @@
-import { ADD_MATERIAL , UPDATE_MATERIAL} from './types';
+import { ADD_MATERIAL , UPDATE_MATERIAL, SET_ACTIVE_MATERIAL} from './types';
 
 export const addMaterial = (name,material,tags) => (dispatch,getState) => {
     const {defaultTag,defaultPreview} = getState().MaterialReducer
@@ -18,5 +18,12 @@ export const updateMaterial = (material,attributes) => (dispatch) => {
         type: UPDATE_MATERIAL,
         payload: material,
         name : material.name
+    })
+}
+
+export const setActiveMaterial = (name) => (dispatch) => {
+    dispatch({
+        type: SET_ACTIVE_MATERIAL,
+        payload: name
     })
 }

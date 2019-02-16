@@ -1,4 +1,5 @@
 export const ADD_MESH = "ADD_MESH";
+export const SET_ACTIVE_MESH = "SET_ACTIVE_MESH";
 export const ADD_GEOMETRY = "ADD_GEOMETRY";
 export const ADD_TEXTURE = "ADD_TEXTURE";
 export const ADD_SCENE = "ADD_SCENE";
@@ -9,6 +10,7 @@ export const UPDATE_MESH_MATERIAL = "UPDATE_MESH_MATERIAL";
 export const ADD_CAMERA = "ADD_CAMERA";
 export const ADD_MATERIAL = "ADD_MATERIAL";
 export const UPDATE_MATERIAL = "UPDATE_MATERIAL";
+export const SET_ACTIVE_MATERIAL = "SET_ACTIVE_MATERIAL";
 export const CREATE_MESH = "CREATE_MESH";
 export const LOAD_OBJECT = "LOAD_OBJECT";
 export const LOAD_TEXTURE = "LOAD_TEXTURE";

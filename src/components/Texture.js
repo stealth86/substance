@@ -10,7 +10,7 @@ class Texture extends Component {
 
     componentDidMount(){
         if(this.props.texture){
-            console.log(this.props.texture)
+            //console.log(this.props.texture)
             this.texture=this.props.texture
             this.props.updateMaterial(this.props.channel, this.texture)
         }

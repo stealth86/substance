@@ -1,15 +1,16 @@
-import { ADD_MATERIAL,UPDATE_MATERIAL} from '../actions/types';
+import { ADD_MATERIAL, UPDATE_MATERIAL, SET_ACTIVE_MATERIAL } from '../actions/types';
 import defaultPreview from '../images/material.png';
 
 const initialState = {
     materials: null,
-    defaultTag : ["material"],
-    defaultPreview : defaultPreview
+    defaultTag: ["material"],
+    defaultPreview: defaultPreview,
+    activeMaterial: null
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_MATERIAL :
+        case ADD_MATERIAL:
             return {
                 ...state,
                 materials: {
@@ -17,16 +18,21 @@ export default function (state = initialState, action) {
                     [action.name]: action.payload
                 }
             }
-        case UPDATE_MATERIAL :
-            return{
+        case UPDATE_MATERIAL:
+            return {
                 ...state,
-                materials:{
+                materials: {
                     ...state.materials,
-                    [action.name]:{
+                    [action.name]: {
                         ...state.materials[action.name],
-                        material : action.payload
+                        material: action.payload
                     }
                 }
+            }
+        case SET_ACTIVE_MATERIAL:
+            return {
+                ...state,
+                activeMaterial: state.materials[action.payload].material
             }
         default:
             return {

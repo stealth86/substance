@@ -10,6 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import MaterialSelector from '../MaterialList/MaterialSelector';
 import { ContextMenuContainer } from './ContextMenuContainer';
+import SettingsContainer from '../Settings/SettingsContainer';
 
 class Window extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Window extends Component {
             layout: [
                 { i: RENDERER, x: 0, y: 0, w: 4, h: 14 },
                 { i: "material", x: 4, y: 0, w: 2, h: 14 },
-                { i: "settings", x: 4, y: 0, w: 4, h: 14 },
+                { i: "settings", x: 6, y: 0, w: 2, h: 14 },
                 { i: CONTENT, x: 0, y: 14, w: 8, h: 13.5 },
             ]
         }
@@ -50,6 +51,9 @@ class Window extends Component {
                     </div>
                     <div key="material" className="contentWindow">
                         <MaterialSelector></MaterialSelector>
+                    </div>
+                    <div key="settings" className="contentWindow">
+                        <SettingsContainer></SettingsContainer>
                     </div>
                  </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>

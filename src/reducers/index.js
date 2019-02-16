@@ -1,5 +1,5 @@
 import { combineReducers} from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import CameraReducer from './CameraReducer';
 import SceneReducer from './SceneReducer';
 import GeometryReducer from './GeometryReducer';
@@ -11,7 +11,7 @@ import RendererReducer from './RendererReducer';
 import ContentListReducer from './ContentListReducer';
 import WindowReducer from './WindowReducer';
 
-export default combineReducers({
+export default (history) => combineReducers({
     SceneReducer,
     CameraReducer,
     TextureReducer,
@@ -22,5 +22,5 @@ export default combineReducers({
     RendererReducer,
     ContentListReducer,
     WindowReducer,
-    routing : routerReducer
+    router: connectRouter(history)
 })

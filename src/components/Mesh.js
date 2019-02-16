@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { addMesh, updateGeometry, updateMaterial } from '../actions/MeshAction';
 import * as THREE from 'three-full';
 import { GEOMETRY } from '../Constants';
+import StandardMaterial  from './StandardMaterial';
+import Texture from './Texture';
 
 class Mesh extends Component {
     constructor(props) {
@@ -25,8 +27,9 @@ class Mesh extends Component {
     }
 
     shouldComponentUpdate(newProps) {
-        if(this.props.mesh!==newProps.mesh)
+        if(this.props.mesh!==newProps.mesh){
             this.mesh=newProps.mesh
+        }
         if (this.mesh)
             this.props.updateScene(this.mesh)
         return true;
@@ -48,6 +51,11 @@ class Mesh extends Component {
         return (
             <>
                 {childrenWithProps}
+                {this.props.mesh && this.props.generateMaterial &&
+                [].concat(this.props.mesh.material).map(material=>
+                <StandardMaterial key={material.name} name={material.name} updateMesh={this.updateMeshLocal}>
+                    <Texture channel="envMap" name="envTexture"></Texture>
+                </StandardMaterial>)}
             </>
         )
     }

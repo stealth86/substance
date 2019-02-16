@@ -27,10 +27,10 @@ export class CubeCamera extends Camera {
         if (this.props.renderer && this.props.scene) {
             if (this.props.static && !this.updated) {
                 this.props.camera.update(this.props.renderer, this.props.scene)
-                console.log(this.props.renderer,this.props.scene)
+                //console.log(this.props.renderer,this.props.scene)
                 this.props.camera.renderTarget.texture.name="envTexture"
                 this.addTexture("envTexture", this.props.camera.renderTarget.texture)
-                console.log(this.props.camera.renderTarget.texture)
+                //console.log(this.props.camera.renderTarget.texture)
                 this.updated = true
             } else if (!this.props.static) {
                 this.props.camera.update(this.props.renderer, this.props.scene)

@@ -1,4 +1,4 @@
-import { ADD_MESH ,UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL } from './types';
+import { ADD_MESH ,UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL, SET_ACTIVE_MESH } from './types';
 
 export const addMesh = (name,mesh,tags) => (dispatch,getState) => {
     const {defaultTag,defaultPreview} = getState().MeshReducer
@@ -6,6 +6,13 @@ export const addMesh = (name,mesh,tags) => (dispatch,getState) => {
         type: ADD_MESH,
         payload: {mesh:mesh,preview:defaultPreview,tags:tags?tags.concat(defaultTag):defaultTag},
         name : name
+    })
+}
+
+export const setActiveMesh = (name) => (dispatch) => {
+    dispatch({
+        type: SET_ACTIVE_MESH,
+        payload: name
     })
 }
 

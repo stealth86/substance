@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router'
 import { store, history } from './store';
 import Window from './components/Window/Window';
 import './App.css';
@@ -10,9 +11,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={history}>
-            <Window/>
-        </Router>
+        <ConnectedRouter history={history}>
+          <Route path="/" component={Window}/>
+        </ConnectedRouter>
       </Provider>
     );
   }

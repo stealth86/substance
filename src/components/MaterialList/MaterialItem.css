@@ -1,8 +1,4 @@
-ul.contentList {
-    margin : 0.75rem
-}
-
-ul li.contentType{
+ul li.materialType{
     background-color: #333333;
     padding : 0.25rem;
 }

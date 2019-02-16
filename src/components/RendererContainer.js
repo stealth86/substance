@@ -11,14 +11,15 @@ import Renderer from './Renderer';
 import TitleBar from './Common/TitleBar';
 import * as THREE from 'three-full';
 import { setEnvTexture } from '../actions/TextureAction';
+import { setActiveMesh } from '../actions/MeshAction';
 import { DropTarget } from 'react-dnd';
 import { NON_DRAGGABLE, RENDERER, TEXTURE, MESH } from '../Constants';
-import StandardMaterial from './StandardMaterial';
 
 class RendererContainer extends Component {
     constructor(props) {
         super(props);
         this.setEnvTexture = this.props.setEnvTexture.bind(this);
+        this.setActiveMesh = this.props.setActiveMesh.bind(this);
         this.state ={
             activeMesh : null
         }
@@ -43,11 +44,11 @@ class RendererContainer extends Component {
                                     position={{ x: 500, y: 500, z: 200 }}
                                     aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1} >
                                 </Camera>
-                                {this.state.activeMesh &&
-                                <Mesh name={this.state.activeMesh}>
-                                    <StandardMaterial name="standard">
+                                {this.props.activeMesh &&
+                                <Mesh name={this.props.activeMesh.name} generateMaterial={true}>
+                                    {/*<StandardMaterial name="standard">
                                         <Texture channel="envMap" name="envTexture"></Texture>
-                                    </StandardMaterial>
+                                </StandardMaterial>*/}
                                 </Mesh>
                                 }
                             </Scene>
@@ -85,7 +86,7 @@ const rendererTarget = {
                 component.setEnvTexture(item.id)
                 break;
             case MESH:
-                component.setState({activeMesh:item.id})
+                component.setActiveMesh(item.id)
                 break;
             default:
                 break;
@@ -101,9 +102,10 @@ function collect(connect, monitor) {
 
 function mapStatetoProps(state, props) {
     return {
+        activeMesh : state.MeshReducer.activeMesh,
         cameras: state.CameraReducer.cameras,
         units: state.WindowReducer.units,
         envTexture: state.TextureReducer.envTexture
     }
 }
-export default connect(mapStatetoProps, { setEnvTexture })(DropTarget((props) => props.type, rendererTarget, collect)(RendererContainer))
+export default connect(mapStatetoProps, { setEnvTexture,setActiveMesh })(DropTarget((props) => props.type, rendererTarget, collect)(RendererContainer))

@@ -1,8 +1,9 @@
-import { ADD_MESH, UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL } from '../actions/types';
+import { ADD_MESH, UPDATE_MESH_GEOMETRY, UPDATE_MESH_MATERIAL, SET_ACTIVE_MESH } from '../actions/types';
 import defaultPreview from '../images/mesh.png';
 
 const initialState = {
     meshes: null,
+    activeMesh : null,
     defaultTag : ["mesh"],
     defaultPreview : defaultPreview
 }
@@ -27,6 +28,11 @@ export default function (state = initialState, action) {
                     mesh: action.payload
                 }
             }
+        }
+        case SET_ACTIVE_MESH:
+        return{
+            ...state,
+            activeMesh : state.meshes[action.payload].mesh
         }
         default:
             return {

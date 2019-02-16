@@ -1,6 +1,5 @@
 import { LOAD_OBJECT } from './types';
 import { addMesh } from './MeshAction';
-import { addMaterial } from './MaterialAction';
 import { JPG, HDR, JPEG } from '../Constants';
 import { addTexture } from './TextureAction'
 import * as THREE from "three-full";
@@ -12,10 +11,10 @@ export const loadObject = (file) => (dispatch, getState) => {
         object.traverse(child => {
             if (child.isMesh) {
                 dispatch(addMesh(child.name,child))
-                var materialArray = [].concat(child.material || [])
-                materialArray.forEach(material => {
-                    dispatch(addMaterial(material.name,material))
-                })
+                //var materialArray = [].concat(child.material || [])
+                //materialArray.forEach(material => {
+                    //dispatch(addMaterial(material.name,material))
+                //})
             }
         })
         dispatch({

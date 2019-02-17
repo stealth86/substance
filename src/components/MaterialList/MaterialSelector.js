@@ -9,6 +9,7 @@ class MaterialSelector extends Component {
 
 
   render() {
+    console.log(this.props.activeMesh)
     return (
       <>
         <TitleBar name="Material">

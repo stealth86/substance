@@ -6,3 +6,16 @@ ul li.materialType{
 ul li.activeType{
     background-color: #666666;
 }
+
+.materialLink{
+    color:#999999;
+}
+
+.materialLink:hover{
+    color:#999999;
+    text-decoration: none;
+}
+
+.activex{
+    color:blue;
+}

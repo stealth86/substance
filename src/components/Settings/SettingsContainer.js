@@ -9,7 +9,6 @@ import { NON_DRAGGABLE } from '../../Constants'
 export class SettingsContainer extends Component {
 
     render() {
-        //console.log(this.props)
         return (
             <>
                 <TitleBar name="Settings">                    

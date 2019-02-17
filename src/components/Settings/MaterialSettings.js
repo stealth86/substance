@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 export class MaterialSettings extends Component {
   render() {
-    console.log(this.props)
     return (
       <div>
         Material {this.props.match.params.materialName}

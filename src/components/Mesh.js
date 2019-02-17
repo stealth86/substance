@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addMesh, updateGeometry, updateMaterial } from '../actions/MeshAction';
+import { addMesh, updateMeshGeometry, updateMeshMaterial } from '../actions/MeshAction';
 import * as THREE from 'three-full';
 import { GEOMETRY } from '../Constants';
 import StandardMaterial  from './StandardMaterial';
@@ -10,8 +10,8 @@ class Mesh extends Component {
     constructor(props) {
         super(props);
         this.addMesh = this.props.addMesh.bind(this);
-        this.updateGeometry = this.props.updateGeometry.bind(this);
-        this.updateMaterial = this.props.updateMaterial.bind(this);
+        this.updateMeshGeometry = this.props.updateMeshGeometry.bind(this);
+        this.updateMeshMaterial = this.props.updateMeshMaterial.bind(this);
         this.updateMeshLocal = this.updateMeshLocal.bind(this);
     }
 
@@ -35,10 +35,10 @@ class Mesh extends Component {
         return true;
     }
 
-    updateMeshLocal(type, item) {
+    updateMeshLocal(type, item, index) {
         if (this.mesh) {
-            if (type === GEOMETRY) this.updateGeometry(this.mesh, item)
-            else this.updateMaterial(this.mesh, item)
+            if (type === GEOMETRY) this.updateMeshGeometry(this.mesh, item)
+            else this.updateMeshMaterial(this.mesh, item, index)
         }
     }
 
@@ -52,8 +52,8 @@ class Mesh extends Component {
             <>
                 {childrenWithProps}
                 {this.props.mesh && this.props.generateMaterial &&
-                [].concat(this.props.mesh.material).map(material=>
-                <StandardMaterial key={material.name} name={material.name} updateMesh={this.updateMeshLocal}>
+                [].concat(this.props.mesh.material).map((material,index)=>
+                <StandardMaterial key={material.name} name={material.name} id={index} updateMesh={this.updateMeshLocal}>
                     <Texture channel="envMap" name="envTexture"></Texture>
                 </StandardMaterial>)}
             </>
@@ -68,4 +68,4 @@ function mapStatetoProps(state, props) {
             state.MeshReducer.meshes[props.name].mesh ? state.MeshReducer.meshes[props.name].mesh : null
     }
 }
-export default connect(mapStatetoProps, { addMesh, updateMaterial, updateGeometry })(Mesh)
+export default connect(mapStatetoProps, { addMesh, updateMeshMaterial, updateMeshGeometry })(Mesh)

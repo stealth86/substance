@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import TitleBar from '../Common/TitleBar'
 import MaterialItem from './MaterialItem'
 import { NON_DRAGGABLE } from '../../Constants'
+import { withRouter } from 'react-router-dom'
 import './MaterialSelector.css'
 
 class MaterialSelector extends Component {
 
 
   render() {
-    console.log(this.props.activeMesh)
+    //console.log(this.props.activeMesh)
     return (
       <>
         <TitleBar name="Material">
@@ -33,4 +34,4 @@ function mapStatetoProps(state, props) {
   }
 }
 
-export default connect(mapStatetoProps, {})(MaterialSelector)
+export default withRouter(connect(mapStatetoProps, {})(MaterialSelector))

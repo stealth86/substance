@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import TitleBar from '../Common/TitleBar'
 import { withRouter, Route } from 'react-router-dom'
 import MaterialSettings from './MaterialSettings'
+import ViewportSettings from './ViewportSettings'
 import './SettingsContainer.css'
 import { NON_DRAGGABLE } from '../../Constants'
 
@@ -15,6 +16,7 @@ export class SettingsContainer extends Component {
                 </TitleBar>                
                 <div className={NON_DRAGGABLE + " settings"}>
                     <Route path="/material/:materialName" component={MaterialSettings}/>
+                    <Route path="/viewport" component={ViewportSettings}/>
                 </div>
             </>
         )

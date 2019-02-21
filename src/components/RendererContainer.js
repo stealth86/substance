@@ -9,11 +9,13 @@ import Material from './Material';
 import Texture from './Texture';
 import Renderer from './Renderer';
 import TitleBar from './Common/TitleBar';
+import { NavLink } from 'react-router-dom';
 import * as THREE from 'three-full';
 import { setEnvTexture } from '../actions/TextureAction';
 import { setActiveMesh } from '../actions/MeshAction';
 import { DropTarget } from 'react-dnd';
 import { NON_DRAGGABLE, RENDERER, TEXTURE, MESH } from '../Constants';
+import './RendererContainer.css';
 
 class RendererContainer extends Component {
     constructor(props) {
@@ -30,6 +32,8 @@ class RendererContainer extends Component {
         return (
             <>
                 <TitleBar name="Viewport" className="fixed-top" width={this.props.units && this.props.units[RENDERER].width}>
+                    {/*<button><span className="fas fa-sliders-h"></span></button>*/}
+                    <NavLink className="viewportSettings px-1" to="/viewport"><span className="fas fa-sliders-h"></span></NavLink>
                 </TitleBar>
                 {connectDropTarget(
                     <div className="renderer">
@@ -46,16 +50,13 @@ class RendererContainer extends Component {
                                 </Camera>
                                 {this.props.activeMesh &&
                                 <Mesh name={this.props.activeMesh.name} generateMaterial={true}>
-                                    {/*<StandardMaterial name="standard">
-                                        <Texture channel="envMap" name="envTexture"></Texture>
-                                </StandardMaterial>*/}
                                 </Mesh>
                                 }
                             </Scene>
                             <Scene name="background">
                                 <Camera name="backgroundCamera"
                                     fov={45}
-                                    copyRotation={this.props.cameras && this.props.cameras["mainCamera"]}
+                                    copyRotation={(this.props.cameras && ("mainCamera" in this.props.cameras)) && this.props.cameras["mainCamera"]}
                                     aspect={this.props.units ? (this.props.units[RENDERER].width / this.props.units[RENDERER].height) : 1}
                                     near={0.1}
                                     far={100000}>

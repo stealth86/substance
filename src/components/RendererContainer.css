@@ -2,3 +2,13 @@ div.renderer{
         height:100%;
         width:auto;
 }
+
+.viewportSettings{
+        color: #999999;
+}
+
+.viewportSettings:hover{
+        color:#333333;
+        background-color: #999999;
+        text-decoration: none;
+}

@@ -1,59 +1,68 @@
-import React, { Component } from 'react';
-import './App.css';
-import Draggable from 'react-draggable';
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {x:50,y:0,x1:100,y1:0}
-    this.start = this.start.bind(this);
-    this.end = this.end.bind(this);
-  }
+## Available Scripts
 
-  start(e,data){
-    this.setState({x:data.x,y:data.y})
-  }
+In the project directory, you can run:
 
-  end(e,data){
-    this.setState({x1:data.x,y1:data.y})
-  }
+### `npm start`
 
-  render() {
-    var radius=10
-    var widthConst=Math.abs(this.state.x1-this.state.x)+radius*2
-    var leftConst=Math.min(this.state.x,this.state.x1)
-    var widthAdjust=(widthConst-radius*2)*0.4
-    var leftAdjust=widthConst*0.2
-    var width=widthConst+(this.state.x<this.state.x1?0:widthAdjust)
-    var height=Math.abs(this.state.y1-this.state.y)+radius*2
-    var heightAdjust=(height-radius*2)*0.2
-    var top=Math.min(this.state.y,this.state.y1)
-    var left=leftConst-(this.state.x<this.state.x1?0:leftAdjust)
-    return (
-      <div style={{position:"relative",top:"50px"}}>
-        <svg style={{position:"absolute",top:`${top}px`, left:`${left}px`}} width={width} height={height}>
-           <path d={`M ${this.state.x<this.state.x1?radius:widthConst-radius+leftAdjust}
-                      ${this.state.y<this.state.y1?radius:height-radius}
-                    C ${this.state.x<this.state.x1?widthConst/2:width+(width-radius*2)*0.4}
-                      ${this.state.y<this.state.y1?radius+heightAdjust:height-radius-heightAdjust}
-                      ${this.state.x<this.state.x1?widthConst/2:radius-(width-radius*2)*0.4}
-                      ${this.state.y<this.state.y1?height-heightAdjust-radius:radius+heightAdjust}
-                      ${this.state.x<this.state.x1?widthConst-radius:leftAdjust+radius}
-                      ${this.state.y<this.state.y1?height-radius:radius}`} fill="none" stroke="blue" stroke-width="2"/>
-        </svg>
-        <Draggable defaultPosition={{x:50,y:0}} onDrag={this.start}>
-          <svg width={radius*2} height={radius*2} style={{position:"absolute"}}>
-            <circle cx={radius} cy={radius} r={radius} fill="green" style={{cursor:"pointer"}}></circle>
-          </svg>
-        </Draggable>
-        <Draggable defaultPosition={{x:100,y:0}} onDrag={this.end}>
-          <svg width={radius*2} height={radius*2} style={{position:"absolute"}}>
-            <circle cx={radius} cy={radius} r={radius} fill="red" style={{cursor:"pointer"}}></circle>
-          </svg>
-        </Draggable>
-      </div>
-    );
-  }
-}
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-export default App;
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

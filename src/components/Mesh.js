@@ -53,7 +53,7 @@ class Mesh extends Component {
                 {childrenWithProps}
                 {this.props.mesh && this.props.generateMaterial &&
                 [].concat(this.props.mesh.material).map((material,index)=>
-                <StandardMaterial key={material.name} name={material.name} id={index} updateMesh={this.updateMeshLocal}>
+                <StandardMaterial key={material.name} name={material.name} id={this.props.mesh.material.length >1 ?index:undefined} updateMesh={this.updateMeshLocal}>
                     <Texture channel="envMap" name="envTexture"></Texture>
                 </StandardMaterial>)}
             </>

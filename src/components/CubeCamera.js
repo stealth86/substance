@@ -19,7 +19,8 @@ export class CubeCamera extends Camera {
             this.props.resolution ? this.props.resolution : DEFAULT_CUBE_CAMERA_RESOLUTION)
         this.camera.name = this.props.name
         this.props.position && this.camera.position.set(this.props.position.x, this.props.position.y, this.props.position.z)
-        this.camera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
+        this.camera.renderTarget.texture.minFilter = THREE.LinearFilter;
+        this.camera.renderTarget.texture.magFilter = THREE.LinearFilter;
         this.addCamera(this.camera.name, this.camera)
     }
 

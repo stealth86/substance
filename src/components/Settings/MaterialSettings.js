@@ -13,6 +13,8 @@ export class MaterialSettings extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    if(this.props.activeMaterial !==nextProps.activeMaterial)
+      console.log(nextProps.activeMaterial)
     if (this.props.match.params.materialName !== nextProps.match.params.materialName)
       this.setActiveMaterial(nextProps.match.params.materialName)
     return true;
@@ -22,13 +24,18 @@ export class MaterialSettings extends Component {
     return (
       <div>
         Material {this.props.match.params.materialName}
+        <ul>
+          <li>Roughness : {this.props.activeMaterial && this.props.activeMaterial.roughness}</li>
+          <li>Metalness : </li>
+          <li>EnvMap : </li>
+        </ul>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state,props) => ({
-
+    activeMaterial : state.MaterialReducer.activeMaterial,
 })
 
 

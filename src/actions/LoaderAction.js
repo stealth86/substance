@@ -1,6 +1,6 @@
 import { LOAD_OBJECT } from './types';
 import { addMesh } from './MeshAction';
-import { JPG, HDR, JPEG } from '../Constants';
+import { JPG, HDR, JPEG, PNG } from '../Constants';
 import { addTexture } from './TextureAction'
 import * as THREE from "three-full";
 
@@ -30,7 +30,7 @@ export const loadTexture = (file) => (dispatch, getState) => {
     var url = URL.createObjectURL(file)
     var name= file.name.replace(/\..+$/, '')
     switch (true) {
-        case (fileExtension===JPG || fileExtension===JPEG):
+        case (fileExtension===JPG || fileExtension===JPEG || fileExtension===PNG):
             const { TextureLoader } = getState().LoaderReducer
             TextureLoader.load(url, (texture) => {
                 texture.name = name

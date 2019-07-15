@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setActiveMaterial } from '../../actions/MaterialAction'
+import { setActiveMaterial,updateMaterial } from '../../actions/MaterialAction'
 
 export class MaterialSettings extends Component {
   constructor(props) {
     super(props);
     this.setActiveMaterial = this.props.setActiveMaterial.bind(this);
+    this.updateMaterial = this.props.updateMaterial.bind(this);
   }
 
+  setRoughness(attr,val){
+    console.log(val)
+    this.updateMaterial(this.props.activeMaterial,{[attr]:val})
+  }
   componentDidMount(){
       this.setActiveMaterial(this.props.match.params.materialName)
   }
@@ -25,8 +30,8 @@ export class MaterialSettings extends Component {
       <div>
         Material {this.props.match.params.materialName}
         <ul>
-          <li>Roughness : {this.props.activeMaterial && this.props.activeMaterial.roughness}</li>
-          <li>Metalness : </li>
+          <li>Roughness : <input type="number" min={0} max={1} step={0.1} onChange={(e)=>this.setRoughness("roughness",e.target.value)}></input></li>
+          <li>Metalness : <input type="number" min={0} max={1} step={0.1} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
           <li>EnvMap : </li>
         </ul>
       </div>
@@ -39,4 +44,4 @@ const mapStateToProps = (state,props) => ({
 })
 
 
-export default connect(mapStateToProps, { setActiveMaterial })(MaterialSettings)
+export default connect(mapStateToProps, { setActiveMaterial,updateMaterial })(MaterialSettings)

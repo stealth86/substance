@@ -30,7 +30,14 @@ export class CubeCamera extends Camera {
                 this.props.camera.update(this.props.renderer, this.props.scene)
                 //console.log(this.props.renderer,this.props.scene)
                 this.props.camera.renderTarget.texture.name="envTexture"
-                this.addTexture("envTexture", this.props.camera.renderTarget.texture)
+                //this.addTexture("envTexture", this.props.camera.renderTarget.texture)
+                var pmremGenerator = new THREE.PMREMGenerator( this.props.camera.renderTarget.texture );
+						pmremGenerator.update( this.props.renderer );
+						var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
+						pmremCubeUVPacker.update( this.props.renderer );
+                        var rgbmCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+                        this.addTexture("envTexture", rgbmCubeRenderTarget.texture)
+						//material.envMap = rgbmCubeRenderTarget.texture;
                 //console.log(this.props.camera.renderTarget.texture)
                 this.updated = true
             } else if (!this.props.static) {

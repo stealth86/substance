@@ -42,8 +42,8 @@ export const loadTexture = (file) => (dispatch, getState) => {
             HDRLoader.load(url, (texture) => {
                 texture.name = name
                 texture.encoding = THREE.RGBEEncoding;
-                texture.minFilter = THREE.NearestFilter;
-                texture.magFilter = THREE.NearestFilter;
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.LinearFilter;
                 texture.flipY = true;
                 dispatch(addTexture(texture.name,texture))
             })

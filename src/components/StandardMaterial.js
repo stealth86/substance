@@ -11,8 +11,6 @@ export class StandardMaterial extends Material {
             this.material = new THREE.MeshStandardMaterial()
             if(this.props.side) this.material.side=this.props.side
             this.material.name = this.props.name
-            this.material.roughness=1
-            this.material.metalness=1
             this.addMaterial(this.material.name, this.material)
         }
         this.updateMaterial(this.material,{[this.channel]:this.texture})

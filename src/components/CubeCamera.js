@@ -47,12 +47,13 @@ export class CubeCamera extends Camera {
     }
 
     shouldComponentUpdate(newProps) {
-        super.shouldComponentUpdate(newProps)
-        if (newProps.envTexture && newProps.scene && newProps.renderer && newProps.camera) {
+        //super.shouldComponentUpdate(newProps)
+        if (newProps.envTexture && newProps.scene && newProps.renderer && newProps.camera && !this.callbackAdded) {
             this.addCallback(this.props.rendererName, 0, this.updateRenderTarget)
-            if (newProps.envTexture !== this.props.envTexture)
-                this.updated = false;
+            this.callbackAdded=true
         }
+        if (newProps.envTexture !== this.props.envTexture)
+        this.updated = false;
         return true;
     }
 }

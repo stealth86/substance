@@ -23,10 +23,10 @@ class Scene extends Component {
     shouldComponentUpdate(newProps){
         if(this.props.scene !==newProps.scene)
             this.scene=newProps.scene
-        if(newProps.scene.name==="main"){
+        /*if(newProps.scene.name==="main"){
             var light = new THREE.AmbientLight(0x222222);
             newProps.scene.add(light);
-        }
+        }*/
         return true;
     }
 

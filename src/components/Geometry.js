@@ -19,10 +19,12 @@ class Geometry extends Component {
             //this.props.updateMesh(GEOMETRY, this.geometry)
         }
     }
-    shouldComponentUpdate(newProps){
-        if(this.geometry)
-        this.props.updateMesh(GEOMETRY, this.geometry)
-        //if(newProps.geometry !== this.props.geometry) this.props.updateMesh(GEOMETRY, newProps.geometry)
+    shouldComponentUpdate(newProps){        
+        if(newProps.geometry !== this.props.geometry)
+        {
+            this.geometry=newProps.geometry 
+        this.props.updateMesh(GEOMETRY, newProps.geometry)
+        }
         return true;
     }
     render(){

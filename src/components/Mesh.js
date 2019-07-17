@@ -29,10 +29,11 @@ class Mesh extends Component {
     shouldComponentUpdate(newProps) {
         if(this.props.mesh!==newProps.mesh){
             this.mesh=newProps.mesh
-        }
-        if (this.mesh)
+//        }
+  //      if (this.mesh)
             this.props.updateScene(this.mesh)
-        return true;
+        }
+            return true;
     }
 
     updateMeshLocal(type, item, index) {

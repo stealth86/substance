@@ -30,8 +30,8 @@ export class MaterialSettings extends Component {
       <div>
         Material {this.props.match.params.materialName}
         <ul>
-          <li>Roughness : <input type="number" min={0} max={1} step={0.1} onChange={(e)=>this.setRoughness("roughness",e.target.value)}></input></li>
-          <li>Metalness : <input type="number" min={0} max={1} step={0.1} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
+          <li>Roughness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.roughness} onChange={(e)=>this.setRoughness("roughness",e.target.value)}></input></li>
+          <li>Metalness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.metalness} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
           <li>EnvMap : </li>
         </ul>
       </div>

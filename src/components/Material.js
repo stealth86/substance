@@ -26,9 +26,10 @@ export class Material extends Component {
 
     shouldComponentUpdate(newProps) {
         if(newProps.material !== this.props.material)
-            this.material = newProps.material
-        if (this.material)            
+         {   this.material = newProps.material
+       // if (this.material)            
             this.props.updateMesh(MATERIAL, this.material, this.props.id)
+         }
         return true;
     }
 

@@ -7,10 +7,10 @@ class MaterialItem extends Component {
 
   render() {
     return (
-      <li className={`list-group-item materialType ${this.props.activeMaterial && this.props.materialName===this.props.activeMaterial.name?"activeType":""}`}>
+      <li className={`list-group-item materialType ${this.props.activeMaterial && this.props.location.pathname.split('/')[this.props.location.pathname.split('/').length-1]===this.props.materialName?"activeType":""}`}>
         <div className="form-check">
           <input className="form-check-input" type="checkbox" value=""/>
-          <NavLink className="materialLink w-100 d-inline-block" to={"/material/"+this.props.materialName}>{this.props.materialName}</NavLink>
+          <NavLink className="materialLink w-100 d-inline-block" to={"/materials/"+this.props.materialName}>{this.props.materialName}</NavLink>
         </div>
       </li>
     );

@@ -13,7 +13,7 @@ class MaterialSelector extends Component {
     //console.log(this.props.activeMesh)
     return (
       <>
-        <TitleBar name="Material">
+        <TitleBar name="Materials">
         </TitleBar>
         <div className={NON_DRAGGABLE + " materialSelector"}>
           <ul className="list-group list-group-flush p-2">

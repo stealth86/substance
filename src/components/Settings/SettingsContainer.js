@@ -8,21 +8,33 @@ import './SettingsContainer.css'
 import { NON_DRAGGABLE } from '../../Constants'
 
 export class SettingsContainer extends Component {
+    constructor(props){
+        super(props);
+        this.updateTitle=this.updateTitle.bind(this);
+        this.state={
+            title:"Settings - "
+        }
+    }
+
+    updateTitle(name){
+        this.setState({title:"Settings - "+name})
+    }
 
     render() {
         return (
             <>
-                <TitleBar name="Settings">
+                <TitleBar name={this.state.title}>
                 </TitleBar>
                 <div className={NON_DRAGGABLE + " settings"}>
-                    <Route path="/material/:materialName" render={(routeProps)=>(
+                    <Route path="/materials/:materialName" render={(routeProps)=>(
                         this.props.activeMesh ?
-                    (<MaterialSettings {...routeProps}/>) :
+                    (<MaterialSettings {...routeProps} updateTitle={this.updateTitle}/>) :
                      (   <Redirect to="/"/>)
                     )
                     }/>
-                    {/*component={MaterialSettings}/>*/}
-                    <Route path="/viewport" component={ViewportSettings} />
+                    <Route path="/viewport" render={(routeProps)=>(
+                    <ViewportSettings {...routeProps} updateTitle={this.updateTitle}/>
+                    ) }/>
                 </div>
             </>
         )

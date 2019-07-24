@@ -1,3 +1,5 @@
+import window from 'global'
+
 export const GEOMETRY = "Geometry"
 export const MATERIAL = "Material"
 export const TEXTURE = "Texture"

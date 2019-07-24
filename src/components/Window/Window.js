@@ -64,12 +64,6 @@ class Window extends Component {
 
 function mapStatetoProps(state) {
     return {
-        meshes: state.MeshReducer.meshes,
-        cameras: state.CameraReducer.cameras,
-        materials: state.MaterialReducer.materials,
-        objects: state.LoaderReducer.objects,
-        scenes: state.SceneReducer.scenes,
-        units: state.WindowReducer.units,
         marginX: state.WindowReducer.marginX,
         marginY: state.WindowReducer.marginY,
         gridColumns: state.WindowReducer.gridColumns,

@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router'
 import rootReducer from './reducers';
-import { connectRouter } from 'connected-react-router';
 
 export const isServer = !(
     typeof window !== 'undefined' &&
@@ -51,7 +50,7 @@ export default (url = '/') => {
     }
     // Create the store
     const store = createStore(
-      connectRouter(history)(rootReducer),
+      rootReducer(history),
       initialState,
       composedEnhancers
     );

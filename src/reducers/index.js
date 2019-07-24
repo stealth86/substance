@@ -9,8 +9,9 @@ import LoaderReducer from './LoaderReducer';
 import RendererReducer from './RendererReducer';
 import ContentListReducer from './ContentListReducer';
 import WindowReducer from './WindowReducer';
+import { connectRouter } from 'connected-react-router'
 
-export default () => combineReducers({
+export default (history) => combineReducers({
     SceneReducer,
     CameraReducer,
     TextureReducer,
@@ -20,5 +21,6 @@ export default () => combineReducers({
     LoaderReducer,
     RendererReducer,
     ContentListReducer,
-    WindowReducer
+    WindowReducer,
+    router: connectRouter(history)
 })

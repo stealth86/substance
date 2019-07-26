@@ -97,7 +97,7 @@ const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
             meta: helmet.meta.toString(),
             body: routeMarkup,
             scripts: extraChunks,
-            state: JSON.stringify(store.getState()).replace(/</g, '\\u003c')
+            state: store.getState() ``
           });
 
           // We have all the final HTML, let's send it to the user already!

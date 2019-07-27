@@ -88,7 +88,7 @@ const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
 
           // NOTE: Disable if you desire
           // Let's output the title, just to see SSR is working as intended
-          console.log('THE TITLE', helmet.title.toString());
+          //console.log('THE TITLE', helmet.title.toString());
 
           // Pass all this nonsense into our HTML formatting function above
           const html = injectHTML(htmlData, {
@@ -97,7 +97,7 @@ const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
             meta: helmet.meta.toString(),
             body: routeMarkup,
             scripts: extraChunks,
-            state: store.getState() ``
+            state: store.getState()
           });
 
           // We have all the final HTML, let's send it to the user already!

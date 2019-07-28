@@ -8,6 +8,8 @@ import ReactDOMServer from 'react-dom/server'
 import createStore from '../store'
 import Helmet from 'react-helmet'
 import manifest from '../../build/asset-manifest.json';
+import * as cv from 'opencv4nodejs'
+import pretty from 'pretty'
 
 export default (req, res) => {
 const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
@@ -32,7 +34,6 @@ const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
 
         return res.status(404).end();
       }
-
       // Create a store (with a memory history) from our current url
       const { store } = createStore(req.url);
 
@@ -101,7 +102,7 @@ const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
           });
 
           // We have all the final HTML, let's send it to the user already!
-          res.send(html);
+          res.send(pretty(html));
         }
     }
   );

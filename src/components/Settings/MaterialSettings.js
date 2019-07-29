@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Slider from '../Common/Slider'
 import { setActiveMaterial,updateMaterial } from '../../actions/MaterialAction'
+import './MaterialSettings.css'
 
 export class MaterialSettings extends Component {
   constructor(props) {
@@ -28,11 +30,11 @@ export class MaterialSettings extends Component {
   render() {
     return (
       <div>
-        Material {this.props.match.params.materialName}
-        <ul>
-          <li>Roughness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.roughness} onChange={(e)=>this.setRoughness("roughness",e.target.value)}></input></li>
-          <li>Metalness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.metalness} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
-          <li>EnvMap : </li>
+        <ul className="list-group list-group-flush">
+          <li className={`list-group-item settingsType`}><Slider/></li>
+          <li className={`list-group-item settingsType`}><Slider/></li>
+          {/*<li>Metalness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.metalness} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
+          <li>EnvMap : </li>*/}
         </ul>
       </div>
     )

@@ -21,7 +21,7 @@ class ContentList extends Component {
       <ul className="list-group list-group-flush p-2">
         {this.props.contentList.map(contentType => {
           return (
-            <li className={`list-group-item contentType text-white50 ${this.state.active===contentType.name?"activeType":""}`} key={contentType.name} onClick={()=>this.updateContents(contentType.name,contentType.tagTypes)}>
+            <li className={`list-group-item contentType text-white-50 ${this.state.active===contentType.name?"activeType":""}`} key={contentType.name} onClick={()=>this.updateContents(contentType.name,contentType.tagTypes)}>
               {contentType.name}
             </li>)
         })}

@@ -111,7 +111,7 @@ class ContentBrowser extends Component {
 
 const fileTarget = {
     drop(props, monitor, component) {
-        console.log(monitor.getItem().files)
+        //console.log(monitor.getItem().files)
         component.onDrop(monitor.getItem().files)
     }
 };

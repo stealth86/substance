@@ -16,6 +16,7 @@ import { setActiveMesh } from '../actions/MeshAction';
 import { DropTarget } from 'react-dnd';
 import { NON_DRAGGABLE, RENDERER, TEXTURE, MESH } from '../Constants';
 import './RendererContainer.css';
+import window from 'global';
 
 class RendererContainer extends Component {
     constructor(props) {

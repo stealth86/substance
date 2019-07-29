@@ -8,7 +8,6 @@ import ReactDOMServer from 'react-dom/server'
 import createStore from '../store'
 import Helmet from 'react-helmet'
 import manifest from '../../build/asset-manifest.json';
-import * as cv from 'opencv4nodejs'
 import pretty from 'pretty'
 
 export default (req, res) => {

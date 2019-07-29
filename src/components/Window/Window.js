@@ -6,10 +6,10 @@ import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../../actions/WindowAction';
 import { NON_DRAGGABLE, RENDERER, CONTENT } from '../../Constants';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import MaterialSelector from '../MaterialList/MaterialSelector';
 import { ContextMenuContainer } from './ContextMenuContainer';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import SettingsContainer from '../Settings/SettingsContainer';
 
 class Window extends Component {
@@ -30,7 +30,7 @@ class Window extends Component {
 
     render() {
         return (
-            <>
+            <DndProvider backend={HTML5Backend}>
                 <ResponsiveGridLayout className="layout"
                     compactType="horizontal"
                     mounted={false}
@@ -57,7 +57,7 @@ class Window extends Component {
                     </div>
                  </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>
-            </>
+            </DndProvider>
         )
     }
 }
@@ -75,4 +75,4 @@ function mapStatetoProps(state) {
 export default connect(mapStatetoProps, {
     initializeLayout,
     updateLayout
-})(DragDropContext(HTML5Backend)(Window))
+})(Window)

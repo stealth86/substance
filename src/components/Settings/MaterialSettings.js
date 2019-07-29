@@ -10,7 +10,7 @@ export class MaterialSettings extends Component {
   }
 
   setRoughness(attr,val){
-    console.log(val)
+    //console.log(val)
     this.updateMaterial(this.props.activeMaterial,{[attr]:val})
   }
   componentDidMount(){
@@ -18,8 +18,8 @@ export class MaterialSettings extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if(this.props.activeMaterial !==nextProps.activeMaterial)
-      console.log(nextProps.activeMaterial)
+    //if(this.props.activeMaterial !==nextProps.activeMaterial)
+      //console.log(nextProps.activeMaterial)
     if (this.props.match.params.materialName !== nextProps.match.params.materialName)
       this.setActiveMaterial(nextProps.match.params.materialName)
     return true;

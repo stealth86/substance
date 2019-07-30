@@ -11,6 +11,7 @@ import { ContextMenuContainer } from './ContextMenuContainer';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import SettingsContainer from '../Settings/SettingsContainer';
+import LayersContainer from '../Layers/LayersContainer';
 
 class Window extends Component {
     constructor(props) {
@@ -19,8 +20,9 @@ class Window extends Component {
             layout: [
                 { i: RENDERER, x: 0, y: 0, w: 4, h: 14 },
                 { i: "material", x: 4, y: 0, w: 2, h: 14 },
-                { i: "settings", x: 6, y: 0, w: 2, h: 14 },
-                { i: CONTENT, x: 0, y: 14, w: 8, h: 13.5 },
+                { i: "settings", x: 8, y: 0, w: 2, h: 14 },
+                { i: "layers", x: 6, y: 0, w: 2, h: 14 },
+                { i: CONTENT, x: 0, y: 14, w: 10, h: 14 },
             ]
         }
         this.updateLayout = this.props.updateLayout.bind(this);
@@ -54,6 +56,9 @@ class Window extends Component {
                     </div>
                     <div key="settings" className="contentWindow">
                         <SettingsContainer></SettingsContainer>
+                    </div>
+                    <div key="layers" className="contentWindow">
+                        <LayersContainer></LayersContainer>
                     </div>
                  </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>

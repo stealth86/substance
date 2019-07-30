@@ -20,8 +20,8 @@ export class MaterialSettings extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    //if(this.props.activeMaterial !==nextProps.activeMaterial)
-      //console.log(nextProps.activeMaterial)
+    if(this.props.activeMaterial !==nextProps.activeMaterial)
+      console.log(nextProps.activeMaterial)
     if (this.props.match.params.materialName !== nextProps.match.params.materialName)
       this.setActiveMaterial(nextProps.match.params.materialName)
     return true;
@@ -31,9 +31,10 @@ export class MaterialSettings extends Component {
     return (
       <div>
         <ul className="list-group list-group-flush">
-          <li className={`list-group-item settingsType`}><Slider/></li>
-          <li className={`list-group-item settingsType`}><Slider/></li>
-          {/*<li>Metalness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.metalness} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
+          <li className={`list-group-item settingsType px-2 py-0`}>
+            <Slider name="Roughness"></Slider>
+          </li>
+           {/*<li>Metalness : <input type="number" min={0} max={1} step={0.1} defaultValue={this.props.activeMaterial && this.props.activeMaterial.metalness} onChange={(e)=>this.setRoughness("metalness",e.target.value)}></input></li>
           <li>EnvMap : </li>*/}
         </ul>
       </div>

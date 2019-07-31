@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TitleBar from '../Common/TitleBar'
 import { NON_DRAGGABLE } from '../../Constants'
-import {addLayer} from '../../actions/LayerAction'
+import { addLayer } from '../../actions/LayerAction'
 import Layer from './Layer'
 import './LayersContainer.css'
 
 export class LayersContainer extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.addLayer=this.addLayer.bind(this);
+        this.addLayer = this.addLayer.bind(this);
     }
 
-    addLayer(){
-        var layer={material:this.props.activeMaterial.name,layer:"layer"}
+    addLayer() {
+        var layer = { material: this.props.activeMaterial.name, layer: "layer" }
         this.props.addLayer(layer)
     }
 
@@ -21,12 +21,16 @@ export class LayersContainer extends Component {
         return (
             <>
                 <TitleBar name="Layers">
-                    <button className={`fas fa-plus ${this.props.activeMaterial?"visible":"invisible"}`} onClick={this.addLayer}></button>
+                    <button className={`fas fa-plus ${this.props.activeMaterial ? "visible" : "invisible"}`} onClick={this.addLayer}></button>
                 </TitleBar>
                 <div className={NON_DRAGGABLE + " layers"}>
-                    {Object.keys(this.props.activeMaterial && this.props.layers[this.props.activeMaterial.name] ? this.props.layers[this.props.activeMaterial.name]:{}).map(key=>{
-                        return (<Layer key={key} order={key} material={this.props.activeMaterial.name}></Layer>)
-                    })}
+                    <ul className="list-group list-group-flush p-1">
+                        {Object.keys(this.props.activeMaterial && this.props.layers[this.props.activeMaterial.name] ? this.props.layers[this.props.activeMaterial.name] : {}).map(key => {
+                            return (
+                                <Layer key={key} order={key} material={this.props.activeMaterial.name}></Layer>
+                            )
+                        })}
+                    </ul>
                 </div>
             </>
         )
@@ -34,9 +38,9 @@ export class LayersContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    activeMesh : state.MeshReducer.activeMesh,
-    activeMaterial : state.MaterialReducer.activeMaterial,
-    layers : state.LayerReducer.layers
+    activeMesh: state.MeshReducer.activeMesh,
+    activeMaterial: state.MaterialReducer.activeMaterial,
+    layers: state.LayerReducer.layers
 })
 
-export default connect(mapStateToProps, {addLayer})(LayersContainer)
+export default connect(mapStateToProps, { addLayer })(LayersContainer)

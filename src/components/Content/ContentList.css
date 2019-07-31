@@ -1,9 +1,18 @@
 ul li.contentType{
     background-color: #333333;
-    padding : 0.25rem;
+    padding: 0.25rem;
     cursor: pointer;
 }
 
-ul li.activeType{
+ul li.contentActiveType{
     background-color: #666666;
+}
+
+.contentLink{
+    color:#999999;
+}
+
+.contentLink:hover{
+    color:#999999;
+    text-decoration: none;
 }

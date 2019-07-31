@@ -22,7 +22,7 @@ class ContentBrowser extends Component {
         this.onDrop = this.onDrop.bind(this);
         this.onFileSelect = this.onFileSelect.bind(this);
         this.state={
-            tags : ["texture"]
+            tags : ["mesh"]
         }
     }
 

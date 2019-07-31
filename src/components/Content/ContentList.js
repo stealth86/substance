@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import './ContentList.css'
 
 class ContentList extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.updateContents=this.updateContents.bind(this);
-    this.state={
-      active:null
+    this.updateContents = this.updateContents.bind(this);
+    this.state = {
+      active: "Meshes"
     }
   }
 
-  updateContents(name,tagTypes){
-    this.setState({active:name});
+  updateContents(name, tagTypes) {
+    this.setState({ active: name });
     this.props.updateContents(tagTypes);
   }
 
@@ -21,7 +21,9 @@ class ContentList extends Component {
       <ul className="list-group list-group-flush p-2">
         {this.props.contentList.map(contentType => {
           return (
-            <li className={`list-group-item contentType text-white-50 ${this.state.active===contentType.name?"activeType":""}`} key={contentType.name} onClick={()=>this.updateContents(contentType.name,contentType.tagTypes)}>
+            <li className={`list-group-item contentType text-white-50
+             ${this.state.active === contentType.name ? "contentActiveType" : ""}`} key={contentType.name}
+              onClick={() => this.updateContents(contentType.name, contentType.tagTypes)}>
               {contentType.name}
             </li>)
         })}

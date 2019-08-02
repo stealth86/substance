@@ -20,7 +20,7 @@ class Collapser extends Component {
                     this.setState({open:false})
                 }}
             trigger={
-                <div className="trigger font-weight-bold">
+                <div className="trigger font-italic">
                     <span>{this.props.name}</span>
                     <span className={`fas float-right arrow ${this.state.open?'fa-chevron-up':'fa-chevron-down'}`}></span>
                 </div>

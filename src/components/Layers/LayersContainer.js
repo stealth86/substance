@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TitleBar from '../Common/TitleBar'
-import { NON_DRAGGABLE } from '../../Constants'
+import { NON_DRAGGABLE,LAYER_TYPES } from '../../Constants'
 import { addLayer } from '../../actions/LayerAction'
 import Layer from './Layer'
 import './LayersContainer.css'
@@ -13,7 +13,7 @@ export class LayersContainer extends Component {
     }
 
     addLayer() {
-        var layer = { material: this.props.activeMaterial.name, layer: "layer" }
+        var layer = { material: this.props.activeMaterial.name, layer:LAYER_TYPES.FILL }
         this.props.addLayer(layer)
     }
 
@@ -24,7 +24,7 @@ export class LayersContainer extends Component {
                     <button className={`fas fa-plus ${this.props.activeMaterial ? "visible" : "invisible"}`} onClick={this.addLayer}></button>
                 </TitleBar>
                 <div className={NON_DRAGGABLE + " layers"}>
-                    <ul className="list-group list-group-flush p-1">
+                    <ul className="list-group list-group-flush">
                         {Object.keys(this.props.activeMaterial && this.props.layers[this.props.activeMaterial.name] ? this.props.layers[this.props.activeMaterial.name] : {}).map(key => {
                             return (
                                 <Layer key={key} order={key} material={this.props.activeMaterial.name}></Layer>

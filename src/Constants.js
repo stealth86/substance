@@ -30,3 +30,14 @@ export const IMAGE_TYPES = ".jpg,.jpeg,.png,.hdr,"
 export const OBJECT_TYPES = ".fbx,"
 export const MAIN_RENDERER = "main"
 export const AUX_RENDERER = "aux"
+export const LAYER_TYPES = {
+    FILL:{
+        color:null,
+        roughness:0.5,
+        metalness:0.5,
+        normal:null
+    },
+    MASK:{
+        texture:null
+    }
+}

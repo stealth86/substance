@@ -1,7 +1,6 @@
 .trigger{
     padding:0.1rem;
-    background-color: #CCCCCC;
-    color: #333333;
+    border-bottom:0.05rem solid;
 }
 
 .arrow{

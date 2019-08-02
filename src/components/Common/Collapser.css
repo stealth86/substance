@@ -1,0 +1,9 @@
+.trigger{
+    padding:0.1rem;
+    background-color: #CCCCCC;
+    color: #333333;
+}
+
+.arrow{
+    line-height: 1rem !important;
+}

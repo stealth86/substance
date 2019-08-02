@@ -16,7 +16,7 @@ class MaterialSelector extends Component {
         <TitleBar name="Material">
         </TitleBar>
         <div className={NON_DRAGGABLE + " materialSelector"}>
-          <ul className="list-group list-group-flush p-2">
+          <ul className="list-group list-group-flush">
             {this.props.activeMesh &&
               [].concat(this.props.activeMesh.material).map(material =>
                 <MaterialItem key={material.name} materialName={material.name}></MaterialItem>

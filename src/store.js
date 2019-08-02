@@ -32,7 +32,7 @@ export default (url = '/') => {
     const enhancers = [];
     // Dev tools are helpful
     if (process.env.NODE_ENV === 'development' && !isServer) {
-      const devToolsExtension = window.devToolsExtension;
+      const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
     if (typeof devToolsExtension === 'function') {
         enhancers.push(devToolsExtension());
       }

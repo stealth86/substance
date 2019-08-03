@@ -1,15 +1,10 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import './LayerSettings.css'
-import ColorPalette from '../Common/ColorPalette';
 
 export class LayerSettings extends Component {
   render() {
-    return (
-      <div>
-          <ColorPalette/>
-      </div>
-    )
+    return null;
   }
 }
 

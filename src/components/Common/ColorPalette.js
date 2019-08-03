@@ -5,7 +5,9 @@ import './ColorPalette.css';
 class ColorPalette extends Component {
     render() {
         return (
-            <SketchPicker className="sketcher"/>
+            <div style={{height:'5px', width:'5px',background:'#fff'}}>
+            {/*<SketchPicker className="sketcher"/>*/}
+            </div>
         );
     }
 }

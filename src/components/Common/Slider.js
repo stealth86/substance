@@ -6,7 +6,12 @@ class Slider extends Component {
         return (
             <>
             <label className={`sliderName text-white-50`}>{this.props.name}</label>
-            <input type="range" className={`rangeClass`} min={this.props.min} max={this.props.max} value={this.props.value} step={this.props.step}></input>
+            <input type="range" className={`rangeClass`} 
+            min={this.props.min} 
+            max={this.props.max} 
+            defaultValue={this.props.value} 
+            step={this.props.step}
+            onChange={this.props.onChange}></input>
             </>
         );
     }

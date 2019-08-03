@@ -13,7 +13,7 @@ export class LayersContainer extends Component {
     }
 
     addLayer() {
-        var layer = { material: this.props.activeMaterial.name, layer:LAYER_TYPES.FILL }
+        var layer = { material: this.props.activeMaterial.name, layer:Object.assign({},LAYER_TYPES.FILL) }
         this.props.addLayer(layer)
     }
 

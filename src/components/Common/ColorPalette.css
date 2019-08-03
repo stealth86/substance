@@ -1,4 +1,16 @@
 .sketcher{
     position:absolute;
     z-index: 2;
+    border-radius:0 !important;
+    width: 14rem !important;
+    padding:0.3rem !important;
+    background: #333333 !important;
+}
+
+.sketcher div div div span{
+    color:#999999 !important;
+}
+
+.sketcher div{
+    border-top:none !important;
 }

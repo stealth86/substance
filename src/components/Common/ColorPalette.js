@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './ColorPalette.css';
 import {SketchPicker} from 'react-color';
-import {switchDisplay} from '../../actions/ColorSwatchAction';
+import {switchDisplay, updateColor} from '../../actions/ColorSwatchAction';
 import { connect } from 'react-redux';
 
 class ColorPalette extends Component {
@@ -30,8 +30,11 @@ class ColorPalette extends Component {
         return (
             <>
             { this.props.display.display ?
-                (<div ref={(element)=>this.wrapperRef=element} style={{top:`${this.props.display.posY}px`,left:`${this.props.display.posX}px`,position:`absolute`}}>
-            <SketchPicker className="sketcher"/>
+                (<div ref={(element)=>this.wrapperRef=element} 
+                style={{top:`${this.props.display.posY}px`,left:`${this.props.display.posX}px`,position:`absolute`}}>
+            <SketchPicker className="sketcher" color={ this.props.display.color } onChange={(color)=>{
+                //console.log(color.hex);
+                this.props.updateColor(color.hex)}}/>
             </div>) : null
             }
             </>
@@ -43,4 +46,4 @@ const mapStateToProps = (state) => ({
     display:state.ColorSwatchReducer.displayPalette
 })
 
-export default connect(mapStateToProps, {switchDisplay})(ColorPalette);
+export default connect(mapStateToProps, {switchDisplay,updateColor})(ColorPalette);

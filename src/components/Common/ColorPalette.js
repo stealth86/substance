@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import { SketchPicker } from 'react-color';
 import './ColorPalette.css';
+import {SketchPicker} from 'react-color';
+import {switchDisplay} from '../../actions/ColorSwatchAction';
+import { connect } from 'react-redux';
 
 class ColorPalette extends Component {
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state={
-            displayPicker :false
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+      }
+    
+      componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+      }
+    
+      componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+      }
+    
+      handleClickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+          //alert('You clicked outside of me!');
+          this.props.switchDisplay({display:false,posX:0,posY:0})
         }
-    }
+      }
+
     render() {
         return (
-            <div className="py-1">
-                <label className={`pickerName text-white-50`}>Color</label>
-                <div className="colorPicker" style={{backgroundColor:`${this.props.color}`}} onClick={()=>{this.setState({displayPicker:!this.state.displayPicker})}}>                    
-                </div>
-                {this.state.displayPicker && (
-                    <div>
-                    <SketchPicker className="sketcher"/>
-                    </div>
-                )}
-            </div>
+            <>
+            { this.props.display.display ?
+                (<div ref={(element)=>this.wrapperRef=element} style={{top:`${this.props.display.posY}px`,left:`${this.props.display.posX}px`,position:`absolute`}}>
+            <SketchPicker className="sketcher"/>
+            </div>) : null
+            }
+            </>
         );
     }
 }
 
-export default ColorPalette;
+const mapStateToProps = (state) => ({
+    display:state.ColorSwatchReducer.displayPalette
+})
+
+export default connect(mapStateToProps, {switchDisplay})(ColorPalette);

@@ -12,6 +12,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import SettingsContainer from '../Settings/SettingsContainer';
 import LayersContainer from '../Layers/LayersContainer';
+import ColorPalette from '../Common/ColorPalette';
 
 class Window extends Component {
     constructor(props) {
@@ -62,6 +63,7 @@ class Window extends Component {
                     </div>
                  </ResponsiveGridLayout>
                 <ContextMenuContainer></ContextMenuContainer>
+                <ColorPalette></ColorPalette>
             </DndProvider>
         )
     }

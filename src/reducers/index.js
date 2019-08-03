@@ -10,6 +10,7 @@ import RendererReducer from './RendererReducer';
 import ContentListReducer from './ContentListReducer';
 import WindowReducer from './WindowReducer';
 import LayerReducer from './LayerReducer';
+import ColorSwatchReducer from './ColorSwatchReducer';
 import { connectRouter } from 'connected-react-router'
 
 export default (history) => combineReducers({
@@ -24,5 +25,6 @@ export default (history) => combineReducers({
     ContentListReducer,
     WindowReducer,
     LayerReducer,
+    ColorSwatchReducer,
     router: connectRouter(history)
 })

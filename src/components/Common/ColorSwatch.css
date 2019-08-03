@@ -1,0 +1,9 @@
+.colorPicker{
+    width : 100%;
+    height : 0.8rem;
+    border : .05rem solid;
+}
+
+label.pickerName{
+    margin:0
+}

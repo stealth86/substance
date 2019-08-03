@@ -2,7 +2,7 @@ import React from 'react'
 import { LayerSettings } from './LayerSettings'
 import Slider from '../Common/Slider'
 import Collapser from '../Common/Collapser'
-import ColorPalette from '../Common/ColorPalette'
+import ColorSwatch from '../Common/ColorSwatch'
 import { updateLayer } from '../../actions/LayerAction'
 import { connect } from 'react-redux'
 
@@ -31,7 +31,7 @@ export class FillLayerSettings extends LayerSettings {
             <Collapser name="Layer Settings">
                 <ul className="list-group list-group-flush">
                     <li className={`list-group-item settingsType px-2 py-0`}>
-                        <ColorPalette color={"#280"}/>
+                        <ColorSwatch color={"#280"}/>
                     </li>
                     <li className={`list-group-item settingsType px-2 py-0`}>
                         <Slider name="Roughness" min={0} max={1} step={0.01} value={this.props.layer.roughness}

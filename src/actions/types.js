@@ -21,3 +21,4 @@ export const ADD_CONTENT_TYPE = "ADD_CONTENT_TYPE";
 export const SET_ENV_TEXTURE = "SET_ENV_TEXTURE";
 export const ADD_LAYER = "ADD_LAYER";
 export const UPDATE_LAYER = "UPDATE_LAYER";
+export const DISPLAY_PALETTE = "DISPLAY_PALETTE";

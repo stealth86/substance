@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 class ColorSwatch extends Component {
 
     shouldComponentUpdate(nextProps){
-        console.log(this.props);
-        console.log(nextProps)
-        if(this.props.swatchColor!==nextProps.swatchColor && this.props.color !==this.props.swatchColor){
+        if(this.props.swatchColor!==nextProps.swatchColor && nextProps.swatchColor!==undefined){
             this.props.onColorChange(nextProps.swatchColor);
         }
         return true;
+    }
+    componentWillMount(){
+        console.log(this.props)
     }
 
     render() {
@@ -19,8 +20,7 @@ class ColorSwatch extends Component {
             <div className="py-1">
                 <label className={`pickerName text-white-50`}>Color</label>
                 <div className="colorPicker" style={{backgroundColor:`${this.props.color}`}}
-                 onClick={(e)=>{ 
-                     console.log(this.props)                   
+                 onClick={(e)=>{                  
                      this.props.switchDisplay({display:true,posX:e.clientX,posY:e.clientY,color:this.props.color})
                      }}>                    
                 </div>

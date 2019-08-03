@@ -12,9 +12,6 @@ export class FillLayerSettings extends LayerSettings {
         this.updateLayer = this.props.updateLayer.bind(this);
         this.handleRoughnessChange = this.handleRoughnessChange.bind(this);
         this.handleMetalnessChange = this.handleMetalnessChange.bind(this);
-        this.state={
-            color:"#580fff"
-        }
     }
 
     handleRoughnessChange(e) {
@@ -29,12 +26,19 @@ export class FillLayerSettings extends LayerSettings {
         this.updateLayer(this.props.match.params.layerName, layer)
     }
 
+    handleColorChange(color){
+        var layer = this.props.layer;
+        console.log(color);
+        layer.color = color;
+        this.updateLayer(this.props.match.params.layerName, layer)
+    }
+
     render() {
         return (
             <Collapser name="Layer Settings">
                 <ul className="list-group list-group-flush">
                     <li className={`list-group-item settingsType px-2 py-0`}>
-                        <ColorSwatch color={this.state.color} onColorChange={(color)=>{this.setState({color:color})}}/>
+                        <ColorSwatch color={this.props.layer.color} onColorChange={(color)=>{this.handleColorChange(color)}}/>
                     </li>
                     <li className={`list-group-item settingsType px-2 py-0`}>
                         <Slider name="Roughness" min={0} max={1} step={0.01} value={this.props.layer.roughness}

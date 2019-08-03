@@ -34,7 +34,7 @@ export const FILL_LAYER = "fill"
 export const MASK_LAYER = "mask"
 export const LAYER_TYPES = {
     FILL:{
-        color:null,
+        color: "#ffffff",
         roughness:0.5,
         metalness:0.5,
         normal:null,

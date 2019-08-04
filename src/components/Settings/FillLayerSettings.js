@@ -17,20 +17,19 @@ export class FillLayerSettings extends LayerSettings {
     handleRoughnessChange(e) {
         var layer = this.props.layer;
         layer.roughness = e.target.value;
-        this.updateLayer(this.props.match.params.layerName, layer)
+        this.updateLayer(this.props.match.params.layerName, { material: this.props.match.params.materialName, layer:layer})
     }
 
     handleMetalnessChange(e) {
         var layer = this.props.layer;
         layer.metalness = e.target.value;
-        this.updateLayer(this.props.match.params.layerName, layer)
+        this.updateLayer(this.props.match.params.layerName, { material: this.props.match.params.materialName, layer:layer})
     }
 
     handleColorChange(color){
         var layer = this.props.layer;
-        console.log(color);
         layer.color = color;
-        this.updateLayer(this.props.match.params.layerName, layer)
+        this.updateLayer(this.props.match.params.layerName, { material: this.props.match.params.materialName, layer:layer})
     }
 
     render() {
@@ -55,7 +54,7 @@ export class FillLayerSettings extends LayerSettings {
     }
 }
 const mapStateToProps = (state, props) => ({
-    layer: state.LayerReducer.layers[props.match.params.materialName][props.match.params.layerName]
+    layer: state.LayerReducer.layers[props.match.params.materialName].matLayers[props.match.params.layerName]
 })
 
 export default connect(mapStateToProps, { updateLayer })(FillLayerSettings)

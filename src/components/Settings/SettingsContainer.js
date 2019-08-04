@@ -24,7 +24,7 @@ export class SettingsContainer extends Component {
                     } />
                     <Route path="/materials/:materialName/layers/:layerName" render={(routeProps) => {
                         if (this.props.activeMesh) {
-                            var layer = this.props.layers[routeProps.match.params.materialName][routeProps.match.params.layerName];
+                            var layer = this.props.layers[routeProps.match.params.materialName].matLayers[routeProps.match.params.layerName];
                             //console.log(this.props.layers[routeProps.match.params.materialName][routeProps.match.params.layerName].roughness)
                             switch (true) {
                                 case (layer.layerType === FILL_LAYER):

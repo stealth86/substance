@@ -32,12 +32,15 @@ export const MAIN_RENDERER = "main"
 export const AUX_RENDERER = "aux"
 export const FILL_LAYER = "fill"
 export const MASK_LAYER = "mask"
+export const NORMAL_BLEND_MODE = "Normal"
+export const COLOR_BLEND_MODES = [NORMAL_BLEND_MODE]
 export const LAYER_TYPES = {
     FILL:{
         color: "#ffffff",
         roughness:0.5,
         metalness:0.5,
         normal:null,
+        blendMode : NORMAL_BLEND_MODE,
         layerType: FILL_LAYER
     },
     MASK:{
@@ -45,3 +48,4 @@ export const LAYER_TYPES = {
         layerType: MASK_LAYER
     }
 }
+export const TEXTURE_BASE = 2

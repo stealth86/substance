@@ -9,7 +9,7 @@ export class LayerSettings extends Component {
 }
 
 const mapStateToProps = (state,props) => ({
-  layer: state.LayerReducer.layers[props.match.params.materialName][props.match.params.layerName]
+  layer: state.LayerReducer.layers[props.match.params.materialName].matLayers[props.match.params.layerName]
 })
 
 

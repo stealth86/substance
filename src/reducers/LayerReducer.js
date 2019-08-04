@@ -1,32 +1,40 @@
-import {ADD_LAYER, UPDATE_LAYER} from '../actions/types';
+import { ADD_LAYER, UPDATE_LAYER } from '../actions/types';
+
 const initialState = {
-    layers : {}
+    layers: {},
+    ColorWorker: new Worker("../workers/Color.worker", { type: 'module' })
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_LAYER:
-            {
-                var currentOrder = Math.max(...Object.keys(state.layers && state.layers[action.payload.material] ? state.layers[action.payload.material] : {"-1":0}).map(Number))+1
-            return {
-                ...state,
-                layers :{
-                    ...state.layers,
-                    [action.payload.material] : {
-                        ...state.layers[action.payload.material],
-                        [currentOrder] : action.payload.layer
+        case ADD_LAYER:{
+                return {
+                    ...state,
+                    layers: {
+                        ...state.layers,
+                        [action.payload.material]: {
+                            ...state.layers[action.payload.material],
+                            matLayers: {
+                                ...(state.layers[action.payload.material] && state.layers[action.payload.material].matLayers),
+                                [action.payload.layerOrder]: action.payload.layer
+                            },
+                            colorTexture: action.payload.colorTexture
+                        }
                     }
                 }
             }
-        }
         case UPDATE_LAYER:
             return {
                 ...state,
-                layers:{
+                layers: {
                     ...state.layers,
-                    [action.payload.material]:{
+                    [action.payload.material]: {
                         ...state.layers[action.payload.material],
-                        [action.layerOrder]:action.payload.layer
+                        matLayers: {
+                            ...(state.layers[action.payload.material] && state.layers[action.payload.material].matLayers),
+                            [action.payload.layerOrder]: action.payload.layer
+                        },
+                        colorTexture: action.payload.colorTexture
                     }
                 }
             }

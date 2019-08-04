@@ -1,10 +1,12 @@
 import { ADD_MATERIAL, UPDATE_MATERIAL, SET_ACTIVE_MATERIAL } from '../actions/types';
 import defaultPreview from '../images/material.png';
+import { TEXTURE_BASE } from '../Constants';
 
 const initialState = {
     materials: null,
     defaultTag: ["material"],
     defaultPreview: defaultPreview,
+    defaultTextureSize : Math.pow(TEXTURE_BASE,10),
     activeMaterial: null
 }
 

@@ -11,9 +11,6 @@ class ColorSwatch extends Component {
         }
         return true;
     }
-    componentWillMount(){
-        console.log(this.props)
-    }
 
     render() {
         return (

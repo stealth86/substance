@@ -25,7 +25,7 @@ export class LayersContainer extends Component {
                 </TitleBar>
                 <div className={NON_DRAGGABLE + " layers"}>
                     <ul className="list-group list-group-flush">
-                        {Object.keys(this.props.activeMaterial && this.props.layers[this.props.activeMaterial.name] ? this.props.layers[this.props.activeMaterial.name] : {}).map(key => {
+                        {Object.keys(this.props.activeMaterial && this.props.layers[this.props.activeMaterial.name] ? this.props.layers[this.props.activeMaterial.name].matLayers : {}).map(key => {
                             return (
                                 <Layer key={key} order={key} material={this.props.activeMaterial.name}></Layer>
                             )

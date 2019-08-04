@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as THREE from "three-full";
-import { addScene, updateScene } from '../actions/SceneAction';
+import { addScene, updateScene } from '../../actions/SceneAction';
 
 class Scene extends Component {
     constructor(props) {

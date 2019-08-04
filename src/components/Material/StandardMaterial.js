@@ -1,7 +1,7 @@
 import { Material } from './Material'
 import { connect } from 'react-redux'
 import * as THREE from 'three-full'
-import { addMaterial, updateMaterial } from '../actions/MaterialAction';
+import { addMaterial, updateMaterial } from '../../actions/MaterialAction';
 
 export class StandardMaterial extends Material {
     componentDidMount() {

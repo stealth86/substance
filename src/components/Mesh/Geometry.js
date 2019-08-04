@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { SPHERE_BUFFER_GEOMETRY ,GEOMETRY} from '../Constants';
+import { SPHERE_BUFFER_GEOMETRY ,GEOMETRY} from '../../Constants';
 import * as THREE from 'three-full';
-import { addGeometry } from '../actions/GeometryAction';
+import { addGeometry } from '../../actions/GeometryAction';
 
 class Geometry extends Component {
     constructor(props){

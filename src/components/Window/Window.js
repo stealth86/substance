@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RendererContainer from '../RendererContainer';
+import RendererContainer from '../Renderer/RendererContainer';
 import ContentBrowser from '../Content/ContentBrowser';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import * as THREE from 'three-full';
-import { setRenderer } from '../actions/RendererAction';
+import { setRenderer } from '../../actions/RendererAction';
 
 class Renderer extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MATERIAL } from '../Constants';
+import { MATERIAL } from '../../Constants';
 import * as THREE from 'three-full';
-import { addMaterial, updateMaterial } from '../actions/MaterialAction';
+import { addMaterial, updateMaterial } from '../../actions/MaterialAction';
 
 export class Material extends Component {
     constructor(props) {
@@ -47,6 +47,7 @@ export class Material extends Component {
         const childrenWithProps = React.Children.map(children, child =>
             React.cloneElement(child, { updateMaterial: this.updateMaterialLocal })
         );
+        //console.log(childrenWithProps)
         return (
             <>
                 {childrenWithProps}

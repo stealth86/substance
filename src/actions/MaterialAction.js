@@ -10,6 +10,7 @@ export const addMaterial = (name, material, tags) => (dispatch, getState) => {
 }
 
 export const updateMaterial = (material, attributes) => (dispatch) => {
+    console.log(material,attributes)
     Object.keys(attributes).forEach((key) => {
         material[key] = attributes[key]
     })

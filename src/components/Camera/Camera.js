@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import * as THREE from "three-full";
-import { addCamera } from '../actions/CameraAction';
-import { addCallback } from '../actions/RendererAction';
-import { DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_NEAR, DEFAULT_FAR } from '../Constants';
+import { addCamera } from '../../actions/CameraAction';
+import { addCallback } from '../../actions/RendererAction';
+import { DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_NEAR, DEFAULT_FAR } from '../../Constants';
 
 export class Camera extends Component {
     constructor(props) {

@@ -13,6 +13,7 @@ export const updateLayer = (layerOrder, layer) => (dispatch, getState) => {
 const finalColor = (dispatch, state, dispatchObject) => {
     const { ColorWorker, layers } = state().LayerReducer
     const {materials} = state().MaterialReducer
+    const {textures} = state().TextureReducer
     //console.log(materials)
     const layerStack = {
         ...(layers[dispatchObject.payload.material] && layers[dispatchObject.payload.material].matLayers),
@@ -26,8 +27,8 @@ const finalColor = (dispatch, state, dispatchObject) => {
         console.log(event.data)
         dispatch(dispatchObject);
         var material = materials[dispatchObject.payload.material].material;
-        //console.log(material)
-        material.map = event.data.colorTexture
+        console.log(material)
+        material.map = textures['tiles']
         material.needsUpdate = true
         dispatch({
             type: UPDATE_MATERIAL,

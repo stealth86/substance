@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTexture } from '../actions/TextureAction';
+import { addTexture } from '../../actions/TextureAction';
 
 class Texture extends Component {
     constructor(props) {

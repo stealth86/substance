@@ -25,7 +25,12 @@ onmessage = (event) => {
 
     }
     if(!texture)
-    var texture = new THREE.DataTexture(data,event.data.textureSize,event.data.textureSize,THREE.FloatType)
+    {
+    var texture = new THREE.DataTexture(data,event.data.textureSize,event.data.textureSize,THREE.RGBFormat)
+    texture.minFilter= THREE.NearestFilter
+    texture.magFilter= THREE.NearestFilter
+    //var texture= THREE.ImageUtils.generateDataTexture( event.data.textureSize, event.data.textureSize, new THREE.Color( 0x0000ff ) );
+    }
     else{
     texture.image= {data:data,width:event.data.textureSize,height:event.data.textureSize}
     }

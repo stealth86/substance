@@ -1,10 +1,10 @@
 import { Camera } from './Camera';
 import { connect } from 'react-redux';
-import { addCamera } from '../actions/CameraAction';
-import { addCallback } from '../actions/RendererAction';
-import { addTexture } from '../actions/TextureAction';
+import { addCamera } from '../../actions/CameraAction';
+import { addCallback } from '../../actions/RendererAction';
+import { addTexture } from '../../actions/TextureAction';
 import * as THREE from "three-full";
-import { DEFAULT_NEAR, DEFAULT_FAR, DEFAULT_CUBE_CAMERA_RESOLUTION } from '../Constants';
+import { DEFAULT_NEAR, DEFAULT_FAR, DEFAULT_CUBE_CAMERA_RESOLUTION } from '../../Constants';
 
 export class CubeCamera extends Camera {
     constructor(props) {

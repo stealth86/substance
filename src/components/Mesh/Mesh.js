@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addMesh, updateMeshGeometry, updateMeshMaterial } from '../actions/MeshAction';
+import { addMesh, updateMeshGeometry, updateMeshMaterial } from '../../actions/MeshAction';
 import * as THREE from 'three-full';
-import { GEOMETRY } from '../Constants';
-import StandardMaterial  from './StandardMaterial';
-import Texture from './Texture';
+import { GEOMETRY } from '../../Constants';
+import StandardMaterial  from '../Material/StandardMaterial';
+import Texture from '../Texture/Texture';
 
 class Mesh extends Component {
     constructor(props) {
@@ -56,6 +56,7 @@ class Mesh extends Component {
                 [].concat(this.props.mesh.material).map((material,index)=>
                 <StandardMaterial key={material.name} name={material.name} id={this.props.mesh.material.length >1 ?index:undefined} updateMesh={this.updateMeshLocal}>
                     <Texture channel="envMap" name="envTexture"></Texture>
+                    <Texture channel="map" name="tiles"></Texture>
                 </StandardMaterial>)}
             </>
         )

@@ -17,8 +17,7 @@ export default function (state = initialState, action) {
                             matLayers: {
                                 ...(state.layers[action.payload.material] && state.layers[action.payload.material].matLayers),
                                 [action.payload.layerOrder]: action.payload.layer
-                            },
-                            colorTexture: action.payload.colorTexture
+                            }
                         }
                     }
                 }
@@ -33,8 +32,7 @@ export default function (state = initialState, action) {
                         matLayers: {
                             ...(state.layers[action.payload.material] && state.layers[action.payload.material].matLayers),
                             [action.payload.layerOrder]: action.payload.layer
-                        },
-                        colorTexture: action.payload.colorTexture
+                        }
                     }
                 }
             }

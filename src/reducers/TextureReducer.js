@@ -9,7 +9,8 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-    switch (action.type) {
+    //console.log(action.payload)
+    switch (action.type) {        
         case ADD_TEXTURE:
             return {
                 ...state,

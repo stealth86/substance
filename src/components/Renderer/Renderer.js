@@ -12,18 +12,20 @@ class Renderer extends Component {
   }
 
   componentDidMount() {
-    this.renderElement = this.props.canvas || this.renderCanvas;
     const props = this.props;
+    this.renderElement = this.props.canvas || this.renderCanvas;
+    this.canvas = ('OffscreenCanvas' in window) ? this.renderElement.transferControlToOffscreen() : this.renderElement;
+    this.canvas.style = { width: 0, height: 0 }
 
     if (props.ui) {
       this._THREErenderer = new THREE.WebGLRenderer({
         alpha: this.props.transparent,
-        canvas: this.renderElement,
+        canvas: this.canvas,
         antialias: props.antialias === undefined ? true : props.antialias,
         ...this.props.rendererProps
       })
       this._THREErenderer.setPixelRatio(props.pixelRatio);
-      this._THREErenderer.setSize(+props.width, +props.height);
+      this._THREErenderer.setSize(+props.width*0.8, +props.height*0.8);
       this._THREErenderer.toneMapping = THREE.LinearToneMapping;
       this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
       if (props.shadowMapType !== undefined) {
@@ -75,7 +77,8 @@ class Renderer extends Component {
   }
 
   shouldComponentUpdate(newProps) {
-    this._THREErenderer.setSize(+newProps.width, +newProps.height)
+    this._THREErenderer.setSize(+newProps.width*0.8, +newProps.height*0.8)
+    //this.canvas.style = { width: +newProps.width, height: +newProps.height }
     return true;
   }
 
@@ -89,8 +92,10 @@ class Renderer extends Component {
     if (props.width !== oldProps.width ||
       props.height !== oldProps.height ||
       props.pixelRatio !== oldProps.pixelRatio) {
-      if (props.ui)
-        this._THREErenderer.setSize(+props.width, +props.height);
+      if (props.ui){
+        this._THREErenderer.setSize(+props.width*0.8, +props.height*0.8);
+        //this.canvas.style = { width: +props.width, height: +props.height }
+      }
       else
         this.renderTarget.setSize(+props.width, +props.height)
     }

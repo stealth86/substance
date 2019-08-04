@@ -8,13 +8,14 @@ class Texture extends Component {
         this.addTexture = this.props.addTexture.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         if(this.props.texture){
             //console.log(this.props.texture)
             this.texture=this.props.texture
             this.props.updateMaterial(this.props.channel, this.texture)
         }
     }
+    
     shouldComponentUpdate(newProps) {
         //console.log(newProps.texture)
         if (newProps.texture !== this.props.texture){

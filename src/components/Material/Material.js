@@ -12,7 +12,7 @@ export class Material extends Component {
         this.updateMaterialLocal = this.updateMaterialLocal.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.material)
             this.material = this.props.material
         else {
@@ -21,7 +21,7 @@ export class Material extends Component {
             this.material.name = this.props.name
             this.addMaterial(this.material.name, this.material)
         }
-        this.updateMaterial(this.material,{[this.channel]:this.texture})
+        //this.updateMaterial(this.material,{[this.channel]:this.texture})
     }
 
     shouldComponentUpdate(newProps) {
@@ -34,9 +34,11 @@ export class Material extends Component {
     }
 
     updateMaterialLocal(channel, texture) {
-        this.channel=channel
-        this.texture=texture
+        //this.channel=channel
+        //this.texture=texture
+        //console.log(this.channel)
         if (this.material) {
+            //console.log("updating Mat")
             this.updateMaterial(this.material, { [channel]: texture })
         }
     }

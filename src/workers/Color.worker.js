@@ -1,4 +1,3 @@
-import * as THREE from 'three-full';
 import hexRgb from 'hex-rgb';
 import { NORMAL_BLEND_MODE } from '../Constants';
 
@@ -14,7 +13,7 @@ onmessage = (event) => {
         }
     })
 
-    console.log(finalColor);
+    //console.log(finalColor);
     for (var i = 0; i < size; i++) {
 
         var stride = i * 3;
@@ -24,17 +23,6 @@ onmessage = (event) => {
         data[stride + 2] = finalColor.blue;
 
     }
-    if(!texture)
-    {
-    var texture = new THREE.DataTexture(data,event.data.textureSize,event.data.textureSize,THREE.RGBFormat)
-    texture.minFilter= THREE.NearestFilter
-    texture.magFilter= THREE.NearestFilter
-    //var texture= THREE.ImageUtils.generateDataTexture( event.data.textureSize, event.data.textureSize, new THREE.Color( 0x0000ff ) );
-    }
-    else{
-    texture.image= {data:data,width:event.data.textureSize,height:event.data.textureSize}
-    }
-    texture.needsUpdate = true
     //console.log(THREE);
-    postMessage({ colorTexture: texture })
+    postMessage({ data:data,width:event.data.textureSize,height:event.data.textureSize })
 }

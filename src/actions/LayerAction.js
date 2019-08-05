@@ -13,6 +13,7 @@ export const updateLayer = (layerOrder, layer) => (dispatch, getState) => {
 const finalColor = (dispatch, state, dispatchObject) => {
     const { ColorWorker, layers } = state().LayerReducer
     const {materials} = state().MaterialReducer
+    //const {meshes} = state().MeshReducer
     //console.log(materials)
     const layerStack = {
         ...(layers[dispatchObject.payload.material] && layers[dispatchObject.payload.material].matLayers),
@@ -21,6 +22,7 @@ const finalColor = (dispatch, state, dispatchObject) => {
     ColorWorker.postMessage({
         layers:layerStack,
         textureSize: materials[dispatchObject.payload.material].textureSize
+        //uvData:meshes['Plane'].mesh.geometry.attributes.uv
     })
     ColorWorker.onmessage = (event) => {
         //console.log(event.data)
@@ -28,8 +30,9 @@ const finalColor = (dispatch, state, dispatchObject) => {
         var map = materials[dispatchObject.payload.material].material.map;
         map.image=event.data
         map.needsUpdate=true
+        //console.log(meshes['Cube'].mesh.geometry.attributes.uv)
         //material.map = textures['tiles'].texture
-        //console.log(material)
+        //console.log(map)
         //console.log(textures)
         //material.needsUpdate = true
         /*dispatch({

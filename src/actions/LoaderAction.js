@@ -15,6 +15,7 @@ export const loadObject = (file) => (dispatch, getState) => {
                 //materialArray.forEach(material => {
                     //dispatch(addMaterial(material.name,material))
                 //})
+                //console.log(child)
             }
         })
         dispatch({

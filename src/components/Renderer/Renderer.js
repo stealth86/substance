@@ -9,6 +9,7 @@ class Renderer extends Component {
   constructor(props) {
     super(props);
     this.setRenderer = this.props.setRenderer.bind(this);
+    this.ratio=1;
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class Renderer extends Component {
         ...this.props.rendererProps
       })
       this._THREErenderer.setPixelRatio(props.pixelRatio);
-      this._THREErenderer.setSize(+props.width*0.8, +props.height*0.8);
+      this._THREErenderer.setSize(+props.width*this.ratio, +props.height*this.ratio);
       this._THREErenderer.toneMapping = THREE.LinearToneMapping;
       this._THREErenderer.shadowMap.enabled = props.shadowMapEnabled !== undefined ? props.shadowMapEnabled : false;
       if (props.shadowMapType !== undefined) {
@@ -77,7 +78,7 @@ class Renderer extends Component {
   }
 
   shouldComponentUpdate(newProps) {
-    this._THREErenderer.setSize(+newProps.width*0.8, +newProps.height*0.8)
+    this._THREErenderer.setSize(+newProps.width*this.ratio, +newProps.height*this.ratio)
     //this.canvas.style = { width: +newProps.width, height: +newProps.height }
     return true;
   }
@@ -93,7 +94,7 @@ class Renderer extends Component {
       props.height !== oldProps.height ||
       props.pixelRatio !== oldProps.pixelRatio) {
       if (props.ui){
-        this._THREErenderer.setSize(+props.width*0.8, +props.height*0.8);
+        this._THREErenderer.setSize(+props.width*this.ratio, +props.height*this.ratio);
         //this.canvas.style = { width: +props.width, height: +props.height }
       }
       else

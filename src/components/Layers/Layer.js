@@ -8,9 +8,15 @@ export class Layer extends Component {
     render() {
         return (
             <NavLink className="layerLink w-100 d-inline-block" to={`/materials/${this.props.material}/layers/${this.props.order}`}>
-                <li className="layerType">
-                    <div className="layerPreviewImage">
-                        <img className="card-img-top" src={img} alt={`some text`}></img>
+                <li className="layerType py-1">
+                    <div className="layerContent">
+                        <div className="closeSelectLayer">
+                            <button className={`fas fa-times`}></button>
+                            <input type="checkbox" value="" />
+                        </div>
+                        <div className="layerPreviewImage">
+                            <img className="card-img-top" src={img} alt={`some text`}></img>
+                        </div>
                     </div>
                 </li>
             </NavLink>

@@ -5,7 +5,7 @@ import ContentBrowser from '../Content/ContentBrowser';
 import './Window.css';
 import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import { updateLayout, initializeLayout } from '../../actions/WindowAction';
-import { NON_DRAGGABLE, RENDERER, CONTENT } from '../../Constants';
+import { NON_DRAGGABLE, RENDERER, CONTENT, ITEM_TYPES } from '../../Constants';
 import MaterialSelector from '../MaterialList/MaterialSelector';
 import { ContextMenuContainer } from './ContextMenuContainer';
 import { DndProvider } from 'react-dnd';
@@ -47,7 +47,7 @@ class Window extends Component {
                     width={this.props.containerWidth}
                     draggableCancel={"." + NON_DRAGGABLE}>
                     <div key={RENDERER}>
-                        <RendererContainer type="CARD"></RendererContainer>
+                        <RendererContainer type={ITEM_TYPES.RENDERER}></RendererContainer>
                     </div>
                     <div key={CONTENT} className="contentWindow">
                         <ContentBrowser></ContentBrowser>

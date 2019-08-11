@@ -4,6 +4,7 @@ export const GEOMETRY = "Geometry"
 export const MATERIAL = "Material"
 export const TEXTURE = "Texture"
 export const MESH = "Mesh"
+export const ITEM_TYPES = {RENDERER:"RENDERER",LAYER:"LAYER"}
 export const DEFAULT_FOV = 75
 export const DEFAULT_ASPECT = 1
 export const DEFAULT_NEAR = 0.1

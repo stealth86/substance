@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
 import './Thumbnail.css';
 import { ContextMenuTrigger } from "react-contextmenu";
+import { ITEM_TYPES } from '../../Constants';
 
 const cardSource = {
 
@@ -49,4 +50,4 @@ class Thumbnail extends Component {
             </div>)
     }
 }
-export default connect(mapStatetoProps, {})(DragSource('CARD', cardSource, collect)(Thumbnail))
+export default connect(mapStatetoProps, {})(DragSource(ITEM_TYPES.RENDERER, cardSource, collect)(Thumbnail))

@@ -15,7 +15,7 @@ class Mesh extends Component {
         this.updateMeshLocal = this.updateMeshLocal.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.mesh) {
             this.mesh = this.props.mesh
             this.props.updateScene(this.mesh)

@@ -11,7 +11,7 @@ class Geometry extends Component {
         this.addGeometry = this.props.addGeometry.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         if (this.props.type === SPHERE_BUFFER_GEOMETRY){
             this.geometry = new THREE.SphereBufferGeometry(5000,32,32)
             this.geometry.name = this.props.name

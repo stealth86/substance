@@ -14,7 +14,7 @@ export class Camera extends Component {
         this.lookAt = this.lookAt.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.camera = new THREE.PerspectiveCamera(this.props.fov ? this.props.fov : DEFAULT_FOV , 
                                                  this.props.aspect ? this.props.aspect : DEFAULT_ASPECT, 
                                                  this.props.near ? this.props.near : DEFAULT_NEAR, 

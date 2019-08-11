@@ -13,7 +13,7 @@ export class CubeCamera extends Camera {
         this.addTexture = this.props.addTexture.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.camera = new THREE.CubeCamera(this.props.near ? this.props.near : DEFAULT_NEAR,
             this.props.far ? this.props.far : DEFAULT_FAR,
             this.props.resolution ? this.props.resolution : DEFAULT_CUBE_CAMERA_RESOLUTION)

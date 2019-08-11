@@ -23,6 +23,7 @@
 }
 
 .closeSelectLayer{
+    margin-top:0.05rem;
     display:flex;
     flex-direction: column;
     align-items: center;

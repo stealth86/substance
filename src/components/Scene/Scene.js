@@ -10,7 +10,7 @@ class Scene extends Component {
         this.updateScene = this.props.updateScene.bind(this);
         this.updateSceneLocal = this.updateSceneLocal.bind(this);
     }
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.scene) {
             this.scene = this.props.scene
         } else {
